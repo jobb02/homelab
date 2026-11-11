@@ -2,6 +2,8 @@
 
 ## Matériel
 - Hôte : PC Acer dédié, nom de nœud `proxmox`, branché en Ethernet via le switch Omada.
+- Intel Core i5-6400T (4 cœurs), 16 Go de RAM, démarrage UEFI avec Secure Boot.
+- Dimensionnement : les services légers tournent en LXC pour économiser la RAM ; les VM ne sont allumées que lorsqu'elles servent (Kali).
 - Administration : interface web Proxmox (port 8006) depuis le LAN, écran HDMI en secours.
 
 ## Pourquoi Proxmox VE
@@ -29,3 +31,9 @@
 - `vmbr0` : relié au LAN, pour les services (Omada, AdGuard) et l'interface WAN du pare-feu.
 - `vmbr1` : bridge **sans carte physique**, réservé au lab. Kali et la Linux Lite y sont branchées ; leur seule sortie est la VM **OPNsense** (voir le tableau des règles dans le README).
 - Historique : une première version utilisait Sophos Firewall ; je l'ai remplacée par OPNsense.
+
+## Mises à jour
+- Sans abonnement, le dépôt `pve-enterprise` (réservé aux abonnés) faisait échouer `apt update` : le serveur ne recevait plus de correctifs de sécurité.
+- Correction : dépôts enterprise (Proxmox et Ceph) désactivés, dépôt **`pve-no-subscription`** activé, puis mise à niveau complète et redémarrage sur le nouveau noyau.
+- Pourquoi `no-subscription` : les paquets y arrivent avant le dépôt enterprise, donc un peu moins éprouvés, mais c'est le choix standard sans abonnement. Ne pas mettre à jour du tout serait bien plus risqué.
+- Bonnes pratiques : sauvegarde des VM importantes avant une grosse mise à jour ; les anciens noyaux restent disponibles au démarrage en cas de régression.
