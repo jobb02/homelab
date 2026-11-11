@@ -11,7 +11,7 @@ Chaque brique est documentée avec **le pourquoi des choix**, pas seulement le c
 ## Vue d'ensemble
 
 ```mermaid
-flowchart LR
+flowchart TB
     Internet((Internet)) --- FBX[Freebox Server<br/>routeur / DHCP / VPN WireGuard]
     FBX -. Wi-Fi mesh .- REP[Répéteur Freebox<br/>chambre]
     REP --- SW[Switch TP-Link Omada<br/>ES205G]
