@@ -60,10 +60,17 @@ Les VM de test (dont Kali) sont sur un réseau isolé (`vmbr1`), sans carte phys
 
 ## Feuille de route
 
-- [ ] Segmenter : VLAN dédiés (lab offensif / services / maison) via le switch Omada
+Priorité : tout ce qui tourne autour du pare-feu et de l'intégration sécurité réseau.
+
+- [ ] FortiGate en VM (licence d'évaluation) : politiques, NAT, profils de sécurité — préparation Fortinet NSE4
+- [ ] VPN IPsec site à site entre OPNsense et FortiGate (interopérabilité entre deux constructeurs)
+- [ ] IDS/IPS Suricata sur OPNsense, testé avec des scans et attaques depuis Kali
+- [ ] Envoi des logs du pare-feu (syslog) vers un SIEM léger Wazuh sur l'Intel NUC
+- [ ] Scan de vulnérabilités du lab avec Nessus Essentials
+- [ ] Segmentation par VLAN (lab / services / maison) via le switch Omada
+- [ ] AdGuard Home comme DNS pour tout le réseau
+- [ ] Copie de sauvegarde hors site (règle 3-2-1)
 - [ ] Accès conditionnel Entra ID (préparation SC-300)
-- [ ] Centraliser les logs (SIEM léger) des services du lab
-- [ ] Installer XCP-ng (sur l'Intel NUC) pour comparer avec Proxmox
 
 ## Règles de publication
 
