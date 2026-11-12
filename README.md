@@ -62,10 +62,10 @@ Les VM de test (dont Kali) sont sur un réseau isolé (`vmbr1`), sans carte phys
 | Domaine | Ce qui tourne | Doc |
 |---|---|---|
 | Virtualisation | Proxmox VE, VM + conteneurs LXC | [docs/01-virtualisation.md](docs/01-virtualisation.md) |
-| Réseau | Switch Omada + contrôleur en LXC, pare-feu OPNsense, lab isolé | [docs/02-reseau.md](docs/02-reseau.md) |
+| Réseau | Switch Omada + contrôleur en LXC, pare-feu OPNsense, lab isolé, réservations DHCP, IPv6 maîtrisé (SLAAC désactivé) | [docs/02-reseau.md](docs/02-reseau.md) |
 | DNS | Zone locale `home.arpa` sur Synology + filtrage AdGuard Home | [docs/03-dns.md](docs/03-dns.md) |
 | Accès distant | VPN WireGuard (Freebox) | [docs/04-acces-distant.md](docs/04-acces-distant.md) |
-| Stockage & sauvegarde | NAS Synology RAID 1, sauvegarde versionnée PC → NAS | [docs/05-stockage-sauvegarde.md](docs/05-stockage-sauvegarde.md) |
+| Stockage & sauvegarde | NAS Synology RAID 1 durci (2FA, comptes par défaut désactivés), instantanés Btrfs quotidiens, sauvegarde versionnée PC → NAS | [docs/05-stockage-sauvegarde.md](docs/05-stockage-sauvegarde.md) |
 | Déploiement applicatif (réalisé, conteneur retiré depuis) | Appli web Python en LXC, systemd, durcissement, Tailscale | [docs/06-deploiement-appli-web.md](docs/06-deploiement-appli-web.md) |
 | Identité cloud | Tenant de test Microsoft 365 / Entra ID | [docs/07-m365-entra-id.md](docs/07-m365-entra-id.md) |
 
