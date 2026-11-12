@@ -3,7 +3,7 @@
 ## Topologie physique
 - **Freebox Server** (salon) : routeur, DHCP, point d'entrée Internet.
 - **Répéteurs Freebox** en mesh Wi-Fi (salle de bain, chambre).
-- Dans la chambre : répéteur → **switch TP-Link Omada ES205G** → Proxmox + NAS.
+- Dans la chambre : répéteur → **switch TP-Link Omada ES205G** (5 ports, tous utilisés) → PC Acer (Proxmox), NAS Synology, PC d'administration (via un dock Lenovo) et Intel NUC (futur site B).
 
 ### Contrainte connue
 Le lien répéteur ↔ box passe par le Wi-Fi : le débit dans la chambre plafonne autour de 150 Mb/s.
