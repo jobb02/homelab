@@ -35,8 +35,8 @@ flowchart TB
     end
     PVE --- PVE_G
 
-    ADM -. requêtes DNS .-> ADG
-    ADG -. zone home.arpa .-> NAS
+    ADM -.->|"requêtes DNS"| ADG
+    ADG -.->|"zone home.arpa"| NAS
 ```
 
 Les flèches en pointillés entre le PC d'administration, AdGuard et le NAS montrent le **chemin d'une requête DNS** : le PC interroge AdGuard ; si le nom se termine par `home.arpa`, AdGuard transmet au NAS (serveur de la zone locale) ; sinon, il interroge Cloudflare ou Quad9 en DNS over HTTPS. Détail dans [docs/03-dns.md](docs/03-dns.md).
