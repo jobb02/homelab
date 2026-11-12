@@ -8,13 +8,27 @@ Chaque brique est documentée avec **le pourquoi des choix**, pas seulement le c
 
 ---
 
+## Comment le lab a grandi
+
+Je n'ai rien acheté d'un coup : chaque brique est arrivée quand j'en ai eu besoin.
+
+1. **VirtualBox sur mon PC perso**, pour mes premières VM de test.
+2. **Un PC Acer sous Proxmox VE**, pour sortir les VM de mon poste et les faire tourner en continu : Kali et plusieurs petites machines de test.
+3. **Un NAS Synology en RAID 1**, pour rassembler toutes mes données en local et arrêter de payer des abonnements cloud de plus en plus chers (iCloud, Google Photos, Google Drive). Mes photos remontent au collège, l'offre gratuite de Google s'arrête à 15 Go, et le disque de 512 Go de mon PC ne suffira pas à tout garder. Les photos et les fichiers du PC se synchronisent maintenant sur le NAS, qui héberge aussi la zone DNS locale `home.arpa`. Étape suivante : une copie hors site, pour respecter la règle 3-2-1.
+4. **Un switch manageable Omada** : le lab est dans ma chambre, branché sur un répéteur Freebox qui n'a qu'un seul port Ethernet, pour quatre machines (NAS, deux hyperviseurs, PC d'administration). Comme le répéteur fait partie du réseau mesh de la box, tout ce qui est branché sur le switch est sur le même réseau que la Freebox. Le switch est piloté par son contrôleur installé dans un conteneur.
+5. **Un DNS filtrant** : AdGuard Home en conteneur, qui transmet les noms `home.arpa` au NAS et chiffre le reste en DNS over HTTPS.
+6. **Un pare-feu OPNsense** : jusque-là, Kali était sur le même réseau que les appareils de la maison. Le lab est maintenant isolé, et sa seule sortie passe par le pare-feu.
+7. **Un deuxième site** : un Intel NUC sous Proxmox, qui accueillera un FortiGate. Prochaine étape, relier les deux labs par un tunnel IPsec, comme un siège et une agence chez un client.
+
+Chaque étape est documentée dans `docs/`, avec ce qui a coincé et comment je l'ai réglé.
+
 ## Vue d'ensemble
 
 ![Schéma du homelab](docs/schema-homelab.svg)
 
 Les éléments en pointillés (FortiGate, lab du site B, tunnel IPsec) sont **prévus**, pas encore en place. Le schéma est généré par [scripts/gen_schema.py](scripts/gen_schema.py).
 
-Les flèches « flux DNS » montrent le **chemin d'une requête DNS** : le PC interroge AdGuard ; si le nom se termine par `home.arpa`, AdGuard transmet au NAS (serveur de la zone locale) ; sinon, il interroge Cloudflare ou Quad9 en DNS over HTTPS (requête chiffrée, invisible pour la box et le FAI). Détail dans [docs/03-dns.md](docs/03-dns.md).
+**Chemin d'une requête DNS** : le PC et les deux hyperviseurs interrogent AdGuard ; si le nom se termine par `home.arpa`, AdGuard transmet au NAS (serveur de la zone locale) ; sinon, il interroge Cloudflare ou Quad9 en DNS over HTTPS (requête chiffrée, invisible pour la box et le FAI). Détail dans [docs/03-dns.md](docs/03-dns.md).
 
 ### Plan d'adressage
 
