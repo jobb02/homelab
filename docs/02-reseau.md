@@ -3,7 +3,7 @@
 ## Topologie physique
 - **Freebox Server** (salon) : routeur, DHCP, point d'entrée Internet.
 - **Répéteurs Freebox** en mesh Wi-Fi (salle de bain, chambre).
-- Dans la chambre : répéteur → **switch TP-Link Omada ES205G** (`sw-sitea`, 5 ports, tous utilisés) → `pve-sitea` (PC Acer), `nas-sitea`, PC d'administration (via un dock Lenovo) et `pve-siteb` (Intel NUC).
+- Dans la chambre : répéteur → **switch TP-Link Omada ES205G** (`sw-core`, 5 ports, tous utilisés) → `pve-sitea` (PC Acer), `nas-sitea`, PC d'administration (via un dock Lenovo) et `pve-siteb` (Intel NUC).
 
 ### Contrainte connue
 Le lien répéteur ↔ box passe par le Wi-Fi : le débit dans la chambre plafonne autour de 150 Mb/s.

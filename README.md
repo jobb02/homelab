@@ -28,6 +28,13 @@ Pourquoi `10.x` pour les labs plutôt que `192.168.x` : les box et les Wi-Fi pub
 
 Pourquoi une plage différente par réseau : si deux réseaux utilisaient 192.168.1.0/24, le pare-feu ne pourrait pas savoir de quel côté envoyer un paquet. Deux plages distinctes = un routage et des règles sans ambiguïté.
 
+### Deux sites dans une même pièce : underlay et overlay
+
+Les deux hyperviseurs sont physiquement sur le même switch. Ce qui est simulé, c'est la partie logique :
+- **site A** = ce qui est derrière OPNsense (`10.10.10.0/24`), **site B** = ce qui sera derrière le FortiGate (`10.20.20.0/24`) ;
+- le **réseau maison** (`192.168.1.0/24`) joue le rôle d'**Internet** entre les deux : c'est l'**underlay**, le réseau de transport sur lequel sont branchés les WAN des deux pare-feux ;
+- le **tunnel IPsec** est l'**overlay** : les deux labs ne se joignent que par lui, jamais directement, comme un siège et une agence reliés à travers Internet.
+
 ### Convention de nommage
 
 Chaque équipement d'infrastructure suit le format **`<rôle>-<site>`** : le nom dit ce qu'est la machine et où elle se trouve. L'emplacement physique et le matériel vont dans le commentaire de la réservation DHCP, pas dans le nom.
@@ -38,7 +45,7 @@ Chaque équipement d'infrastructure suit le format **`<rôle>-<site>`** : le nom
 | `pve-siteb` | Hyperviseur Proxmox VE, site B (Intel NUC) | 192.168.1.102 |
 | `fw-sitea` | Pare-feu OPNsense, site A (interface WAN) | 192.168.1.29 |
 | `fw-siteb` | Pare-feu FortiGate, site B (prévu) | — |
-| `sw-sitea` | Switch Omada ES205G | 192.168.1.101 |
+| `sw-core` | Switch Omada ES205G — transit commun aux deux sites, d'où `core` et non `sitea` | 192.168.1.101 |
 | `nas-sitea` | NAS Synology DS218 | 192.168.1.117 |
 | `dns-sitea` | AdGuard Home (LXC 105) | 192.168.1.53 |
 | `omada-sitea` | Contrôleur Omada (LXC 102) | 192.168.1.24 |
@@ -74,8 +81,8 @@ Les VM de test (dont Kali) sont sur un réseau isolé (`vmbr1`), sans carte phys
 
 Priorité : tout ce qui tourne autour du pare-feu et de l'intégration sécurité réseau.
 
-- [x] Pare-feu OPNsense (site A) : installation, interfaces WAN/LAN, DHCP du lab, mise à jour 26.7.9
-- [x] Intel NUC en « site B » : Proxmox VE 9.2 installé et à jour (`pve-siteb`)
+- [x] Pare-feu OPNsense (site A) : installation, interfaces WAN/LAN, DHCP du lab, mise à jour
+- [x] Intel NUC en « site B » : Proxmox VE 9 installé et à jour (`pve-siteb`)
 - [ ] Règles de filtrage du lab : blocage lab → maison, accès d'administration limité au PC d'admin
 - [ ] FortiGate en VM sur le NUC (licence d'évaluation), réseau interne 10.20.20.0/24 — préparation Fortinet NSE4
 - [ ] VPN IPsec site à site entre OPNsense (site A, 10.10.10.0/24) et FortiGate (site B, 10.20.20.0/24) : interopérabilité entre deux constructeurs, comme chez un client siège + agence
@@ -83,6 +90,7 @@ Priorité : tout ce qui tourne autour du pare-feu et de l'intégration sécurit�
 - [ ] Envoi des logs du pare-feu (syslog) vers le NAS Synology (Log Center) pour les conserver hors du pare-feu
 - [ ] Scan de vulnérabilités du lab avec Nessus Essentials
 - [ ] Segmentation par VLAN (lab / services / maison) via le switch Omada
+- [ ] WAN du site B dans un VLAN séparé : les deux pare-feux ne partagent plus le même réseau et sont reliés par un routage, encore plus proche d'un vrai lien entre deux sites (le switch ES205G ne fait que du niveau 2 : le routeur entre les deux VLAN reste à choisir)
 - [ ] AdGuard Home comme DNS pour tout le réseau
 - [ ] Copie de sauvegarde hors site (règle 3-2-1)
 - [ ] Accès conditionnel Entra ID (préparation SC-300)

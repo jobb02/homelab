@@ -43,7 +43,7 @@
 | Système de fichiers | UFS | Plus léger que ZFS sur un disque virtuel unique déjà sauvegardé par Proxmox |
 | Démarrage auto | Oui | Le lab doit retrouver sa passerelle après un redémarrage de l'hôte |
 
-Instantané Proxmox pris **avant** la mise à jour d'OPNsense (26.7 → 26.7.9) : en cas de régression, retour arrière en quelques secondes.
+Instantané Proxmox pris **avant** une mise à jour d'OPNsense : en cas de régression, retour arrière en quelques secondes.
 
 ## Réseau côté Proxmox
 - `vmbr0` : relié au LAN, pour les services (Omada, AdGuard) et l'interface WAN du pare-feu.
