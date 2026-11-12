@@ -82,7 +82,7 @@ Les VM de test (dont Kali) sont sur un réseau isolé (`vmbr1`), sans carte phys
 Priorité : tout ce qui tourne autour du pare-feu et de l'intégration sécurité réseau.
 
 - [x] Pare-feu OPNsense (site A) : installation, interfaces WAN/LAN, DHCP du lab, mise à jour
-- [x] Intel NUC en « site B » : Proxmox VE 9 installé et à jour (`pve-siteb`)
+- [x] Intel NUC en « site B » : Proxmox VE installé et à jour (`pve-siteb`)
 - [ ] Règles de filtrage du lab : blocage lab → maison, accès d'administration limité au PC d'admin
 - [ ] FortiGate en VM sur le NUC (licence d'évaluation), réseau interne 10.20.20.0/24 — préparation Fortinet NSE4
 - [ ] VPN IPsec site à site entre OPNsense (site A, 10.10.10.0/24) et FortiGate (site B, 10.20.20.0/24) : interopérabilité entre deux constructeurs, comme chez un client siège + agence
