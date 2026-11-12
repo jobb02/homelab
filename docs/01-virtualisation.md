@@ -3,6 +3,7 @@
 ## Matériel
 - Hôte : PC Acer dédié, nom de nœud `proxmox`, branché en Ethernet via le switch Omada.
 - Intel Core i5-6400T (4 cœurs), 16 Go de RAM, démarrage UEFI avec Secure Boot.
+- Second hôte prévu : Intel NUC (i5-10210U, 4 cœurs / 8 threads, 16 Go de RAM, SSD 256 Go), futur « site B » sous Proxmox pour un VPN IPsec site à site avec le lab principal. Il sera géré en Proxmox indépendant, sans cluster : avec seulement 2 nœuds, le quorum serait perdu dès qu'un des deux est éteint.
 - Dimensionnement : les services légers tournent en LXC pour économiser la RAM ; les VM ne sont allumées que lorsqu'elles servent (Kali).
 - Administration : interface web Proxmox (port 8006) depuis le LAN, écran HDMI en secours.
 
