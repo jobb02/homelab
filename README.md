@@ -37,9 +37,10 @@ flowchart TB
 
     ADM -.->|"requêtes DNS"| ADG
     ADG -.->|"zone home.arpa"| NAS
+    ADG -.->|"autres domaines · DNS over HTTPS"| DOH((Cloudflare · Quad9))
 ```
 
-Les flèches en pointillés entre le PC d'administration, AdGuard et le NAS montrent le **chemin d'une requête DNS** : le PC interroge AdGuard ; si le nom se termine par `home.arpa`, AdGuard transmet au NAS (serveur de la zone locale) ; sinon, il interroge Cloudflare ou Quad9 en DNS over HTTPS. Détail dans [docs/03-dns.md](docs/03-dns.md).
+Les flèches en pointillés partant du PC d'administration montrent le **chemin d'une requête DNS** : le PC interroge AdGuard ; si le nom se termine par `home.arpa`, AdGuard transmet au NAS (serveur de la zone locale) ; sinon, il interroge Cloudflare ou Quad9 en DNS over HTTPS (requête chiffrée, invisible pour la box et le FAI). Détail dans [docs/03-dns.md](docs/03-dns.md).
 
 ### Plan d'adressage
 
