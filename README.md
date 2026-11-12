@@ -10,68 +10,31 @@ Chaque brique est documentée avec **le pourquoi des choix**, pas seulement le c
 
 ## Vue d'ensemble
 
-### 1. Réseau physique
-
 ```mermaid
 flowchart TB
-    Internet((Internet))
-    ADMDIST[Poste d'admin en déplacement]
-    FBX[Freebox Server · 192.168.1.254<br/>routeur · DHCP · serveur VPN WireGuard]
-    REP[Répéteur Freebox<br/>Wi-Fi mesh · chambre]
-    SW[Switch manageable TP-Link Omada ES205G<br/>192.168.1.101]
-    PVE[PC Acer · Proxmox VE<br/>192.168.1.100]
-    NAS[NAS Synology DS218 · 192.168.1.117<br/>RAID 1 · DNS home.arpa]
-    ADM[PC d'administration<br/>via dock Lenovo]
-    NUC[Intel NUC · i5-10210U · 16 Go<br/>futur site B · VPN IPsec]
+    Internet((Internet)) --- FBX[Freebox Server · 192.168.1.254<br/>routeur · DHCP · serveur VPN WireGuard]
+    ADMDIST[Poste d'admin en déplacement] -. tunnel VPN .-> FBX
+    FBX -. Wi-Fi mesh .- REP[Répéteur Freebox<br/>chambre]
+    REP -- RJ45 --- SW[Switch TP-Link Omada ES205G<br/>192.168.1.101]
+    SW -- RJ45 --- PVE[PC Acer · Proxmox VE<br/>192.168.1.100]
+    SW -- RJ45 --- NAS[NAS Synology DS218 · 192.168.1.117<br/>RAID 1 · DNS home.arpa]
+    SW -- RJ45 --- ADM[PC d'administration<br/>via dock Lenovo]
+    SW -- RJ45 --- NUC[Intel NUC · i5-10210U · 16 Go<br/>futur site B · VPN IPsec]
 
-    Internet --- FBX
-    ADMDIST -. tunnel VPN .-> FBX
-    FBX -. Wi-Fi .- REP
-    REP -- RJ45 --- SW
-    SW -- RJ45 --- PVE
-    SW -- RJ45 --- NAS
-    SW -- RJ45 --- ADM
-    SW -- RJ45 --- NUC
-
-    classDef ext fill:#E5E7EB,stroke:#6B7280,color:#111827
-    classDef net fill:#CCFBF1,stroke:#0F766E,color:#134E4A
-    classDef srv fill:#DBEAFE,stroke:#1D4ED8,color:#1E3A8A
-    class Internet,ADMDIST,NUC ext
-    class FBX,REP,SW,ADM net
-    class PVE,NAS srv
-```
-
-### 2. À l'intérieur du Proxmox
-
-```mermaid
-flowchart TB
-    NIC[Carte réseau physique du PC Acer]
-    subgraph V0 [vmbr0 · réseau maison 192.168.1.0/24]
-        OMADA[LXC 102 · Contrôleur Omada<br/>192.168.1.24]
-        ADG[LXC 105 · AdGuard Home<br/>192.168.1.53]
+    subgraph PVE_G [Proxmox VE]
+        subgraph SRV [vmbr0 · réseau maison 192.168.1.0/24]
+            OMADA[LXC 102 · Contrôleur Omada<br/>192.168.1.24]
+            ADG[LXC 105 · AdGuard Home<br/>192.168.1.53]
+        end
+        FW[VM 104 · pare-feu OPNsense<br/>WAN vmbr0 · LAN 10.10.10.1]
+        subgraph LAB [vmbr1 · lab isolé 10.10.10.0/24 · sans carte physique]
+            KALI[VM 101 · Kali Linux]
+            LIN[VM 103 · Linux Lite]
+        end
+        SRV --- FW --- LAB
     end
-    FW[VM 104 · OPNsense<br/>WAN sur vmbr0 · LAN 10.10.10.1]
-    subgraph V1 [vmbr1 · lab isolé 10.10.10.0/24 · sans carte physique]
-        KALI[VM 101 · Kali Linux]
-        LIN[VM 103 · Linux Lite]
-    end
-    NIC --- V0
-    V0 --- FW
-    FW --- V1
-
-    classDef srv fill:#DBEAFE,stroke:#1D4ED8,color:#1E3A8A
-    classDef fw fill:#FED7AA,stroke:#C2410C,color:#7C2D12,stroke-width:2px
-    classDef lab fill:#FECACA,stroke:#B91C1C,color:#7F1D1D
-    classDef ext fill:#E5E7EB,stroke:#6B7280,color:#111827
-    class NIC ext
-    class OMADA,ADG srv
-    class FW fw
-    class KALI,LIN lab
-    style V0 fill:#EFF6FF,stroke:#1D4ED8,color:#1E3A8A
-    style V1 fill:#FEF2F2,stroke:#B91C1C,stroke-dasharray: 5 5,color:#7F1D1D
+    PVE --- PVE_G
 ```
-
-**Légende :** gris = extérieur / physique · vert = réseau maison · bleu = serveurs et services · orange = pare-feu · rouge = lab isolé (zone à risque)
 
 ### Plan d'adressage
 
@@ -79,8 +42,9 @@ flowchart TB
 |---|---|---|---|
 | Maison (`vmbr0`) | 192.168.1.0/24 | Freebox 192.168.1.254 | Services, administration, appareils de la maison |
 | Lab (`vmbr1`) | 10.10.10.0/24 | OPNsense 10.10.10.1 | VM de test, isolées derrière le pare-feu (DHCP par OPNsense) |
+| Site B (NUC, prévu) | 10.20.20.0/24 | FortiGate 10.20.20.1 | Second site relié au lab par VPN IPsec |
 
-Pourquoi une plage différente pour le lab : si les deux réseaux utilisaient 192.168.1.0/24, le pare-feu ne pourrait pas savoir de quel côté envoyer un paquet. Deux plages distinctes = un routage et des règles sans ambiguïté.
+Pourquoi une plage différente par réseau : si deux réseaux utilisaient 192.168.1.0/24, le pare-feu ne pourrait pas savoir de quel côté envoyer un paquet. Deux plages distinctes = un routage et des règles sans ambiguïté.
 
 ### Segmentation du lab
 
