@@ -49,6 +49,12 @@ Vérification : `Get-DnsClientServerAddress` doit afficher uniquement `192.168.1
 ### Observation intéressante
 Une grosse part des requêtes concerne `wpad.home` : c'est Windows qui cherche automatiquement un fichier de configuration de proxy (WPAD). Sur un réseau hostile, un attaquant qui répond à ce nom peut se placer en proxy et intercepter le trafic. Bonne pratique : désactiver la détection automatique du proxy sur les postes qui n'en ont pas besoin.
 
+## DNS des hyperviseurs
+Les deux hôtes Proxmox (`pve-sitea`, `pve-siteb`) utilisent AdGuard (`192.168.1.53`) comme unique serveur DNS, avec `home.arpa` comme domaine de recherche : une seule règle pour toute l'infrastructure.
+- Dépendance assumée : si AdGuard tombe, les hyperviseurs ne résolvent plus de noms. Choix fait sans DNS de secours pour garder tout le trafic DNS filtré et cohérent.
+- Conséquence sur `pve-sitea`, qui héberge AdGuard : le conteneur doit démarrer automatiquement et en premier (ordre de démarrage 1), avant les services qui ont besoin du DNS.
+- Prochaine étape : aligner les enregistrements de la zone `home.arpa` sur la convention de nommage (`pve-sitea`, `fw-sitea`…).
+
 ## Pourquoi `home.arpa`
 C'est le domaine **réservé** aux réseaux domestiques (RFC 8375).
 Utiliser un faux domaine du type `.local` ou `.lan` peut entrer en conflit avec mDNS ou avec un vrai TLD.
