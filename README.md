@@ -16,12 +16,12 @@ flowchart TB
     ADMDIST[Poste d'admin en déplacement] -. tunnel VPN .-> FBX
     FBX -. Wi-Fi mesh .- REP[Répéteur Freebox<br/>chambre]
     REP -- RJ45 --- SW[Switch TP-Link Omada ES205G<br/>192.168.1.101]
-    SW -- RJ45 --- PVE[PC Acer · Proxmox VE<br/>192.168.1.100]
+    SW -- RJ45 --- PVE[PC Acer · site A · Proxmox VE<br/>i5-6400T · 16 Go · 192.168.1.100]
     SW -- RJ45 --- NAS[NAS Synology DS218 · 192.168.1.117<br/>RAID 1 · DNS home.arpa]
     SW -- RJ45 --- ADM[PC d'administration<br/>via dock Lenovo]
-    SW -- RJ45 --- NUC[Intel NUC · i5-10210U · 16 Go<br/>futur site B · VPN IPsec]
+    SW -- RJ45 --- NUC[Intel NUC · futur site B<br/>i5-10210U · 16 Go · VPN IPsec]
 
-    subgraph PVE_G [Proxmox VE]
+    subgraph PVE_G [Proxmox VE · site A]
         subgraph SRV [vmbr0 · réseau maison 192.168.1.0/24]
             OMADA[LXC 102 · Contrôleur Omada<br/>192.168.1.24]
             ADG[LXC 105 · AdGuard Home<br/>192.168.1.53]
@@ -34,7 +34,12 @@ flowchart TB
         SRV --- FW --- LAB
     end
     PVE --- PVE_G
+
+    ADM -. requêtes DNS .-> ADG
+    ADG -. zone home.arpa .-> NAS
 ```
+
+Les flèches en pointillés entre le PC d'administration, AdGuard et le NAS montrent le **chemin d'une requête DNS** : le PC interroge AdGuard ; si le nom se termine par `home.arpa`, AdGuard transmet au NAS (serveur de la zone locale) ; sinon, il interroge Cloudflare ou Quad9 en DNS over HTTPS. Détail dans [docs/03-dns.md](docs/03-dns.md).
 
 ### Plan d'adressage
 
