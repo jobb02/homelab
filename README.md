@@ -23,13 +23,13 @@ flowchart TB
 
     subgraph PVE_G [Proxmox VE · site A]
         subgraph SRV [vmbr0 · réseau maison 192.168.1.0/24]
-            OMADA[LXC 102 · Contrôleur Omada<br/>192.168.1.24]
-            ADG[LXC 105 · AdGuard Home<br/>192.168.1.53]
+            OMADA["LXC 102 · Contrôleur Omada<br/>net0 → vmbr0 · 192.168.1.24"]
+            ADG["LXC 105 · AdGuard Home<br/>net0 → vmbr0 · 192.168.1.53"]
         end
-        FW[VM 104 · pare-feu OPNsense<br/>WAN vmbr0 · LAN 10.10.10.1]
+        FW["VM 104 · pare-feu OPNsense<br/>net0 WAN → vmbr0<br/>net1 LAN → vmbr1 · 10.10.10.1"]
         subgraph LAB [vmbr1 · lab isolé 10.10.10.0/24 · sans carte physique]
-            KALI[VM 101 · Kali Linux]
-            LIN[VM 103 · Linux Lite]
+            KALI["VM 101 · Kali Linux<br/>net0 → vmbr1"]
+            LIN["VM 103 · Linux Lite<br/>net0 → vmbr1"]
         end
         SRV --- FW --- LAB
     end
