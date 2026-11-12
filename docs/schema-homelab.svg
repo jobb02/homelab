@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1250" viewBox="0 0 1600 1250" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">
+<defs>
+  <filter id="sh" x="-10%" y="-10%" width="120%" height="140%">
+    <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#111827" flood-opacity="0.08"/>
+  </filter>
+  <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/>
+  </marker>
+</defs>
+<rect width="1600" height="1250" fill="#ffffff"/>
+<text x="48" y="62" font-size="30" font-weight="800" fill="#111827" text-anchor="start">Homelab — Mam III Jobb</text>
+<text x="48" y="90" font-size="15" font-weight="400" fill="#6b7280" text-anchor="start">Topologie réseau · deux hyperviseurs Proxmox VE · pare-feu entre la maison et le lab</text>
+<rect x="730" y="118" width="140" height="44" rx="22" fill="#fff" stroke="#111827" stroke-width="1.8"/>
+<text x="800" y="146" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Internet</text>
+<rect x="660" y="196" width="280" height="88" rx="12" fill="#fff" stroke="#d1d5db" stroke-width="1.5" filter="url(#sh)"/>
+<rect x="674" y="208" width="112" height="20" rx="10" fill="#fff" stroke="#111827" stroke-width="1.2"/>
+<text x="729.8" y="222" font-size="10.5" font-weight="700" fill="#111827" text-anchor="middle">ROUTEUR · BOX</text>
+<text x="674" y="250" font-size="16" font-weight="700" fill="#111827" text-anchor="start">Freebox Server</text>
+<text x="674" y="271" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start">192.168.1.254 · DHCP · WireGuard</text>
+<polyline points="800,162 800,196" fill="none" stroke="#374151" stroke-width="2" stroke-linejoin="round"/>
+<rect x="290" y="196" width="250" height="88" rx="12" fill="#fff" stroke="#d1d5db" stroke-width="1.5" filter="url(#sh)"/>
+<rect x="304" y="208" width="112" height="20" rx="10" fill="#fff" stroke="#111827" stroke-width="1.2"/>
+<text x="359.8" y="222" font-size="10.5" font-weight="700" fill="#111827" text-anchor="middle">ACCÈS DISTANT</text>
+<text x="304" y="250" font-size="16" font-weight="700" fill="#111827" text-anchor="start">Poste d&#x27;admin nomade</text>
+<text x="304" y="271" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start">hors du domicile</text>
+<polyline points="540,240 660,240" fill="none" stroke="#374151" stroke-width="2" stroke-linejoin="round" stroke-dasharray="3 5" marker-end="url(#ar)"/>
+<rect x="544" y="202" width="112" height="24" rx="12" fill="#fff" stroke="#d1d5db"/>
+<text x="600" y="218" font-size="12" font-weight="500" fill="#6b7280" text-anchor="middle">VPN WireGuard</text>
+<rect x="680" y="322" width="240" height="88" rx="12" fill="#fff" stroke="#d1d5db" stroke-width="1.5" filter="url(#sh)"/>
+<rect x="694" y="334" width="54" height="20" rx="10" fill="#fff" stroke="#111827" stroke-width="1.2"/>
+<text x="721.0" y="348" font-size="10.5" font-weight="700" fill="#111827" text-anchor="middle">WI-FI</text>
+<text x="694" y="376" font-size="16" font-weight="700" fill="#111827" text-anchor="start">Répéteur Freebox</text>
+<text x="694" y="397" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start">chambre</text>
+<polyline points="800,284 800,322" fill="none" stroke="#374151" stroke-width="2" stroke-linejoin="round" stroke-dasharray="3 5"/>
+<rect x="814" y="291" width="96" height="24" rx="12" fill="#fff" stroke="#d1d5db"/>
+<text x="862" y="307" font-size="12" font-weight="500" fill="#6b7280" text-anchor="middle">Wi-Fi mesh</text>
+<rect x="650" y="438" width="300" height="88" rx="12" fill="#fff" stroke="#d1d5db" stroke-width="1.5" filter="url(#sh)"/>
+<rect x="664" y="450" width="61" height="20" rx="10" fill="#fff" stroke="#111827" stroke-width="1.2"/>
+<text x="694.6" y="464" font-size="10.5" font-weight="700" fill="#111827" text-anchor="middle">SWITCH</text>
+<text x="664" y="492" font-size="16" font-weight="700" fill="#111827" text-anchor="start">sw-sitea</text>
+<text x="664" y="513" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start">TP-Link Omada ES205G · 192.168.1.101</text>
+<polyline points="800,410 800,438" fill="none" stroke="#374151" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="800,526 800,560" fill="none" stroke="#374151" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="250,560 1340,560" fill="none" stroke="#374151" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="250" cy="560" r="4.5" fill="#374151"/>
+<circle cx="905" cy="560" r="4.5" fill="#374151"/>
+<circle cx="1110" cy="560" r="4.5" fill="#374151"/>
+<circle cx="1340" cy="560" r="4.5" fill="#374151"/>
+<circle cx="800" cy="560" r="4.5" fill="#374151"/>
+<text x="812" y="550" font-size="12" font-weight="500" fill="#6b7280" text-anchor="start">Ethernet · 192.168.1.0/24</text>
+<rect x="40" y="600" width="750" height="520" rx="16" fill="#fafafa" stroke="#111827" stroke-width="1.8"/>
+<polyline points="250,560 250,600" fill="none" stroke="#374151" stroke-width="2" stroke-linejoin="round"/>
+<rect x="60" y="618" width="61" height="20" rx="10" fill="#111827" stroke="#111827" stroke-width="1.2"/>
+<text x="90.6" y="632" font-size="10.5" font-weight="700" fill="#fff" text-anchor="middle">SITE A</text>
+<text x="140" y="633" font-size="17" font-weight="800" fill="#111827" text-anchor="start">pve-sitea · Proxmox VE 9</text>
+<text x="60" y="662" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start">PC Acer · i5-6400T · 16 Go · 192.168.1.100</text>
+<rect x="60" y="682" width="710" height="134" rx="12" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="76" y="704" font-size="12.5" font-weight="700" fill="#374151" text-anchor="start">vmbr0 · réseau maison · 192.168.1.0/24</text>
+<rect x="76" y="716" width="330" height="88" rx="12" fill="#fff" stroke="#d1d5db" stroke-width="1.5" filter="url(#sh)"/>
+<rect x="90" y="728" width="68" height="20" rx="10" fill="#fff" stroke="#111827" stroke-width="1.2"/>
+<text x="124.2" y="742" font-size="10.5" font-weight="700" fill="#111827" text-anchor="middle">LXC 102</text>
+<text x="90" y="770" font-size="16" font-weight="700" fill="#111827" text-anchor="start">omada-sitea</text>
+<text x="90" y="791" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start">Contrôleur Omada · 192.168.1.24</text>
+<rect x="424" y="716" width="330" height="88" rx="12" fill="#fff" stroke="#d1d5db" stroke-width="1.5" filter="url(#sh)"/>
+<rect x="438" y="728" width="68" height="20" rx="10" fill="#fff" stroke="#111827" stroke-width="1.2"/>
+<text x="472.2" y="742" font-size="10.5" font-weight="700" fill="#111827" text-anchor="middle">LXC 105</text>
+<text x="438" y="770" font-size="16" font-weight="700" fill="#111827" text-anchor="start">dns-sitea</text>
+<text x="438" y="791" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start">AdGuard Home · 192.168.1.53</text>
+<polyline points="415.0,816 415.0,852" fill="none" stroke="#374151" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="425.0" y="838" font-size="12" font-weight="600" fill="#374151" text-anchor="start">WAN 192.168.1.29</text>
+<rect x="235" y="852" width="360" height="104" rx="12" fill="#111827" stroke="#111827" stroke-width="1.5" filter="url(#sh)"/>
+<rect x="249" y="864" width="76" height="20" rx="10" fill="#fff"/>
+<text x="286.8" y="878" font-size="10.5" font-weight="700" fill="#111827" text-anchor="middle">PARE-FEU</text>
+<text x="249" y="906" font-size="16" font-weight="700" fill="#fff" text-anchor="start">fw-sitea · OPNsense</text>
+<text x="249" y="927" font-size="13" font-weight="400" fill="#d1d5db" text-anchor="start">VM 104 · WAN vtnet0 → vmbr0</text>
+<text x="249" y="946" font-size="13" font-weight="400" fill="#d1d5db" text-anchor="start">LAN vtnet1 → vmbr1 · 10.10.10.1</text>
+<polyline points="415.0,956 415.0,984" fill="none" stroke="#374151" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="425.0" y="974" font-size="12" font-weight="600" fill="#374151" text-anchor="start">LAN 10.10.10.1</text>
+<rect x="60" y="984" width="710" height="120" rx="12" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="76" y="1006" font-size="12.5" font-weight="700" fill="#374151" text-anchor="start">vmbr1 · lab isolé · 10.10.10.0/24 · sans carte physique</text>
+<rect x="76" y="1016" width="330" height="74" rx="12" fill="#fff" stroke="#d1d5db" stroke-width="1.5" filter="url(#sh)"/>
+<rect x="90" y="1028" width="61" height="20" rx="10" fill="#fff" stroke="#111827" stroke-width="1.2"/>
+<text x="120.6" y="1042" font-size="10.5" font-weight="700" fill="#111827" text-anchor="middle">VM 101</text>
+<text x="90" y="1070" font-size="16" font-weight="700" fill="#111827" text-anchor="start">Kali Linux</text>
+<text x="90" y="1091" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start"></text>
+<text x="190" y="1070" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="start">IP par DHCP (.100 – .200)</text>
+<rect x="424" y="1016" width="330" height="74" rx="12" fill="#fff" stroke="#d1d5db" stroke-width="1.5" filter="url(#sh)"/>
+<rect x="438" y="1028" width="61" height="20" rx="10" fill="#fff" stroke="#111827" stroke-width="1.2"/>
+<text x="468.6" y="1042" font-size="10.5" font-weight="700" fill="#111827" text-anchor="middle">VM 103</text>
+<text x="438" y="1070" font-size="16" font-weight="700" fill="#111827" text-anchor="start">Linux Lite</text>
+<text x="438" y="1091" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start"></text>
+<text x="538" y="1070" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="start">IP par DHCP (.100 – .200)</text>
+<rect x="810" y="600" width="190" height="88" rx="12" fill="#fff" stroke="#d1d5db" stroke-width="1.5" filter="url(#sh)"/>
+<rect x="824" y="612" width="54" height="20" rx="10" fill="#fff" stroke="#111827" stroke-width="1.2"/>
+<text x="851.0" y="626" font-size="10.5" font-weight="700" fill="#111827" text-anchor="middle">POSTE</text>
+<text x="824" y="654" font-size="16" font-weight="700" fill="#111827" text-anchor="start">PC d&#x27;admin</text>
+<text x="824" y="675" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start">via dock Lenovo</text>
+<polyline points="905,560 905,600" fill="none" stroke="#374151" stroke-width="2" stroke-linejoin="round"/>
+<rect x="850" y="718" width="290" height="106" rx="12" fill="#fff" stroke="#d1d5db" stroke-width="1.5" filter="url(#sh)"/>
+<rect x="864" y="730" width="119" height="20" rx="10" fill="#fff" stroke="#111827" stroke-width="1.2"/>
+<text x="923.4" y="744" font-size="10.5" font-weight="700" fill="#111827" text-anchor="middle">STOCKAGE · DNS</text>
+<text x="864" y="772" font-size="16" font-weight="700" fill="#111827" text-anchor="start">nas-sitea</text>
+<text x="864" y="793" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start">Synology DS218 · RAID 1</text>
+<text x="864" y="812" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start">192.168.1.117 · zone home.arpa</text>
+<polyline points="1110,560 1110,718" fill="none" stroke="#374151" stroke-width="2" stroke-linejoin="round"/>
+<rect x="850" y="838" width="290" height="40" rx="20" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="995" y="863" font-size="12.5" font-weight="600" fill="#111827" text-anchor="middle">Cloudflare · Quad9 (DNS over HTTPS)</text>
+<polyline points="810,655 724,655 724,716" fill="none" stroke="#6b7280" stroke-width="1.6" stroke-linejoin="round" stroke-dasharray="2 4" marker-end="url(#ar)"/>
+<rect x="692" y="643" width="100" height="24" rx="12" fill="#fff" stroke="#d1d5db"/>
+<text x="742" y="659" font-size="11.5" font-weight="500" fill="#6b7280" text-anchor="middle">requêtes DNS</text>
+<polyline points="754,760 850,760" fill="none" stroke="#6b7280" stroke-width="1.6" stroke-linejoin="round" stroke-dasharray="2 4" marker-end="url(#ar)"/>
+<rect x="761" y="730" width="82" height="24" rx="12" fill="#fff" stroke="#d1d5db"/>
+<text x="802" y="746" font-size="11.5" font-weight="500" fill="#6b7280" text-anchor="middle">home.arpa</text>
+<polyline points="754,786 810,786 810,858 850,858" fill="none" stroke="#6b7280" stroke-width="1.6" stroke-linejoin="round" stroke-dasharray="2 4" marker-end="url(#ar)"/>
+<rect x="1160" y="600" width="400" height="520" rx="16" fill="#fafafa" stroke="#111827" stroke-width="1.8"/>
+<polyline points="1340,560 1340,600" fill="none" stroke="#374151" stroke-width="2" stroke-linejoin="round"/>
+<rect x="1180" y="618" width="61" height="20" rx="10" fill="#111827" stroke="#111827" stroke-width="1.2"/>
+<text x="1210.6" y="632" font-size="10.5" font-weight="700" fill="#fff" text-anchor="middle">SITE B</text>
+<text x="1260" y="633" font-size="17" font-weight="800" fill="#111827" text-anchor="start">pve-siteb · Proxmox VE 9</text>
+<text x="1180" y="662" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start">Intel NUC · i5-10210U · 16 Go</text>
+<text x="1180" y="680" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start">192.168.1.102</text>
+<polyline points="1360.0,696 1360.0,852" fill="none" stroke="#6b7280" stroke-width="2" stroke-linejoin="round" stroke-dasharray="7 5"/>
+<rect x="1190" y="852" width="340" height="104" rx="12" fill="#fff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="7 5"/>
+<rect x="1204" y="864" width="133" height="20" rx="10" fill="#fff" stroke="#111827" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="1270.6" y="878" font-size="10.5" font-weight="700" fill="#111827" text-anchor="middle">PARE-FEU · PRÉVU</text>
+<text x="1204" y="906" font-size="16" font-weight="700" fill="#6b7280" text-anchor="start">fw-siteb · FortiGate VM</text>
+<text x="1204" y="927" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start">WAN → vmbr0 · réseau maison</text>
+<text x="1204" y="946" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start">LAN → vmbr1 · 10.20.20.1</text>
+<polyline points="1360.0,956 1360.0,984" fill="none" stroke="#6b7280" stroke-width="2" stroke-linejoin="round" stroke-dasharray="7 5"/>
+<rect x="1180" y="984" width="360" height="120" rx="12" fill="#fff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="7 5"/>
+<text x="1196" y="1006" font-size="12.5" font-weight="700" fill="#6b7280" text-anchor="start">vmbr1 · lab site B · 10.20.20.0/24 · prévu</text>
+<rect x="1196" y="1016" width="328" height="74" rx="12" fill="#fff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="7 5"/>
+<rect x="1210" y="1028" width="54" height="20" rx="10" fill="#fff" stroke="#111827" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="1237.0" y="1042" font-size="10.5" font-weight="700" fill="#111827" text-anchor="middle">PRÉVU</text>
+<text x="1210" y="1070" font-size="16" font-weight="700" fill="#6b7280" text-anchor="start">VM de test</text>
+<text x="1210" y="1091" font-size="13" font-weight="400" fill="#6b7280" text-anchor="start"></text>
+<polyline points="595,904 1190,904" fill="none" stroke="#111827" stroke-width="2.2" stroke-linejoin="round" stroke-dasharray="9 6" marker-end="url(#ar)" marker-start="url(#ar)"/>
+<rect x="774" y="918" width="236" height="24" rx="12" fill="#fff" stroke="#d1d5db"/>
+<text x="892.5" y="934" font-size="12" font-weight="500" fill="#111827" text-anchor="middle">Tunnel IPsec site à site · prévu</text>
+<text x="48" y="1172" font-size="13" font-weight="800" fill="#111827" text-anchor="start">Légende</text>
+<polyline points="130,1168 180,1168" fill="none" stroke="#374151" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="190" y="1172" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="start">Ethernet</text>
+<polyline points="270,1168 320,1168" fill="none" stroke="#374151" stroke-width="2" stroke-linejoin="round" stroke-dasharray="3 5"/>
+<text x="330" y="1172" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="start">Wi-Fi / VPN</text>
+<polyline points="430,1168 480,1168" fill="none" stroke="#6b7280" stroke-width="1.6" stroke-linejoin="round" stroke-dasharray="2 4" marker-end="url(#ar)"/>
+<text x="492" y="1172" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="start">Flux DNS</text>
+<rect x="580" y="1156" width="40" height="22" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="7 5"/>
+<text x="630" y="1172" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="start">Prévu</text>
+<rect x="700" y="1156" width="40" height="22" rx="6" fill="#111827" stroke="#111827" stroke-width="1.5"/>
+<text x="750" y="1172" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="start">Pare-feu</text>
+<text x="1552" y="1172" font-size="12.5" font-weight="400" fill="#6b7280" text-anchor="end">Adresses privées uniquement (RFC 1918) · nommage &lt;rôle&gt;-&lt;site&gt;</text>
+<text x="1552" y="1194" font-size="12" font-weight="400" fill="#6b7280" text-anchor="end" font-style="italic">Mise à jour : novembre 2026</text>
+</svg>
