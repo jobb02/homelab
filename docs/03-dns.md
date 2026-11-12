@@ -36,6 +36,16 @@ Pourquoi : permet de retrouver le nom à partir de l'IP (`nslookup 192.168.1.100
 - **Listes de blocage** : AdGuard DNS filter (publicité, traqueurs), Phishing URL Blocklist (PhishTank), Dandelion Sprout's Anti-Malware.
 - **Clients** : pour l'instant, mon poste est configuré manuellement pour utiliser AdGuard. Étape suivante : distribuer AdGuard comme DNS à tout le réseau.
 
+### Empêcher le contournement du filtrage
+Un filtrage DNS ne sert à rien si le poste peut interroger un autre serveur. Trois portes ont été fermées sur le poste d'administration :
+- **DNS IPv6 annoncé par la Freebox** : Windows ajoutait automatiquement le DNS IPv6 de la box (option RDNSS des annonces de routeur) et pouvait l'interroger en parallèle d'AdGuard, sans filtrage. Corrigé sur la carte réseau concernée :
+  `netsh interface ipv6 set interface "<carte>" rabaseddnsconfig=disabled`
+  L'adresse et la passerelle IPv6 restent fournies par la box, seul le DNS annoncé est ignoré.
+- **DNS sécurisé du navigateur** (DoH de Chrome/Edge) désactivé : sinon le navigateur interroge directement Google ou Cloudflare et court-circuite AdGuard. AdGuard fait déjà le chiffrement DoH pour tout le poste.
+- **Uniquement sur la carte Ethernet du dock** : la carte Wi-Fi suit le PC partout (école, 4G…), où 192.168.1.53 n'existe pas.
+
+Vérification : `Get-DnsClientServerAddress` doit afficher uniquement `192.168.1.53` en IPv4 et rien en IPv6.
+
 ### Observation intéressante
 Une grosse part des requêtes concerne `wpad.home` : c'est Windows qui cherche automatiquement un fichier de configuration de proxy (WPAD). Sur un réseau hostile, un attaquant qui répond à ce nom peut se placer en proxy et intercepter le trafic. Bonne pratique : désactiver la détection automatique du proxy sur les postes qui n'en ont pas besoin.
 
