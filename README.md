@@ -1,12 +1,49 @@
-# Homelab — Mam III Jobb
+<div align="center">
 
-Infrastructure personnelle auto-hébergée qui me sert de terrain d'entraînement en **réseau**, **virtualisation** et **sécurité**.
+<img src="docs/banner.svg" alt="Homelab — Mam III Jobb" width="100%">
+
+<br>
+
+![Proxmox VE](https://img.shields.io/badge/Proxmox_VE-0d1117?style=for-the-badge&logo=proxmox&logoColor=E57000)
+![OPNsense](https://img.shields.io/badge/OPNsense-0d1117?style=for-the-badge&logo=opnsense&logoColor=D94F00)
+![FortiGate](https://img.shields.io/badge/FortiGate-0d1117?style=for-the-badge&logo=fortinet&logoColor=EE3124)
+![WireGuard](https://img.shields.io/badge/WireGuard-0d1117?style=for-the-badge&logo=wireguard&logoColor=88171A)
+![Synology](https://img.shields.io/badge/Synology-0d1117?style=for-the-badge&logo=synology&logoColor=B5B5B6)
+![AdGuard](https://img.shields.io/badge/AdGuard_Home-0d1117?style=for-the-badge&logo=adguard&logoColor=68BC71)
+![Kali Linux](https://img.shields.io/badge/Kali_Linux-0d1117?style=for-the-badge&logo=kalilinux&logoColor=557C94)
+
+Infrastructure personnelle qui me sert de terrain d'entraînement en **réseau**, **virtualisation** et **sécurité**.<br>
 Chaque brique est documentée avec **le pourquoi des choix**, pas seulement le comment.
 
-> Ingénieur cybersécurité — sécurité réseau, gestion des vulnérabilités, intégration.
-> [LinkedIn](https://www.linkedin.com/in/jobb-mam-iii/) · Contact : voir CV
+[LinkedIn](https://www.linkedin.com/in/jobb-mam-iii/) · [Documentation](docs/) · [Feuille de route](#feuille-de-route)
+
+</div>
 
 ---
+
+## Sommaire
+
+- [État du lab](#état-du-lab)
+- [Comment le lab a grandi](#comment-le-lab-a-grandi)
+- [Vue d'ensemble](#vue-densemble)
+- [Plan d'adressage](#plan-dadressage)
+- [Segmentation du lab](#segmentation-du-lab)
+- [Les briques](#les-briques)
+- [Feuille de route](#feuille-de-route)
+
+## État du lab
+
+| Brique | Rôle | État |
+|---|---|---|
+| Proxmox VE · site A (`pve-sitea`) | Hyperviseur : services et lab isolé | ✅ En place |
+| OPNsense (`fw-sitea`) | Pare-feu du lab, DHCP, NAT | ✅ En place |
+| Proxmox VE · site B (`pve-siteb`) | Hyperviseur du second site | ✅ En place |
+| AdGuard Home + zone `home.arpa` | DNS filtrant et noms locaux | ✅ En place |
+| NAS Synology RAID 1 | Stockage, sauvegardes, instantanés | ✅ En place |
+| VPN WireGuard (Freebox) | Accès distant à l'administration | ✅ En place |
+| Règles de filtrage du lab | Lab → maison bloqué, accès admin limité | 🔜 Prévu |
+| FortiGate (`fw-siteb`) | Pare-feu du site B | 🔜 Prévu |
+| Tunnel IPsec OPNsense ↔ FortiGate | Liaison site à site entre deux constructeurs | 🔜 Prévu |
 
 ## Comment le lab a grandi
 
@@ -38,18 +75,27 @@ Les éléments en pointillés (FortiGate, lab du site B, tunnel IPsec) sont **pr
 | Lab site A (`vmbr1` de pve-sitea) | 10.10.10.0/24 | OPNsense 10.10.10.1 | VM de test isolées derrière le pare-feu. `.2–.99` : IP fixes · `.100–.200` : DHCP d'OPNsense |
 | Lab site B (NUC, prévu) | 10.20.20.0/24 | FortiGate 10.20.20.1 | Second site relié au lab par VPN IPsec |
 
+<details>
+<summary><b>Pourquoi des plages en 10.x et une plage par réseau</b></summary>
+
 Pourquoi `10.x` pour les labs plutôt que `192.168.x` : les box et les Wi-Fi publics utilisent presque tous `192.168.0.x` ou `192.168.1.x`. Un lab en `10.x` évite les chevauchements le jour où l'on s'y connecte en VPN depuis un autre réseau, et deux sites reliés en IPsec doivent avoir des plages distinctes. Le 2e octet indique le site (`10.10` = A, `10.20` = B).
 
 Pourquoi une plage différente par réseau : si deux réseaux utilisaient 192.168.1.0/24, le pare-feu ne pourrait pas savoir de quel côté envoyer un paquet. Deux plages distinctes = un routage et des règles sans ambiguïté.
 
-### Deux sites dans une même pièce : underlay et overlay
+</details>
+
+<details>
+<summary><b>Deux sites dans une même pièce : underlay et overlay</b></summary>
 
 Les deux hyperviseurs sont physiquement sur le même switch. Ce qui est simulé, c'est la partie logique :
 - **site A** = ce qui est derrière OPNsense (`10.10.10.0/24`), **site B** = ce qui sera derrière le FortiGate (`10.20.20.0/24`) ;
 - le **réseau maison** (`192.168.1.0/24`) joue le rôle d'**Internet** entre les deux : c'est l'**underlay**, le réseau de transport sur lequel sont branchés les WAN des deux pare-feux ;
 - le **tunnel IPsec** est l'**overlay** : les deux labs ne se joignent que par lui, jamais directement, comme un siège et une agence reliés à travers Internet.
 
-### Convention de nommage
+</details>
+
+<details>
+<summary><b>Convention de nommage &lt;rôle&gt;-&lt;site&gt;</b></summary>
 
 Chaque équipement d'infrastructure suit le format **`<rôle>-<site>`** : le nom dit ce qu'est la machine et où elle se trouve. L'emplacement physique et le matériel vont dans le commentaire de la réservation DHCP, pas dans le nom.
 
@@ -67,17 +113,19 @@ Chaque équipement d'infrastructure suit le format **`<rôle>-<site>`** : le nom
 Chaque adresse est réservée sur la Freebox (adresse MAC → IP) : la liste des réservations sert d'inventaire des IP fixes.
 Le nœud Proxmox du site A s'appelle encore `proxmox` en interne : son renommage demande de déplacer les configurations des VM (`/etc/pve/nodes/<nom>/`) et sera fait à part, après sauvegarde.
 
+</details>
+
 ### Segmentation du lab
 
 Les VM de test (dont Kali) sont sur un réseau isolé (`vmbr1`), sans carte physique : la seule sortie passe par le pare-feu OPNsense. Preuve concrète : un `ping 1.1.1.1` depuis Kali revient avec un TTL inférieur de 1 à celui obtenu depuis OPNsense — un routeur de plus sur le chemin, le pare-feu.
 
 | Flux | Règle | État | Pourquoi |
 |---|---|---|---|
-| Internet / maison → pare-feu (WAN) | Bloqué par défaut, réseaux privés et bogons rejetés | En place | Une interface d'administration de pare-feu ne doit jamais être exposée côté WAN |
-| Lab → Internet | Autorisé (NAT) | En place | Mises à jour et téléchargement d'outils |
-| Lab → réseau maison | **Bloqué** | À faire — la règle LAN par défaut d'OPNsense autorise encore tout | Un scan ou un exploit lancé par erreur ne doit jamais toucher les appareils de la famille |
-| PC d'admin → interface OPNsense | Autorisé depuis une seule IP, port 443 uniquement | À faire | Administrer sans passer par la console, en limitant la source et le port |
-| Reste | Refusé par défaut | En place | Moindre privilège : tout ce qui n'est pas explicitement autorisé est interdit |
+| Internet / maison → pare-feu (WAN) | Bloqué par défaut, réseaux privés et bogons rejetés | ✅ En place | Une interface d'administration de pare-feu ne doit jamais être exposée côté WAN |
+| Lab → Internet | Autorisé (NAT) | ✅ En place | Mises à jour et téléchargement d'outils |
+| Lab → réseau maison | **Bloqué** | 🔜 À faire (la règle LAN par défaut d'OPNsense autorise encore tout) | Un scan ou un exploit lancé par erreur ne doit jamais toucher les appareils de la famille |
+| PC d'admin → interface OPNsense | Autorisé depuis une seule IP, port 443 uniquement | 🔜 À faire | Administrer sans passer par la console, en limitant la source et le port |
+| Reste | Refusé par défaut | ✅ En place | Moindre privilège : tout ce qui n'est pas explicitement autorisé est interdit |
 
 ## Les briques
 
@@ -95,18 +143,27 @@ Les VM de test (dont Kali) sont sur un réseau isolé (`vmbr1`), sans carte phys
 
 Priorité : tout ce qui tourne autour du pare-feu et de l'intégration sécurité réseau.
 
+**Pare-feux et VPN**
 - [x] Pare-feu OPNsense (site A) : installation, interfaces WAN/LAN, DHCP du lab, mise à jour
 - [x] Intel NUC en « site B » : Proxmox VE installé et à jour (`pve-siteb`)
 - [ ] Règles de filtrage du lab : blocage lab → maison, accès d'administration limité au PC d'admin
-- [ ] FortiGate en VM sur le NUC (licence d'évaluation), réseau interne 10.20.20.0/24 — préparation Fortinet NSE4
+- [ ] FortiGate en VM sur le NUC (licence d'évaluation), réseau interne 10.20.20.0/24, préparation Fortinet NSE4
 - [ ] VPN IPsec site à site entre OPNsense (site A, 10.10.10.0/24) et FortiGate (site B, 10.20.20.0/24) : interopérabilité entre deux constructeurs, comme chez un client siège + agence
+- [ ] VPN d'accès distant pour les utilisateurs sur le FortiGate (FortiClient) avec double authentification : le télétravail d'un client, après la liaison entre ses sites
+- [ ] Filtrage web et inspection SSL sur le FortiGate : autorité de certification interne déployée sur les postes, gestion des exceptions pour les sites qui cassent
+
+**Détection et vulnérabilités**
 - [ ] IDS/IPS Suricata sur OPNsense, testé avec des scans et attaques depuis Kali
 - [ ] Envoi des logs du pare-feu (syslog) vers le NAS Synology (Log Center) pour les conserver hors du pare-feu
 - [ ] Scan de vulnérabilités du lab avec Nessus Essentials
+
+**Réseau et sauvegarde**
 - [ ] Segmentation par VLAN (lab / services / maison) via le switch Omada
 - [ ] WAN du site B dans un VLAN séparé : les deux pare-feux ne partagent plus le même réseau et sont reliés par un routage, encore plus proche d'un vrai lien entre deux sites (le switch ES205G ne fait que du niveau 2 : le routeur entre les deux VLAN reste à choisir)
 - [ ] AdGuard Home comme DNS pour tout le réseau
 - [ ] Copie de sauvegarde hors site (règle 3-2-1)
+
+**Identité**
 - [ ] Accès conditionnel Entra ID (préparation SC-300)
 
 ## Règles de publication

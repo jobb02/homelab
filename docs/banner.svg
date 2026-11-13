@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1117"/>
+      <stop offset="1" stop-color="#161b22"/>
+    </linearGradient>
+    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="#30363d"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="300" rx="18" fill="url(#bg)"/>
+  <rect x="760" y="0" width="440" height="300" fill="url(#grid)" opacity="0.8"/>
+
+  <!-- mini topologie : site A — transit — site B -->
+  <g stroke="#8b949e" stroke-width="2" fill="none">
+    <line x1="860" y1="150" x2="980" y2="150"/>
+    <line x1="980" y1="150" x2="1100" y2="150"/>
+    <line x1="980" y1="150" x2="980" y2="80"/>
+    <line x1="860" y1="150" x2="860" y2="225"/>
+    <line x1="1100" y1="150" x2="1100" y2="225" stroke-dasharray="6 5"/>
+    <path d="M860 205 Q980 270 1100 205" stroke="#e6edf3" stroke-dasharray="8 6" stroke-width="2.2"/>
+  </g>
+  <circle cx="980" cy="70" r="16" fill="#0d1117" stroke="#e6edf3" stroke-width="2"/>
+  <text x="980" y="75" font-size="13" font-weight="700" fill="#e6edf3" text-anchor="middle">WAN</text>
+  <rect x="955" y="134" width="50" height="32" rx="8" fill="#1c2128" stroke="#8b949e" stroke-width="1.5"/>
+  <text x="980" y="155" font-size="12" font-weight="700" fill="#c9d1d9" text-anchor="middle">core</text>
+  <rect x="826" y="130" width="68" height="40" rx="9" fill="#e6edf3"/>
+  <text x="860" y="155" font-size="13" font-weight="800" fill="#0d1117" text-anchor="middle">FW-A</text>
+  <rect x="1066" y="130" width="68" height="40" rx="9" fill="#1c2128" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="1100" y="155" font-size="13" font-weight="800" fill="#8b949e" text-anchor="middle">FW-B</text>
+  <rect x="822" y="225" width="76" height="30" rx="8" fill="#161b22" stroke="#30363d"/>
+  <text x="860" y="245" font-size="12" font-weight="600" fill="#c9d1d9" text-anchor="middle">10.10.10/24</text>
+  <rect x="1062" y="225" width="76" height="30" rx="8" fill="#161b22" stroke="#30363d" stroke-dasharray="4 3"/>
+  <text x="1100" y="245" font-size="12" font-weight="600" fill="#8b949e" text-anchor="middle">10.20.20/24</text>
+  <text x="980" y="283" font-size="12.5" font-weight="700" fill="#e6edf3" text-anchor="middle">IPsec</text>
+
+  <!-- texte -->
+  <rect x="56" y="58" width="132" height="28" rx="14" fill="none" stroke="#8b949e" stroke-width="1.4"/>
+  <text x="122" y="77" font-size="13" font-weight="700" fill="#c9d1d9" text-anchor="middle" letter-spacing="1.5">HOMELAB</text>
+  <text x="56" y="148" font-size="56" font-weight="800" fill="#e6edf3">Mam III Jobb</text>
+  <text x="56" y="192" font-size="22" font-weight="500" fill="#c9d1d9">Ingénieur cybersécurité · sécurité réseau &amp; intégration</text>
+  <text x="56" y="236" font-size="17" font-weight="400" fill="#8b949e">Deux sites Proxmox · OPNsense · FortiGate · VPN IPsec · DNS · NAS</text>
+</svg>
