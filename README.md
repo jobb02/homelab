@@ -23,6 +23,7 @@ Chaque brique est documentée avec **le pourquoi des choix**, pas seulement le c
 
 ## Sommaire
 
+- [Pourquoi ce lab](#pourquoi-ce-lab)
 - [État du lab](#état-du-lab)
 - [Comment le lab a grandi](#comment-le-lab-a-grandi)
 - [Vue d'ensemble](#vue-densemble)
@@ -30,6 +31,22 @@ Chaque brique est documentée avec **le pourquoi des choix**, pas seulement le c
 - [Segmentation du lab](#segmentation-du-lab)
 - [Les briques](#les-briques)
 - [Feuille de route](#feuille-de-route)
+
+## Pourquoi ce lab
+
+Je me prépare à un poste d'**intégrateur sécurité réseau**. Ce lab me sert à reproduire, à petite échelle, ce qu'on demande chez un client : isoler un réseau à risque, relier deux sites équipés de pare-feux de constructeurs différents, sécuriser l'accès distant, puis vérifier depuis Kali que les règles tiennent vraiment.
+
+Chaque étape répond à un besoin de ce « client » fictif :
+
+| Besoin du client | Ce que je fais dans le lab | État |
+| --- | --- | --- |
+| « Ce réseau à risque ne doit pas toucher le reste » | Isolation du lab derrière OPNsense ([fiche 08](docs/08-filtrage-pare-feu.md)) | ✅ Fait |
+| « Il faut relier le siège et l'agence » | Tunnel IPsec entre OPNsense et FortiGate, deux constructeurs | 🔜 Prévu |
+| « Nos salariés télétravaillent » | VPN d'accès distant avec double authentification (FortiClient) | 🔜 Prévu |
+| « On veut contrôler l'usage du web » | Filtrage web et inspection SSL sur le FortiGate | 🔜 Prévu |
+| « Prouvez-moi que ça protège vraiment » | Attaques et scans depuis Kali, détection avec Suricata | 🔜 Prévu |
+
+Kali ne sert pas à faire du pentest : elle sert à tester mes propres règles du point de vue de l'attaquant.
 
 ## État du lab
 
