@@ -41,7 +41,8 @@ Chaque brique est documentée avec **le pourquoi des choix**, pas seulement le c
 | AdGuard Home + zone `home.arpa` | DNS filtrant et noms locaux | ✅ En place |
 | NAS Synology RAID 1 | Stockage, sauvegardes, instantanés | ✅ En place |
 | VPN WireGuard (Freebox) | Accès distant à l'administration | ✅ En place |
-| Règles de filtrage du lab | Lab → maison bloqué, accès admin limité | 🔜 Prévu |
+| Isolation du lab | Lab → maison bloqué (Reject), testé et vérifié dans les logs | ✅ En place |
+| Accès d'administration limité | Interface OPNsense joignable depuis le PC d'admin uniquement | 🔜 Prévu |
 | FortiGate (`fw-siteb`) | Pare-feu du site B | 🔜 Prévu |
 | Tunnel IPsec OPNsense ↔ FortiGate | Liaison site à site entre deux constructeurs | 🔜 Prévu |
 
@@ -123,7 +124,7 @@ Les VM de test (dont Kali) sont sur un réseau isolé (`vmbr1`), sans carte phys
 |---|---|---|---|
 | Internet / maison → pare-feu (WAN) | Bloqué par défaut, réseaux privés et bogons rejetés | ✅ En place | Une interface d'administration de pare-feu ne doit jamais être exposée côté WAN |
 | Lab → Internet | Autorisé (NAT) | ✅ En place | Mises à jour et téléchargement d'outils |
-| Lab → réseau maison | **Bloqué** | 🔜 À faire (la règle LAN par défaut d'OPNsense autorise encore tout) | Un scan ou un exploit lancé par erreur ne doit jamais toucher les appareils de la famille |
+| Lab → réseau maison | **Bloqué** (Reject vers l'alias `RES_MAISON`, placé avant l'autorisation générale) | ✅ En place ([détail](docs/08-filtrage-pare-feu.md)) | Un scan ou un exploit lancé par erreur ne doit jamais toucher les appareils de la famille |
 | PC d'admin → interface OPNsense | Autorisé depuis une seule IP, port 443 uniquement | 🔜 À faire | Administrer sans passer par la console, en limitant la source et le port |
 | Reste | Refusé par défaut | ✅ En place | Moindre privilège : tout ce qui n'est pas explicitement autorisé est interdit |
 
@@ -138,6 +139,7 @@ Les VM de test (dont Kali) sont sur un réseau isolé (`vmbr1`), sans carte phys
 | Stockage & sauvegarde | NAS Synology RAID 1 durci (2FA, comptes par défaut désactivés), instantanés Btrfs quotidiens, sauvegarde versionnée PC → NAS | [docs/05-stockage-sauvegarde.md](docs/05-stockage-sauvegarde.md) |
 | Déploiement applicatif (réalisé, conteneur retiré depuis) | Appli web Python en LXC, systemd, durcissement, Tailscale | [docs/06-deploiement-appli-web.md](docs/06-deploiement-appli-web.md) |
 | Identité cloud | Tenant de test Microsoft 365 / Entra ID | [docs/07-m365-entra-id.md](docs/07-m365-entra-id.md) |
+| Filtrage | Isolation du lab : alias, règle Reject, ordre des règles, tests et logs | [docs/08-filtrage-pare-feu.md](docs/08-filtrage-pare-feu.md) |
 
 ## Feuille de route
 
@@ -146,7 +148,8 @@ Priorité : tout ce qui tourne autour du pare-feu et de l'intégration sécurit�
 **Pare-feux et VPN**
 - [x] Pare-feu OPNsense (site A) : installation, interfaces WAN/LAN, DHCP du lab, mise à jour
 - [x] Intel NUC en « site B » : Proxmox VE installé et à jour (`pve-siteb`)
-- [ ] Règles de filtrage du lab : blocage lab → maison, accès d'administration limité au PC d'admin
+- [x] Isolation du lab : blocage lab → maison (Reject), testé et vérifié dans les logs
+- [ ] Accès d'administration à OPNsense limité au PC d'admin
 - [ ] FortiGate en VM sur le NUC (licence d'évaluation), réseau interne 10.20.20.0/24, préparation Fortinet NSE4
 - [ ] VPN IPsec site à site entre OPNsense (site A, 10.10.10.0/24) et FortiGate (site B, 10.20.20.0/24) : interopérabilité entre deux constructeurs, comme chez un client siège + agence
 - [ ] VPN d'accès distant pour les utilisateurs sur le FortiGate (FortiClient) avec double authentification : le télétravail d'un client, après la liaison entre ses sites
