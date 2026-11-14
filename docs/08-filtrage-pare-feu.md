@@ -10,22 +10,8 @@ Empêcher les machines du lab (Kali, Linux Lite) d'atteindre le réseau domestiq
 
 ## Architecture
 
-```
-                  Internet
-                     │
-              ┌──────┴──────┐
-              │   Freebox   │  NAT n°2
-              └──────┬──────┘
- ══════ Réseau maison 192.168.1.0/24 (vmbr0) ══════
-   PC admin · NAS · AdGuard (.53) · Proxmox (GUI)
-                     │
-              OPNsense WAN (192.168.1.x)
-              [ filtrage + NAT n°1 + suivi d'état ]
-              OPNsense LAN 10.10.10.1
-                     │
- ══════ Lab 10.10.10.0/24 (vmbr1, sans carte physique) ══════
-            Kali (101) · Linux Lite (103)
-```
+![Schéma du filtrage : le lab sort sur Internet, le réseau maison est bloqué](schema-filtrage.svg)
+
 
 - `vmbr1` n'est relié à aucune interface physique : la seule sortie du lab est OPNsense (passerelle par défaut `10.10.10.1`).
 - Le lab sort sur Internet via le NAT sortant d'OPNsense, puis le NAT de la Freebox (double NAT).
