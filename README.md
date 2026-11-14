@@ -34,11 +34,11 @@ Chaque brique est documentée avec **le pourquoi des choix**, pas seulement le c
 
 ## Pourquoi ce lab
 
-Je me prépare à un poste d'**intégrateur sécurité réseau**. Ce lab me sert à reproduire, à petite échelle, ce qu'on demande chez un client : isoler un réseau à risque, relier deux sites équipés de pare-feux de constructeurs différents, sécuriser l'accès distant, puis vérifier depuis Kali que les règles tiennent vraiment.
+Ce lab me sert à m'entraîner sur des cas concrets d'entreprise : isoler un réseau à risque, relier deux sites équipés de pare-feux de constructeurs différents, sécuriser l'accès distant, puis vérifier depuis Kali que les règles tiennent vraiment.
 
-Chaque étape répond à un besoin de ce « client » fictif :
+Chaque étape répond au besoin d'une entreprise fictive :
 
-| Besoin du client | Ce que je fais dans le lab | État |
+| Besoin de l'entreprise | Ce que je fais dans le lab | État |
 | --- | --- | --- |
 | « Ce réseau à risque ne doit pas toucher le reste » | Isolation du lab derrière OPNsense ([fiche 08](docs/08-filtrage-pare-feu.md)) | ✅ Fait |
 | « Il faut relier le siège et l'agence » | Tunnel IPsec entre OPNsense et FortiGate, deux constructeurs | 🔜 Prévu |
