@@ -48,7 +48,9 @@ Choix d'un alias manuel plutôt que l'alias automatique `__wan_network` : l'alia
 - **LAN in plutôt que WAN out** : on bloque au plus près de la source. Sur le WAN en sortie, le NAT a déjà remplacé l'adresse source, et une règle « source = LAN net » ne correspondrait plus.
 - **Ordre** : la règle est placée **au-dessus** de « Default allow LAN to any » (évaluation *first match*).
 
-### 3. Ordre final des règles LAN
+### 3. Ordre des règles LAN à la fin de ce chapitre
+
+État au 14 novembre. Les règles ont ensuite été passées en liste blanche : la version actuelle est dans la [fiche 10](10-liste-blanche.md).
 
 | # | Action | Source | Destination | Rôle |
 | --- | --- | --- | --- | --- |
@@ -70,6 +72,10 @@ Tests réalisés depuis Linux Lite (lab) :
 | `ip -6 addr` / `ip -6 route` | Pas d'IPv6 global | Uniquement `fe80::` et `::1`, pas de route par défaut |
 
 Logs : *Firewall → Log Files → Live View*, filtre `label contains isolation` → entrées `LAN / in / block` avec la description de la règle.
+
+![Live View : connexion de Kali vers l'hyperviseur bloquée par la règle d'isolation](captures/08-live-view-isolation.png)
+
+*Preuve dans les logs : Kali (`10.10.10.10`) tente de joindre l'interface web de l'hyperviseur (`192.168.1.100:443`) ; la connexion est bloquée par la règle « isolation lab → réseau maison » (ligne rouge, interface LAN, sens in).*
 
 ## Pièges rencontrés et corrections
 
@@ -97,11 +103,11 @@ Logs : *Firewall → Log Files → Live View*, filtre `label contains isolation`
 - **IPv6** : la règle ne couvre que l'IPv4. Si l'IPv6 est un jour activé sur le LAN, dupliquer la règle en IPv6.
 - **Table d'états** : une connexion déjà établie peut survivre à une nouvelle règle de blocage. Relancer les tests ou vider les états (*Firewall → Diagnostics → States*).
 - **Reject et ICMP** : Reject jette l'ICMP en silence. Le refus immédiat n'est visible qu'en TCP/UDP.
-- **Administration** : l'interface web d'OPNsense n'est pas exposée sur le WAN. Elle est administrée depuis le lab (`10.10.10.1`).
+- **Administration** : à la date de ce chapitre, l'interface web d'OPNsense n'était joignable que depuis le lab (`10.10.10.1`). Elle est depuis ouverte au seul PC d'admin, en HTTPS, côté WAN ([fiche 09](09-acces-admin.md)).
 
 ## Prochaines étapes
 
-- [ ] Passer en liste blanche (moindre privilège) : n'autoriser que DNS, HTTP et HTTPS depuis le lab
+- [x] Passer en liste blanche (moindre privilège) : fait, voir la [fiche 10](10-liste-blanche.md)
 - [ ] Déployer un FortiGate sur le site B (NUC, `pve-siteb`)
 - [ ] Tunnel IPsec OPNsense ↔ FortiGate
 - [ ] VPN utilisateurs + MFA (FortiClient)
