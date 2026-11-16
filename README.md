@@ -60,6 +60,7 @@ Kali ne sert pas à faire du pentest : elle sert à tester mes propres règles d
 | VPN WireGuard (Freebox) | Accès distant à l'administration | ✅ En place |
 | Isolation du lab | Lab → maison bloqué (Reject), testé et vérifié dans les logs | ✅ En place |
 | Accès d'administration limité | Interface OPNsense joignable depuis le PC d'admin uniquement (HTTPS) | ✅ En place |
+| Liste blanche sur le lab | Le lab ne sort que pour le web, le NTP, le ping et le DNS via OPNsense ; tout le reste est refusé et journalisé | ✅ En place |
 | FortiGate (`fw-siteb`) | Pare-feu du site B | 🔜 Prévu |
 | Tunnel IPsec OPNsense ↔ FortiGate | Liaison site à site entre deux constructeurs | 🔜 Prévu |
 
@@ -90,7 +91,7 @@ Les éléments en pointillés (FortiGate, lab du site B, tunnel IPsec) sont **pr
 | Réseau | Plage | Passerelle | Rôle |
 |---|---|---|---|
 | Maison (`vmbr0`) | 192.168.1.0/24 | Freebox 192.168.1.254 | Services, administration, appareils de la maison |
-| Lab site A (`vmbr1` de pve-sitea) | 10.10.10.0/24 | OPNsense 10.10.10.1 | VM de test isolées derrière le pare-feu. `.2–.99` : IP fixes · `.100–.200` : DHCP d'OPNsense |
+| Lab site A (`vmbr1` de pve-sitea) | 10.10.10.0/24 | OPNsense 10.10.10.1 | VM de test isolées derrière le pare-feu. `.2–.99` : IP fixes (Kali `.10`, Linux Lite `.11`, réservées dans Dnsmasq) · `.100–.200` : DHCP d'OPNsense |
 | Lab site B (NUC, prévu) | 10.20.20.0/24 | FortiGate 10.20.20.1 | Second site relié au lab par VPN IPsec |
 
 <details>
@@ -140,10 +141,10 @@ Les VM de test (dont Kali) sont sur un réseau isolé (`vmbr1`), sans carte phys
 | Flux | Règle | État | Pourquoi |
 |---|---|---|---|
 | Internet / maison → pare-feu (WAN) | Bloqué par défaut (deny implicite), bogons rejetés | ✅ En place | Une interface d'administration de pare-feu ne doit jamais être exposée côté WAN |
-| Lab → Internet | Autorisé (NAT) | ✅ En place | Mises à jour et téléchargement d'outils |
+| Lab → Internet | Liste blanche : web (80/443), NTP, ping ; DNS uniquement via OPNsense (NAT) | ✅ En place ([détail](docs/10-liste-blanche.md)) | Mises à jour et outils, sans ouvrir les autres ports à une VM compromise |
 | Lab → réseau maison | **Bloqué** (Reject vers l'alias `RES_MAISON`, placé avant l'autorisation générale) | ✅ En place ([détail](docs/08-filtrage-pare-feu.md)) | Un scan ou un exploit lancé par erreur ne doit jamais toucher les appareils de la famille |
 | PC d'admin → interface OPNsense | Autorisé depuis une seule IP (alias `PC_ADMIN`), TCP 443 uniquement | ✅ En place ([détail](docs/09-acces-admin.md)) | Administrer sans passer par la console, en limitant la source et le port |
-| Reste | Refusé par défaut | ✅ En place | Moindre privilège : tout ce qui n'est pas explicitement autorisé est interdit |
+| Reste | Refusé et journalisé (règle de nettoyage) | ✅ En place | Moindre privilège : tout ce qui n'est pas explicitement autorisé est interdit |
 
 ## Les briques
 
@@ -158,6 +159,7 @@ Les VM de test (dont Kali) sont sur un réseau isolé (`vmbr1`), sans carte phys
 | Identité cloud | Tenant de test Microsoft 365 / Entra ID | [docs/07-m365-entra-id.md](docs/07-m365-entra-id.md) |
 | Filtrage | Isolation du lab : alias, règle Reject, ordre des règles, tests et logs | [docs/08-filtrage-pare-feu.md](docs/08-filtrage-pare-feu.md) |
 | Accès d'administration | Interface d'OPNsense ouverte au seul PC d'admin, en HTTPS, depuis le WAN | [docs/09-acces-admin.md](docs/09-acces-admin.md) |
+| Liste blanche | Moindre privilège sur le lab : réservations DHCP, alias de ports, ordre des règles, règle de nettoyage | [docs/10-liste-blanche.md](docs/10-liste-blanche.md) |
 
 ## Feuille de route
 
@@ -168,7 +170,7 @@ Priorité : tout ce qui tourne autour du pare-feu et de l'intégration sécurit�
 - [x] Intel NUC en « site B » : Proxmox VE installé et à jour (`pve-siteb`)
 - [x] Isolation du lab : blocage lab → maison (Reject), testé et vérifié dans les logs
 - [x] Accès d'administration à OPNsense limité au PC d'admin (HTTPS uniquement)
-- [ ] Règles du lab en liste blanche (moindre privilège) : n'autoriser que DNS, HTTP et HTTPS
+- [x] Règles du lab en liste blanche (moindre privilège) : DNS via OPNsense, web, NTP, ping ; tout le reste refusé
 - [ ] FortiGate en VM sur le NUC (licence d'évaluation), réseau interne 10.20.20.0/24, préparation Fortinet NSE4
 - [ ] VPN IPsec site à site entre OPNsense (site A, 10.10.10.0/24) et FortiGate (site B, 10.20.20.0/24) : interopérabilité entre deux constructeurs, comme chez un client siège + agence
 - [ ] VPN d'accès distant pour les utilisateurs sur le FortiGate (FortiClient) avec double authentification : le télétravail d'un client, après la liaison entre ses sites
