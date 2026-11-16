@@ -43,28 +43,16 @@ Les VM affichent toujours `dynamic` dans `ip a` : l'adresse est obtenue par DHCP
 | 3 | Pass | TCP/UDP | LAN net | LAN address | 53 | DNS uniquement via OPNsense |
 | 4 | Reject | TCP/UDP | LAN net | any | 53 | Refus des DNS externes |
 | 5 | Reject | any | LAN net | RES_MAISON | — | Isolation du réseau maison |
-| 6 | Pass | TCP | LAN net | any | PORTS_WEB | Web vers Internet |
-| 7 | Pass | UDP | LAN net | any | 123 | Heure (NTP) |
-| 8 | Pass | ICMP (echo request) | LAN net | any | — | Ping de diagnostic |
+| 6 | Pass | UDP | LAN net | any | 123 | Heure (NTP) |
+| 7 | Pass | ICMP (echo request) | LAN net | any | — | Ping de diagnostic |
+| 8 | Pass | TCP | LAN net | any | PORTS_WEB | Web vers Internet |
 | 9 | Reject + log | any | LAN net | any | — | Nettoyage : tout le reste est refusé |
 
 ### Le trajet d'un paquet dans ces règles
 
 Le premier test qui répond « oui » décide : les règles en dessous ne sont jamais lues (*first match*).
 
-```mermaid
-flowchart TD
-    P["Paquet qui sort d'une VM du lab<br>(entrée sur l'interface LAN)"] --> E{"Règles 1-2<br>Exception précise ?"}
-    E -- "oui : Kali → Freebox (ping)<br>ou Linux Lite → DSM (5001)" --> OK1["✅ Pass"]
-    E -- non --> D{"Règles 3-4<br>Requête DNS (port 53) ?"}
-    D -- "vers OPNsense" --> OK2["✅ Pass"]
-    D -- "vers un autre serveur" --> R1["⛔ Reject"]
-    D -- non --> M{"Règle 5<br>Vers le réseau maison ?"}
-    M -- oui --> R2["⛔ Reject"]
-    M -- non --> W{"Règles 6-8<br>Web, NTP ou ping ?"}
-    W -- oui --> OK3["✅ Pass"]
-    W -- non --> N["⛔ Règle 9 : Reject + log<br>(visible dans la Live View)"]
-```
+![Schéma des règles LAN de la liste blanche](schema-liste-blanche.svg)
 
 Les règles « Default allow LAN to any » (IPv4 et IPv6) sont **désactivées**, pas supprimées.
 
@@ -72,7 +60,7 @@ Les règles « Default allow LAN to any » (IPv4 et IPv6) sont **désactivées**
 
 **Choix techniques :**
 
-- **Règle 5 au-dessus de la règle 6** : « any » inclut la maison (Freebox, NAS). Sans le Reject placé avant, l'ouverture du web rouvrirait le web vers le réseau domestique.
+- **Règle 5 au-dessus des règles 6 à 8** : « any » inclut la maison (Freebox, NAS). Sans le Reject placé avant, les ouvertures (NTP, ping, web) rouvriraient ces flux vers le réseau domestique. Entre elles, les règles 6 à 8 peuvent être dans n'importe quel ordre : elles ne se chevauchent pas.
 - **Règle de nettoyage explicite** : le deny implicite bloquerait déjà, mais sans log. Le nettoyage rend chaque refus visible dans la Live View.
 - **Interface = LAN** sur toutes les règles : une règle avec interface « any » devient flottante et serait évaluée avant les règles d'interface.
 - **Reject** en interne : refus immédiat, diagnostic plus rapide.
