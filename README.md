@@ -41,9 +41,11 @@ Chaque étape répond au besoin d'une entreprise fictive :
 | --- | --- | --- |
 | « Ce réseau à risque ne doit pas toucher le reste » | Isolation du lab derrière OPNsense ([fiche 08](docs/08-filtrage-pare-feu.md)) | ✅ Fait |
 | « Il faut relier le siège et l'agence » | Tunnel IPsec entre OPNsense et FortiGate, deux constructeurs | 🔜 Prévu |
-| « Nos salariés télétravaillent » | VPN d'accès distant avec double authentification (FortiClient) | 🔜 Prévu |
-| « On veut contrôler l'usage du web » | Filtrage web et inspection SSL sur le FortiGate | 🔜 Prévu |
+| « Nos salariés télétravaillent » | VPN d'accès distant avec double authentification (FortiClient) | ⚠️ Limité par la licence d'évaluation (VPN SSL impossible, IPsec à tester) |
+| « On veut contrôler l'usage du web » | Filtrage web et inspection SSL sur le FortiGate | ⛔ Impossible en licence d'évaluation (chiffrement fort requis) |
 | « Prouvez-moi que ça protège vraiment » | Attaques et scans depuis Kali, détection avec Suricata | 🔜 Prévu |
+
+La licence d'évaluation gratuite du FortiGate n'autorise que le chiffrement DES et limite la VM à 3 interfaces, 3 règles et 3 routes. Les besoins qu'elle ne permet pas de couvrir sont marqués comme tels plutôt que retirés : chez un client, la licence payante lève ces limites.
 
 Kali ne sert pas à faire du pentest : elle sert à tester mes propres règles du point de vue de l'attaquant.
 
@@ -151,10 +153,10 @@ Chaque étape est documentée dans `docs/`, avec ce qui a coincé et comment je 
 Priorité : tout ce qui tourne autour du pare-feu et de l'intégration sécurité réseau. Ce qui est déjà fait est dans [État du lab](#état-du-lab).
 
 **Pare-feux et VPN**
-- [ ] FortiGate en VM sur le NUC (licence d'évaluation), réseau interne 10.20.20.0/24, préparation Fortinet NSE4
-- [ ] VPN IPsec site à site entre OPNsense (site A, 10.10.10.0/24) et FortiGate (site B, 10.20.20.0/24) : interopérabilité entre deux constructeurs, comme chez un client siège + agence
-- [ ] VPN d'accès distant pour les utilisateurs sur le FortiGate (FortiClient) avec double authentification : le télétravail d'un client, après la liaison entre ses sites
-- [ ] Filtrage web et inspection SSL sur le FortiGate : autorité de certification interne déployée sur les postes, gestion des exceptions pour les sites qui cassent
+- [ ] FortiGate en VM sur le NUC (licence d'évaluation), réseau interne 10.20.20.0/24
+- [ ] VPN IPsec site à site entre OPNsense (site A, 10.10.10.0/24) et FortiGate (site B, 10.20.20.0/24) : interopérabilité entre deux constructeurs, comme chez un client siège + agence. À tester : la licence d'évaluation n'offre que DES ou une protection sans chiffrement (intégrité seule), alors qu'OPNsense ne gère plus DES
+- [ ] VPN d'accès distant pour les utilisateurs sur le FortiGate (FortiClient) avec double authentification : le télétravail d'un client, après la liaison entre ses sites. ⚠️ Licence d'évaluation : VPN SSL impossible, IPsec en DES à tester
+- ⛔ Filtrage web et inspection SSL sur le FortiGate : **impossible en licence d'évaluation**, qui ne gère pas le chiffrement fort nécessaire à l'inspection SSL. À réaliser avec une licence complète (autorité de certification interne déployée sur les postes, gestion des exceptions pour les sites qui cassent)
 
 **Détection et vulnérabilités**
 - [ ] IDS/IPS Suricata sur OPNsense, testé avec des scans et attaques depuis Kali
