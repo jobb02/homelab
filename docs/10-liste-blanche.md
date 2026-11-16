@@ -48,6 +48,24 @@ Les VM affichent toujours `dynamic` dans `ip a` : l'adresse est obtenue par DHCP
 | 8 | Pass | ICMP (echo request) | LAN net | any | — | Ping de diagnostic |
 | 9 | Reject + log | any | LAN net | any | — | Nettoyage : tout le reste est refusé |
 
+### Le trajet d'un paquet dans ces règles
+
+Le premier test qui répond « oui » décide : les règles en dessous ne sont jamais lues (*first match*).
+
+```mermaid
+flowchart TD
+    P["Paquet qui sort d'une VM du lab<br>(entrée sur l'interface LAN)"] --> E{"Règles 1-2<br>Exception précise ?"}
+    E -- "oui : Kali → Freebox (ping)<br>ou Linux Lite → DSM (5001)" --> OK1["✅ Pass"]
+    E -- non --> D{"Règles 3-4<br>Requête DNS (port 53) ?"}
+    D -- "vers OPNsense" --> OK2["✅ Pass"]
+    D -- "vers un autre serveur" --> R1["⛔ Reject"]
+    D -- non --> M{"Règle 5<br>Vers le réseau maison ?"}
+    M -- oui --> R2["⛔ Reject"]
+    M -- non --> W{"Règles 6-8<br>Web, NTP ou ping ?"}
+    W -- oui --> OK3["✅ Pass"]
+    W -- non --> N["⛔ Règle 9 : Reject + log<br>(visible dans la Live View)"]
+```
+
 Les règles « Default allow LAN to any » (IPv4 et IPv6) sont **désactivées**, pas supprimées.
 
 **Logique d'ordre :** exceptions précises → interdictions qui protègent → ouvertures générales → nettoyage.
