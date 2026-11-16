@@ -32,8 +32,8 @@ Au premier démarrage, OPNsense a placé son **LAN sur la première carte** (`vt
 - Correction : réassignation en console (WAN = `vtnet0`, LAN = `vtnet1`), identification des cartes par leur adresse MAC, puis adressage du LAN en 10.10.10.1/24, et seulement ensuite reconnexion du WAN.
 
 ### Autres points vérifiés
-- **Plage DHCP** : l'assistant web a remplacé la plage définie en console par la sienne (`.41–.245`). Elle est ramenée à `.100–.200` pour réserver `.2–.99` aux IP fixes, sans chevauchement possible. Leçon : vérifier ce qu'un assistant a écrasé.
-- **WAN** : trafic entrant bloqué par défaut, « Block private networks » et « Block bogon networks » activés. Conséquence voulue : l'interface d'administration n'est joignable que depuis le lab.
+- **Plage DHCP** : l'assistant web a remplacé la plage définie en console par la sienne (`.41–.245`). Décision : la ramener à `.100–.200` pour réserver `.2–.99` aux IP fixes. **Correction du 16 novembre** : cette modification n'avait en réalité pas été appliquée. Le serveur DHCP du lab (Dnsmasq) distribuait toujours `.41–.245` (Linux Lite avait reçu `.82`). Écart détecté en lisant la page des baux, plage corrigée puis vérifiée (Linux Lite passée en `.139`). Leçons : vérifier ce qu'un assistant a écrasé, et vérifier qu'une modification est réellement active dans le service, pas seulement notée dans la documentation.
+- **WAN** : trafic entrant bloqué par défaut, « Block private networks » et « Block bogon networks » activés. Conséquence voulue : l'interface d'administration n'est joignable que depuis le lab. *Mise à jour du 14 novembre : « Block private networks » est désactivé et l'interface est ouverte au seul PC d'admin, en HTTPS (voir [09-acces-admin.md](09-acces-admin.md)).*
 - **Certificat de l'interface web** : auto-signé ; empreinte SHA-256 comparée entre la console et le navigateur avant de l'accepter.
 
 ## Prochaine étape
