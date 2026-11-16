@@ -19,6 +19,8 @@ Le DHCP du lab est assuré par **Dnsmasq** (Kea est installé mais inactif). La 
 | Kali | `10.10.10.10` (réservation Dnsmasq par adresse MAC) |
 | Linux Lite | `10.10.10.11` (réservation Dnsmasq par adresse MAC) |
 
+**Pourquoi des IP fixes :** les règles s'appuient sur des alias (`KALI`, `LINUX_LITE`) qui contiennent une adresse IP. Si une VM change d'adresse au renouvellement de son bail DHCP, l'alias pointe vers une adresse qui n'est plus la sienne : la règle ne s'applique plus à la bonne machine, voire s'applique à une autre. Chaque machine visée par une règle reçoit donc une réservation DHCP.
+
 Les VM affichent toujours `dynamic` dans `ip a` : l'adresse est obtenue par DHCP, mais le serveur donne toujours la même. La réservation se vérifie côté serveur (bail de type *static*).
 
 ## Alias
@@ -71,6 +73,32 @@ Les règles « Default allow LAN to any » (IPv4 et IPv6) sont **désactivées**
 | Kali | `timedatectl` | Horloge synchronisée |
 | Linux Lite | Interface DSM (5001) | OK |
 | Linux Lite | `ping 192.168.1.254` | Refusé |
+
+## Pièges rencontrés et corrections
+
+### Réservation créée dans le mauvais service
+- **Constat** : la page *Reservations* de Kea était vide, et la page des baux de Kea aussi, alors que les VM avaient bien une adresse.
+- **Cause** : Kea est installé mais inactif ; c'est Dnsmasq qui distribue les adresses du lab (Kali visible dans les baux de Dnsmasq).
+- **Leçon** : vérifier quel service tourne réellement avant de le configurer. Jamais deux serveurs DHCP actifs sur un même réseau.
+
+### Plage DHCP différente de la documentation
+- **Constat** : Linux Lite avait reçu `.82`, alors que la documentation annonçait `.100–.200`.
+- **Cause** : la plage réelle était `.41–.245` (valeur par défaut) ; la correction notée dans la fiche 02 n'avait pas été appliquée.
+- **Correction** : plage ramenée à `.100–.200` et vérifiée (Linux Lite passée en `.139`), puis réservations en `.10` et `.11`, hors de la plage dynamique.
+
+### Erreurs d'écriture de règles, détectées et corrigées
+- **Destination « WAN address » au lieu de la Freebox** : les alias automatiques désignent le pare-feu ou ses réseaux, jamais un autre appareil. Alias `FREEBOX` créé.
+- **Exception placée sous le Reject vers la maison** : jamais lue (*first match*). Remontée au-dessus.
+- **UDP au lieu de TCP pour DSM, port source renseigné** : HTTPS fonctionne en TCP, et le port source est tiré au hasard par le client : il reste sur *any*.
+- **Règles créées avec l'interface « any »** : elles deviennent flottantes et sont évaluées avant les règles d'interface (une ouverture du web aurait contourné l'isolation de la maison). Repassées sur LAN.
+- **Règles d'ouverture créées en bas de liste**, sous la règle de nettoyage : jamais lues. Déplacées au-dessus.
+- **Règles DNS sans port et refus visant la Freebox** : corrigées en port 53 et destination *any*.
+
+### Accès DSM instable pendant les tests
+- **Constat** : l'accès fonctionnait puis était bloqué par le Reject vers la maison ; selon les essais (port de destination vide, 443, 5001), le résultat changeait d'une fois à l'autre.
+- **Diagnostic** : lecture de la ligne bloquée dans la Live View et comparaison, champ par champ, avec la règle. DSM écoute en HTTPS sur le port 5001, pas sur 443.
+- **Explication probable des résultats incohérents** : des connexions déjà ouvertes restent dans la table d'états et continuent de passer après une modification de règle, ce qui fausse les tests successifs.
+- **Correction** : port de destination 5001, port source *any*. Leçon : couper les connexions en cours (ou vider les états) entre deux tests.
 
 ## Limites connues
 
