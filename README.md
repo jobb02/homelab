@@ -24,12 +24,11 @@ Chaque brique est documentée avec **le pourquoi des choix**, pas seulement le c
 ## Sommaire
 
 - [Pourquoi ce lab](#pourquoi-ce-lab)
-- [État du lab](#état-du-lab)
-- [Comment le lab a grandi](#comment-le-lab-a-grandi)
 - [Vue d'ensemble](#vue-densemble)
+- [État du lab](#état-du-lab)
 - [Plan d'adressage](#plan-dadressage)
 - [Segmentation du lab](#segmentation-du-lab)
-- [Les briques](#les-briques)
+- [Comment le lab a grandi](#comment-le-lab-a-grandi)
 - [Feuille de route](#feuille-de-route)
 
 ## Pourquoi ce lab
@@ -48,36 +47,6 @@ Chaque étape répond au besoin d'une entreprise fictive :
 
 Kali ne sert pas à faire du pentest : elle sert à tester mes propres règles du point de vue de l'attaquant.
 
-## État du lab
-
-| Brique | Rôle | État |
-|---|---|---|
-| Proxmox VE · site A (`pve-sitea`) | Hyperviseur : services et lab isolé | ✅ En place |
-| OPNsense (`fw-sitea`) | Pare-feu du lab, DHCP, NAT | ✅ En place |
-| Proxmox VE · site B (`pve-siteb`) | Hyperviseur du second site | ✅ En place |
-| AdGuard Home + zone `home.arpa` | DNS filtrant et noms locaux | ✅ En place |
-| NAS Synology RAID 1 | Stockage, sauvegardes, instantanés | ✅ En place |
-| VPN WireGuard (Freebox) | Accès distant à l'administration | ✅ En place |
-| Isolation du lab | Lab → maison bloqué (Reject), testé et vérifié dans les logs | ✅ En place |
-| Accès d'administration limité | Interface OPNsense joignable depuis le PC d'admin uniquement (HTTPS) | ✅ En place |
-| Liste blanche sur le lab | Le lab ne sort que pour le web, le NTP, le ping et le DNS via OPNsense ; tout le reste est refusé et journalisé | ✅ En place |
-| FortiGate (`fw-siteb`) | Pare-feu du site B | 🔜 Prévu |
-| Tunnel IPsec OPNsense ↔ FortiGate | Liaison site à site entre deux constructeurs | 🔜 Prévu |
-
-## Comment le lab a grandi
-
-Je n'ai rien acheté d'un coup : chaque brique est arrivée quand j'en ai eu besoin.
-
-1. **VirtualBox sur mon PC perso**, pour mes premières VM de test.
-2. **Un PC Acer sous Proxmox VE**, pour sortir les VM de mon poste et les faire tourner en continu : Kali et plusieurs petites machines de test.
-3. **Un NAS Synology en RAID 1**, pour rassembler toutes mes données en local et arrêter de payer des abonnements cloud de plus en plus chers (iCloud, Google Photos, Google Drive). Mes photos remontent au collège, l'offre gratuite de Google s'arrête à 15 Go, et le disque de 512 Go de mon PC ne suffira pas à tout garder. Les photos et les fichiers du PC se synchronisent maintenant sur le NAS, qui héberge aussi la zone DNS locale `home.arpa`. Étape suivante : une copie hors site, pour respecter la règle 3-2-1.
-4. **Un switch manageable Omada** : le lab est dans ma chambre, branché sur un répéteur Freebox qui n'a qu'un seul port Ethernet, pour quatre machines (NAS, deux hyperviseurs, PC d'administration). Comme le répéteur fait partie du réseau mesh de la box, tout ce qui est branché sur le switch est sur le même réseau que la Freebox. Le switch est piloté par son contrôleur installé dans un conteneur.
-5. **Un DNS filtrant** : AdGuard Home en conteneur, qui transmet les noms `home.arpa` au NAS et chiffre le reste en DNS over HTTPS.
-6. **Un pare-feu OPNsense** : jusque-là, Kali était sur le même réseau que les appareils de la maison. Le lab est maintenant isolé, et sa seule sortie passe par le pare-feu.
-7. **Un deuxième site** : un Intel NUC sous Proxmox, qui accueillera un FortiGate. Prochaine étape, relier les deux labs par un tunnel IPsec, comme un siège et une agence chez un client.
-
-Chaque étape est documentée dans `docs/`, avec ce qui a coincé et comment je l'ai réglé.
-
 ## Vue d'ensemble
 
 ![Schéma du homelab](docs/schema-homelab.svg)
@@ -86,7 +55,24 @@ Les éléments en pointillés (FortiGate, lab du site B, tunnel IPsec) sont **pr
 
 **Chemin d'une requête DNS** : le PC et les deux hyperviseurs interrogent AdGuard ; si le nom se termine par `home.arpa`, AdGuard transmet au NAS (serveur de la zone locale) ; sinon, il interroge Cloudflare ou Quad9 en DNS over HTTPS (requête chiffrée, invisible pour la box et le FAI). Détail dans [docs/03-dns.md](docs/03-dns.md).
 
-### Plan d'adressage
+## État du lab
+
+| Brique | Ce qui tourne | État | Doc |
+|---|---|---|---|
+| Virtualisation | Deux hyperviseurs Proxmox VE : `pve-sitea` (PC Acer) et `pve-siteb` (Intel NUC), VM et conteneurs LXC | ✅ | [fiche 01](docs/01-virtualisation.md) |
+| Réseau | Switch Omada et son contrôleur en LXC, pare-feu OPNsense (`fw-sitea`) : DHCP et NAT du lab, IPv6 maîtrisé (SLAAC désactivé) | ✅ | [fiche 02](docs/02-reseau.md) |
+| DNS | AdGuard Home (filtrage, DNS over HTTPS) et zone locale `home.arpa` sur le Synology | ✅ | [fiche 03](docs/03-dns.md) |
+| Accès distant | VPN WireGuard (Freebox) pour l'administration | ✅ | [fiche 04](docs/04-acces-distant.md) |
+| Stockage et sauvegarde | NAS Synology RAID 1 durci (2FA, comptes par défaut désactivés), instantanés Btrfs quotidiens, sauvegarde versionnée PC → NAS | ✅ | [fiche 05](docs/05-stockage-sauvegarde.md) |
+| Déploiement applicatif | Appli web Python en LXC, systemd, durcissement, Tailscale | ✅ Réalisé, conteneur retiré depuis | [fiche 06](docs/06-deploiement-appli-web.md) |
+| Identité cloud | Tenant de test Microsoft 365 / Entra ID | 🧪 Test | [fiche 07](docs/07-m365-entra-id.md) |
+| Isolation du lab | Lab → maison refusé (Reject), testé et vérifié dans les logs | ✅ | [fiche 08](docs/08-filtrage-pare-feu.md) |
+| Accès d'administration | Interface d'OPNsense joignable depuis le seul PC d'admin, en HTTPS | ✅ | [fiche 09](docs/09-acces-admin.md) |
+| Liste blanche | Le lab ne sort que pour le web, le NTP, le ping et le DNS via OPNsense ; tout le reste est refusé et journalisé | ✅ | [fiche 10](docs/10-liste-blanche.md) |
+| Pare-feu du site B | FortiGate (`fw-siteb`) en VM sur le NUC | 🔜 Prévu | — |
+| Liaison entre les sites | Tunnel IPsec OPNsense ↔ FortiGate, deux constructeurs | 🔜 Prévu | — |
+
+## Plan d'adressage
 
 | Réseau | Plage | Passerelle | Rôle |
 |---|---|---|---|
@@ -134,43 +120,37 @@ Le nœud Proxmox du site A s'appelle encore `proxmox` en interne : son renommage
 
 </details>
 
-### Segmentation du lab
+## Segmentation du lab
 
 Les VM de test (dont Kali) sont sur un réseau isolé (`vmbr1`), sans carte physique : la seule sortie passe par le pare-feu OPNsense. Preuve concrète : un `ping 1.1.1.1` depuis Kali revient avec un TTL inférieur de 1 à celui obtenu depuis OPNsense — un routeur de plus sur le chemin, le pare-feu.
 
-| Flux | Règle | État | Pourquoi |
+| Flux | Règle | Détail | Pourquoi |
 |---|---|---|---|
-| Internet / maison → pare-feu (WAN) | Bloqué par défaut (deny implicite), bogons rejetés | ✅ En place | Une interface d'administration de pare-feu ne doit jamais être exposée côté WAN |
-| Lab → Internet | Liste blanche : web (80/443), NTP, ping ; DNS uniquement via OPNsense (NAT) | ✅ En place ([détail](docs/10-liste-blanche.md)) | Mises à jour et outils, sans ouvrir les autres ports à une VM compromise |
-| Lab → réseau maison | **Bloqué** (Reject vers l'alias `RES_MAISON`, placé avant l'autorisation générale) | ✅ En place ([détail](docs/08-filtrage-pare-feu.md)) | Un scan ou un exploit lancé par erreur ne doit jamais toucher les appareils de la famille |
-| PC d'admin → interface OPNsense | Autorisé depuis une seule IP (alias `PC_ADMIN`), TCP 443 uniquement | ✅ En place ([détail](docs/09-acces-admin.md)) | Administrer sans passer par la console, en limitant la source et le port |
-| Reste | Refusé et journalisé (règle de nettoyage) | ✅ En place | Moindre privilège : tout ce qui n'est pas explicitement autorisé est interdit |
+| Internet / maison → pare-feu (WAN) | Bloqué par défaut (deny implicite), bogons rejetés | — | Une interface d'administration de pare-feu ne doit jamais être exposée côté WAN |
+| Lab → Internet | Liste blanche : web (80/443), NTP, ping ; DNS uniquement via OPNsense (NAT) | [détail](docs/10-liste-blanche.md) | Mises à jour et outils, sans ouvrir les autres ports à une VM compromise |
+| Lab → réseau maison | **Bloqué** (Reject vers l'alias `RES_MAISON`, placé avant l'autorisation générale) | [détail](docs/08-filtrage-pare-feu.md) | Un scan ou un exploit lancé par erreur ne doit jamais toucher les appareils de la famille |
+| PC d'admin → interface OPNsense | Autorisé depuis une seule IP (alias `PC_ADMIN`), TCP 443 uniquement | [détail](docs/09-acces-admin.md) | Administrer sans passer par la console, en limitant la source et le port |
+| Reste | Refusé et journalisé (règle de nettoyage) | — | Moindre privilège : tout ce qui n'est pas explicitement autorisé est interdit |
 
-## Les briques
+## Comment le lab a grandi
 
-| Domaine | Ce qui tourne | Doc |
-|---|---|---|
-| Virtualisation | Deux hyperviseurs Proxmox VE indépendants (site A et site B), VM + conteneurs LXC | [docs/01-virtualisation.md](docs/01-virtualisation.md) |
-| Réseau | Switch Omada + contrôleur en LXC, pare-feu OPNsense, lab isolé, réservations DHCP, IPv6 maîtrisé (SLAAC désactivé) | [docs/02-reseau.md](docs/02-reseau.md) |
-| DNS | Zone locale `home.arpa` sur Synology + filtrage AdGuard Home | [docs/03-dns.md](docs/03-dns.md) |
-| Accès distant | VPN WireGuard (Freebox) | [docs/04-acces-distant.md](docs/04-acces-distant.md) |
-| Stockage & sauvegarde | NAS Synology RAID 1 durci (2FA, comptes par défaut désactivés), instantanés Btrfs quotidiens, sauvegarde versionnée PC → NAS | [docs/05-stockage-sauvegarde.md](docs/05-stockage-sauvegarde.md) |
-| Déploiement applicatif (réalisé, conteneur retiré depuis) | Appli web Python en LXC, systemd, durcissement, Tailscale | [docs/06-deploiement-appli-web.md](docs/06-deploiement-appli-web.md) |
-| Identité cloud | Tenant de test Microsoft 365 / Entra ID | [docs/07-m365-entra-id.md](docs/07-m365-entra-id.md) |
-| Filtrage | Isolation du lab : alias, règle Reject, ordre des règles, tests et logs | [docs/08-filtrage-pare-feu.md](docs/08-filtrage-pare-feu.md) |
-| Accès d'administration | Interface d'OPNsense ouverte au seul PC d'admin, en HTTPS, depuis le WAN | [docs/09-acces-admin.md](docs/09-acces-admin.md) |
-| Liste blanche | Moindre privilège sur le lab : réservations DHCP, alias de ports, ordre des règles, règle de nettoyage | [docs/10-liste-blanche.md](docs/10-liste-blanche.md) |
+Je n'ai rien acheté d'un coup : chaque brique est arrivée quand j'en ai eu besoin.
+
+1. **VirtualBox sur mon PC perso**, pour mes premières VM de test.
+2. **Un PC Acer sous Proxmox VE**, pour faire tourner les VM en continu (Kali et quelques machines de test).
+3. **Un NAS Synology en RAID 1**, pour rapatrier mes données en local plutôt que de payer des abonnements cloud de plus en plus chers. Il héberge aussi la zone DNS locale `home.arpa`. Étape suivante : une copie hors site (règle 3-2-1).
+4. **Un switch manageable Omada** : le lab est branché sur un répéteur Freebox qui n'a qu'un port Ethernet, pour quatre machines. Le switch est piloté par son contrôleur, installé dans un conteneur.
+5. **Un DNS filtrant** : AdGuard Home en conteneur, qui transmet les noms `home.arpa` au NAS et chiffre le reste en DNS over HTTPS.
+6. **Un pare-feu OPNsense** : jusque-là, Kali était sur le même réseau que les appareils de la maison. Le lab est maintenant isolé, et sa seule sortie passe par le pare-feu.
+7. **Un deuxième site** : un Intel NUC sous Proxmox, qui accueillera un FortiGate. Prochaine étape, relier les deux labs par un tunnel IPsec, comme un siège et une agence chez un client.
+
+Chaque étape est documentée dans `docs/`, avec ce qui a coincé et comment je l'ai réglé.
 
 ## Feuille de route
 
-Priorité : tout ce qui tourne autour du pare-feu et de l'intégration sécurité réseau.
+Priorité : tout ce qui tourne autour du pare-feu et de l'intégration sécurité réseau. Ce qui est déjà fait est dans [État du lab](#état-du-lab).
 
 **Pare-feux et VPN**
-- [x] Pare-feu OPNsense (site A) : installation, interfaces WAN/LAN, DHCP du lab, mise à jour
-- [x] Intel NUC en « site B » : Proxmox VE installé et à jour (`pve-siteb`)
-- [x] Isolation du lab : blocage lab → maison (Reject), testé et vérifié dans les logs
-- [x] Accès d'administration à OPNsense limité au PC d'admin (HTTPS uniquement)
-- [x] Règles du lab en liste blanche (moindre privilège) : DNS via OPNsense, web, NTP, ping ; tout le reste refusé
 - [ ] FortiGate en VM sur le NUC (licence d'évaluation), réseau interne 10.20.20.0/24, préparation Fortinet NSE4
 - [ ] VPN IPsec site à site entre OPNsense (site A, 10.10.10.0/24) et FortiGate (site B, 10.20.20.0/24) : interopérabilité entre deux constructeurs, comme chez un client siège + agence
 - [ ] VPN d'accès distant pour les utilisateurs sur le FortiGate (FortiClient) avec double authentification : le télétravail d'un client, après la liaison entre ses sites
