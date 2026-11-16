@@ -71,6 +71,27 @@ Tests réalisés depuis Linux Lite (lab) :
 
 Logs : *Firewall → Log Files → Live View*, filtre `label contains isolation` → entrées `LAN / in / block` avec la description de la règle.
 
+## Pièges rencontrés et corrections
+
+### L'alias rempli par l'autocomplétion
+- **Constat** : en saisissant le contenu de `RES_MAISON`, la liste déroulante a sélectionné `__lan_network` (le réseau du lab lui-même), puis `__wan_network`.
+- **Risque** : avec `__lan_network`, la règle serait devenue « lab → lab ». Elle n'aurait rien bloqué, et l'isolation aurait semblé en place sans l'être.
+- **Correction** : saisie en mode *Text* (sans autocomplétion), puis vérification du contenu dans la liste des alias. Alias manuel préféré à `__wan_network`, qui changerait de valeur si l'adressage du WAN évoluait.
+
+### L'adresse WAN du pare-feu
+- **Constat** : tentative d'accès à l'interface d'OPNsense sur `192.168.1.129` : la page tournait dans le vide.
+- **Cause** : l'adresse WAN réelle est `192.168.1.29`, vérifiée dans *Interfaces → Overview*.
+- **Leçon** : vérifier une adresse à la source plutôt que de mémoire.
+
+### Le ping « ignoré » malgré l'action Reject
+- **Constat** : le ping vers la Freebox restait sans réponse, au lieu d'un refus immédiat.
+- **Explication** : Reject renvoie un RST en TCP et un ICMP *unreachable* en UDP, mais jette l'ICMP en silence.
+- **Validation** : test en TCP (`curl`), refusé en moins d'une milliseconde.
+
+### Une Live View noyée par le bruit
+- **Constat** : le trafic du pare-feu lui-même (DNS, NTP) et le multicast de la maison masquaient les lignes utiles.
+- **Correction** : filtre sur le label de la règle (`label contains isolation`).
+
 ## Points d'attention
 
 - **IPv6** : la règle ne couvre que l'IPv4. Si l'IPv6 est un jour activé sur le LAN, dupliquer la règle en IPv6.
