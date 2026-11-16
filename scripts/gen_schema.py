@@ -131,8 +131,8 @@ line([(cx,AY+408),(cx,FY)],sw=2.8); t(cx+12,AY+444,"WAN 192.168.1.29",15.5,600,L
 card(AX+40,FY,AW-80,128,"PARE-FEU","fw-sitea · OPNsense","VM 104",sub2="LAN 10.10.10.1",dark=True)
 line([(cx,FY+128),(cx,AY+656)],sw=2.8)
 rect(AX+16,AY+656,AW-32,288,BAND,BORDER); t(AX+32,AY+682,"vmbr1 · lab isolé · 10.10.10.0/24",16.5,700,LINE)
-card(AX+32,AY+696,AW-64,108,"VM 101","Kali Linux","DHCP .100 – .200")
-card(AX+32,AY+816,AW-64,108,"VM 103","Linux Lite","DHCP .100 – .200")
+card(AX+32,AY+696,AW-64,108,"VM 101","Kali Linux","IP réservée .10")
+card(AX+32,AY+816,AW-64,108,"VM 103","Linux Lite","IP réservée .11")
 
 # site B
 BX=910
