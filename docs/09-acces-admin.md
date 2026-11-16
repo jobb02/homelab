@@ -72,6 +72,17 @@ Type **Host(s)** : une seule machine (et non Network(s), une plage).
 
 L'IP 192.168.1.200 a été rapprochée de l'appareil réel via l'inventaire de la Freebox.
 
+## Pièges rencontrés et corrections
+
+### Une première règle trop large
+- **Constat** : la première version de la règle utilisait le protocole *any*, le port *any* et une destination saisie à la main (`192.168.1.29`), sans description.
+- **Risque** : tous les services du pare-feu (SSH, DNS…) étaient ouverts au PC d'admin, pas seulement l'interface web. Une IP saisie à la main deviendrait fausse si l'adresse du WAN changeait.
+- **Correction** : TCP et port 443 uniquement, destination *WAN address* (alias automatique qui suit l'adresse du WAN), description renseignée. Le champ port n'existe qu'avec TCP ou UDP.
+
+### Décocher une protection n'ouvre rien
+- **Constat** : après avoir décoché *Block private networks*, le multicast de la maison apparaît désormais en refus « Default deny » dans la Live View.
+- **Leçon** : retirer une protection automatique n'ouvre aucun accès. Seule une règle Pass ouvre ; le deny implicite refuse tout le reste.
+
 ## Points d'attention
 
 - **Certificat auto-signé** : l'avertissement du navigateur est attendu. Piste d'amélioration : certificat émis par une autorité interne.
