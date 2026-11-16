@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1108" width="1400" height="1108" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs><marker id="aw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#e6e8eb"/></marker></defs>
+  <rect width="1400" height="1108" fill="#16181c"/>
+  <line x1="100" y1="162" x2="100" y2="1016" stroke="#e6e8eb" stroke-width="2"/>
+  <line x1="100" y1="162" x2="148" y2="162" stroke="#e6e8eb" stroke-width="2"/>
+  <text x="30" y="56" font-size="34" font-weight="700" fill="#f0f2f5" text-anchor="start">Liste blanche — règles LAN de fw-sitea</text>
+  <text x="30" y="88" font-size="17" font-weight="400" fill="#9aa1ab" text-anchor="start">Lues de haut en bas : la première règle qui correspond au paquet décide, les suivantes ne sont pas lues (first match)</text>
+  <rect x="150" y="120" width="1220" height="84" rx="10" fill="#23262b" stroke="#e6e8eb"/>
+  <rect x="170" y="136" width="230" height="24" rx="12" fill="none" stroke="#e6e8eb"/>
+  <text x="285" y="153" font-size="11.5" font-weight="700" fill="#e6e8eb" text-anchor="middle">PAQUET QUI SORT DU LAB</text>
+  <text x="170" y="190" font-size="21" font-weight="700" fill="#f0f2f5" text-anchor="start">Kali 10.10.10.10 · Linux Lite 10.10.10.11</text>
+  <text x="1350" y="190" font-size="15" font-weight="400" fill="#9aa1ab" text-anchor="end">entre par l'interface LAN de fw-sitea</text>
+  <text x="150" y="254" font-size="14" font-weight="700" fill="#9aa1ab" text-anchor="start" letter-spacing="0.6">EXCEPTIONS PRÉCISES</text>
+  <text x="1370" y="254" font-size="14" font-weight="400" fill="#9aa1ab" text-anchor="end">placées avant le Reject vers la maison, sinon jamais lues</text>
+  <rect x="150" y="266" width="1220" height="60" rx="10" fill="#23262b" stroke="#3a3f47"/>
+  <rect x="150" y="266" width="5" height="60" fill="#3fb950"/>
+  <circle cx="190" cy="296" r="16" fill="none" stroke="#e6e8eb" stroke-width="1.5"/>
+  <text x="190" y="302" font-size="15" font-weight="700" fill="#f0f2f5" text-anchor="middle">1</text>
+  <rect x="222" y="283" width="96" height="26" rx="13" fill="none" stroke="#3fb950"/>
+  <text x="270" y="301" font-size="12.5" font-weight="700" fill="#3fb950" text-anchor="middle">PASS</text>
+  <text x="380" y="294" font-size="20" font-weight="700" fill="#f0f2f5" text-anchor="start">KALI → FREEBOX</text>
+  <text x="380" y="315" font-size="14" font-weight="400" fill="#9aa1ab" text-anchor="start">ICMP · ping</text>
+  <text x="1350" y="303" font-size="16" font-weight="400" fill="#9aa1ab" text-anchor="end">Exception de test</text>
+  <rect x="150" y="334" width="1220" height="60" rx="10" fill="#23262b" stroke="#3a3f47"/>
+  <rect x="150" y="334" width="5" height="60" fill="#3fb950"/>
+  <circle cx="190" cy="364" r="16" fill="none" stroke="#e6e8eb" stroke-width="1.5"/>
+  <text x="190" y="370" font-size="15" font-weight="700" fill="#f0f2f5" text-anchor="middle">2</text>
+  <rect x="222" y="351" width="96" height="26" rx="13" fill="none" stroke="#3fb950"/>
+  <text x="270" y="369" font-size="12.5" font-weight="700" fill="#3fb950" text-anchor="middle">PASS</text>
+  <text x="380" y="362" font-size="20" font-weight="700" fill="#f0f2f5" text-anchor="start">LINUX_LITE → SYNOLOGY</text>
+  <text x="380" y="383" font-size="14" font-weight="400" fill="#9aa1ab" text-anchor="start">TCP · port 5001</text>
+  <text x="1350" y="371" font-size="16" font-weight="400" fill="#9aa1ab" text-anchor="end">Administration du NAS (DSM)</text>
+  <text x="150" y="434" font-size="14" font-weight="700" fill="#9aa1ab" text-anchor="start" letter-spacing="0.6">DNS FORCÉ VIA OPNSENSE</text>
+  <text x="1370" y="434" font-size="14" font-weight="400" fill="#9aa1ab" text-anchor="end">le Pass vers OPNsense passe avant le refus général</text>
+  <rect x="150" y="446" width="1220" height="60" rx="10" fill="#23262b" stroke="#3a3f47"/>
+  <rect x="150" y="446" width="5" height="60" fill="#3fb950"/>
+  <circle cx="190" cy="476" r="16" fill="none" stroke="#e6e8eb" stroke-width="1.5"/>
+  <text x="190" y="482" font-size="15" font-weight="700" fill="#f0f2f5" text-anchor="middle">3</text>
+  <rect x="222" y="463" width="96" height="26" rx="13" fill="none" stroke="#3fb950"/>
+  <text x="270" y="481" font-size="12.5" font-weight="700" fill="#3fb950" text-anchor="middle">PASS</text>
+  <text x="380" y="474" font-size="20" font-weight="700" fill="#f0f2f5" text-anchor="start">LAN net → LAN address</text>
+  <text x="380" y="495" font-size="14" font-weight="400" fill="#9aa1ab" text-anchor="start">TCP/UDP · port 53</text>
+  <text x="1350" y="483" font-size="16" font-weight="400" fill="#9aa1ab" text-anchor="end">DNS uniquement via OPNsense</text>
+  <rect x="150" y="514" width="1220" height="60" rx="10" fill="#23262b" stroke="#3a3f47"/>
+  <rect x="150" y="514" width="5" height="60" fill="#f85149"/>
+  <circle cx="190" cy="544" r="16" fill="none" stroke="#e6e8eb" stroke-width="1.5"/>
+  <text x="190" y="550" font-size="15" font-weight="700" fill="#f0f2f5" text-anchor="middle">4</text>
+  <rect x="222" y="531" width="96" height="26" rx="13" fill="none" stroke="#f85149"/>
+  <text x="270" y="549" font-size="12.5" font-weight="700" fill="#f85149" text-anchor="middle">REJECT</text>
+  <text x="380" y="542" font-size="20" font-weight="700" fill="#f0f2f5" text-anchor="start">LAN net → any</text>
+  <text x="380" y="563" font-size="14" font-weight="400" fill="#9aa1ab" text-anchor="start">TCP/UDP · port 53</text>
+  <text x="1350" y="551" font-size="16" font-weight="400" fill="#9aa1ab" text-anchor="end">Refus des DNS externes</text>
+  <text x="150" y="614" font-size="14" font-weight="700" fill="#9aa1ab" text-anchor="start" letter-spacing="0.6">INTERDICTION QUI PROTÈGE</text>
+  <text x="1370" y="614" font-size="14" font-weight="400" fill="#9aa1ab" text-anchor="end">avant les ouvertures : « any » inclut aussi la maison</text>
+  <rect x="150" y="626" width="1220" height="60" rx="10" fill="#23262b" stroke="#3a3f47"/>
+  <rect x="150" y="626" width="5" height="60" fill="#f85149"/>
+  <circle cx="190" cy="656" r="16" fill="none" stroke="#e6e8eb" stroke-width="1.5"/>
+  <text x="190" y="662" font-size="15" font-weight="700" fill="#f0f2f5" text-anchor="middle">5</text>
+  <rect x="222" y="643" width="96" height="26" rx="13" fill="none" stroke="#f85149"/>
+  <text x="270" y="661" font-size="12.5" font-weight="700" fill="#f85149" text-anchor="middle">REJECT</text>
+  <text x="380" y="654" font-size="20" font-weight="700" fill="#f0f2f5" text-anchor="start">LAN net → RES_MAISON</text>
+  <text x="380" y="675" font-size="14" font-weight="400" fill="#9aa1ab" text-anchor="start">tous protocoles</text>
+  <text x="1350" y="663" font-size="16" font-weight="400" fill="#9aa1ab" text-anchor="end">Isolation du réseau maison</text>
+  <text x="150" y="726" font-size="14" font-weight="700" fill="#9aa1ab" text-anchor="start" letter-spacing="0.6">OUVERTURES GÉNÉRALES</text>
+  <text x="1370" y="726" font-size="14" font-weight="400" fill="#9aa1ab" text-anchor="end">seul ce qui est prévu sort ; leur ordre entre elles est sans importance</text>
+  <rect x="150" y="738" width="1220" height="60" rx="10" fill="#23262b" stroke="#3a3f47"/>
+  <rect x="150" y="738" width="5" height="60" fill="#3fb950"/>
+  <circle cx="190" cy="768" r="16" fill="none" stroke="#e6e8eb" stroke-width="1.5"/>
+  <text x="190" y="774" font-size="15" font-weight="700" fill="#f0f2f5" text-anchor="middle">6</text>
+  <rect x="222" y="755" width="96" height="26" rx="13" fill="none" stroke="#3fb950"/>
+  <text x="270" y="773" font-size="12.5" font-weight="700" fill="#3fb950" text-anchor="middle">PASS</text>
+  <text x="380" y="766" font-size="20" font-weight="700" fill="#f0f2f5" text-anchor="start">LAN net → any</text>
+  <text x="380" y="787" font-size="14" font-weight="400" fill="#9aa1ab" text-anchor="start">UDP · port 123</text>
+  <text x="1350" y="775" font-size="16" font-weight="400" fill="#9aa1ab" text-anchor="end">Heure (NTP)</text>
+  <rect x="150" y="806" width="1220" height="60" rx="10" fill="#23262b" stroke="#3a3f47"/>
+  <rect x="150" y="806" width="5" height="60" fill="#3fb950"/>
+  <circle cx="190" cy="836" r="16" fill="none" stroke="#e6e8eb" stroke-width="1.5"/>
+  <text x="190" y="842" font-size="15" font-weight="700" fill="#f0f2f5" text-anchor="middle">7</text>
+  <rect x="222" y="823" width="96" height="26" rx="13" fill="none" stroke="#3fb950"/>
+  <text x="270" y="841" font-size="12.5" font-weight="700" fill="#3fb950" text-anchor="middle">PASS</text>
+  <text x="380" y="834" font-size="20" font-weight="700" fill="#f0f2f5" text-anchor="start">LAN net → any</text>
+  <text x="380" y="855" font-size="14" font-weight="400" fill="#9aa1ab" text-anchor="start">ICMP · ping</text>
+  <text x="1350" y="843" font-size="16" font-weight="400" fill="#9aa1ab" text-anchor="end">Ping de diagnostic</text>
+  <rect x="150" y="874" width="1220" height="60" rx="10" fill="#23262b" stroke="#3a3f47"/>
+  <rect x="150" y="874" width="5" height="60" fill="#3fb950"/>
+  <circle cx="190" cy="904" r="16" fill="none" stroke="#e6e8eb" stroke-width="1.5"/>
+  <text x="190" y="910" font-size="15" font-weight="700" fill="#f0f2f5" text-anchor="middle">8</text>
+  <rect x="222" y="891" width="96" height="26" rx="13" fill="none" stroke="#3fb950"/>
+  <text x="270" y="909" font-size="12.5" font-weight="700" fill="#3fb950" text-anchor="middle">PASS</text>
+  <text x="380" y="902" font-size="20" font-weight="700" fill="#f0f2f5" text-anchor="start">LAN net → any</text>
+  <text x="380" y="923" font-size="14" font-weight="400" fill="#9aa1ab" text-anchor="start">TCP · PORTS_WEB (80, 443)</text>
+  <text x="1350" y="911" font-size="16" font-weight="400" fill="#9aa1ab" text-anchor="end">Web vers Internet</text>
+  <text x="150" y="974" font-size="14" font-weight="700" fill="#9aa1ab" text-anchor="start" letter-spacing="0.6">NETTOYAGE</text>
+  <text x="1370" y="974" font-size="14" font-weight="400" fill="#9aa1ab" text-anchor="end">journalisée : chaque refus apparaît dans la Live View</text>
+  <rect x="150" y="986" width="1220" height="60" rx="10" fill="#23262b" stroke="#3a3f47"/>
+  <rect x="150" y="986" width="5" height="60" fill="#f85149"/>
+  <circle cx="190" cy="1016" r="16" fill="none" stroke="#e6e8eb" stroke-width="1.5"/>
+  <text x="190" y="1022" font-size="15" font-weight="700" fill="#f0f2f5" text-anchor="middle">9</text>
+  <rect x="222" y="1003" width="136" height="26" rx="13" fill="none" stroke="#f85149"/>
+  <text x="290" y="1021" font-size="12.5" font-weight="700" fill="#f85149" text-anchor="middle">REJECT + LOG</text>
+  <text x="380" y="1014" font-size="20" font-weight="700" fill="#f0f2f5" text-anchor="start">LAN net → any</text>
+  <text x="380" y="1035" font-size="14" font-weight="400" fill="#9aa1ab" text-anchor="start">tous protocoles</text>
+  <text x="1350" y="1023" font-size="16" font-weight="400" fill="#9aa1ab" text-anchor="end">Tout le reste est refusé</text>
+  <line x1="100" y1="296" x2="132" y2="296" stroke="#e6e8eb" stroke-width="1.2"/>
+  <circle cx="100" cy="296" r="4" fill="#e6e8eb"/>
+  <line x1="100" y1="364" x2="132" y2="364" stroke="#e6e8eb" stroke-width="1.2"/>
+  <circle cx="100" cy="364" r="4" fill="#e6e8eb"/>
+  <line x1="100" y1="476" x2="132" y2="476" stroke="#e6e8eb" stroke-width="1.2"/>
+  <circle cx="100" cy="476" r="4" fill="#e6e8eb"/>
+  <line x1="100" y1="544" x2="132" y2="544" stroke="#e6e8eb" stroke-width="1.2"/>
+  <circle cx="100" cy="544" r="4" fill="#e6e8eb"/>
+  <line x1="100" y1="656" x2="132" y2="656" stroke="#e6e8eb" stroke-width="1.2"/>
+  <circle cx="100" cy="656" r="4" fill="#e6e8eb"/>
+  <line x1="100" y1="768" x2="132" y2="768" stroke="#e6e8eb" stroke-width="1.2"/>
+  <circle cx="100" cy="768" r="4" fill="#e6e8eb"/>
+  <line x1="100" y1="836" x2="132" y2="836" stroke="#e6e8eb" stroke-width="1.2"/>
+  <circle cx="100" cy="836" r="4" fill="#e6e8eb"/>
+  <line x1="100" y1="904" x2="132" y2="904" stroke="#e6e8eb" stroke-width="1.2"/>
+  <circle cx="100" cy="904" r="4" fill="#e6e8eb"/>
+  <line x1="100" y1="1016" x2="146" y2="1016" stroke="#e6e8eb" stroke-width="2" marker-end="url(#aw)"/>
+  <circle cx="100" cy="1016" r="4" fill="#e6e8eb"/>
+  <text x="150" y="1074" font-size="15" font-weight="400" fill="#9aa1ab" text-anchor="start">Les règles « Default allow LAN to any » (IPv4 et IPv6) sont désactivées, pas supprimées : on peut les réactiver en cas de besoin.</text>
+</svg>
