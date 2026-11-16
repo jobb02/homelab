@@ -56,6 +56,10 @@ Le premier test qui répond « oui » décide : les règles en dessous ne sont j
 
 Les règles « Default allow LAN to any » (IPv4 et IPv6) sont **désactivées**, pas supprimées.
 
+![Règles de pare-feu dans OPNsense : les 9 règles LAN, la règle WAN d'administration et les règles par défaut désactivées](captures/10-regles-lan.png)
+
+*La configuration réelle dans OPNsense (vue « All rules ») : les 9 règles LAN dans l'ordre, la règle WAN de la [fiche 09](09-acces-admin.md) et, grisées en bas, les deux règles par défaut désactivées.*
+
 **Logique d'ordre :** exceptions précises → interdictions qui protègent → ouvertures générales → nettoyage.
 
 **Choix techniques :**
@@ -79,6 +83,10 @@ Les règles « Default allow LAN to any » (IPv4 et IPv6) sont **désactivées**
 | Kali | `timedatectl` | Horloge synchronisée |
 | Linux Lite | Interface DSM (5001) | OK |
 | Linux Lite | `ping 192.168.1.254` | Refusé |
+
+![Tests depuis Kali : web autorisé, Freebox et DNS externe refusés](captures/10-tests-kali.png)
+
+*Trois tests depuis Kali : `curl` vers Google répond `HTTP/2 200` (règle 8), `curl` vers la Freebox échoue en 0 ms (refus immédiat de la règle 5), et `nslookup` vers 8.8.8.8 est refusé (règle 4 : DNS externe interdit).*
 
 ## Pièges rencontrés et corrections
 
