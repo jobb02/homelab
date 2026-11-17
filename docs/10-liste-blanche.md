@@ -1,5 +1,7 @@
 # 10 — Liste blanche sur le lab (moindre privilège)
 
+[← 09 · Accès d'administration](09-acces-admin.md) · [Sommaire de la documentation](README.md) · [11 · Site B : FortiGate →](11-fortigate-site-b.md)
+
 > Date : 16 novembre 2026 · Pare-feu : OPNsense (`fw-sitea`) · Interface : LAN
 
 ## Objectif
@@ -118,3 +120,7 @@ Les règles « Default allow LAN to any » (IPv4 et IPv6) sont **désactivées**
 
 - **DNS over HTTPS** (DoH) passe par le port 443 et contourne la règle DNS. Le bloquer demande des listes de serveurs DoH ou un NGFW qui identifie l'application.
 - **Nouveaux besoins** (un outil de Kali sur un autre port) : à ajouter comme exception, après lecture des refus de la règle de nettoyage.
+
+---
+
+[← 09 · Accès d'administration](09-acces-admin.md) · [Sommaire de la documentation](README.md) · [11 · Site B : FortiGate →](11-fortigate-site-b.md)
