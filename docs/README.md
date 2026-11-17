@@ -10,7 +10,8 @@ Chaque fiche suit le même fil : **ce qu'on veut obtenir, pourquoi, comment, la 
 | --- | --- |
 | 2 minutes | La [page d'accueil](../README.md) et ses deux schémas |
 | 10 minutes | La fiche [13 — Tunnel IPsec](13-tunnel-ipsec.md) : deux constructeurs, une incompatibilité trouvée avant de configurer, et une panne diagnostiquée par couches |
-| Un profil technique | Le parcours pare-feu ci-dessous, de la fiche 08 à la 13, dans l'ordre |
+| 10 minutes de plus | La fiche [14 — Règles dans le tunnel](14-regles-tunnel.md) : le trafic de bout en bout, et une faille repérée en lisant les journaux |
+| Un profil technique | Le parcours pare-feu ci-dessous, de la fiche 08 à la 14, dans l'ordre |
 
 ## Parcours 1 — Le pare-feu, du simple au multi-sites
 
@@ -24,6 +25,7 @@ Ces fiches se lisent dans l'ordre : chacune s'appuie sur la précédente.
 | 11 | [Site B : FortiGate](11-fortigate-site-b.md) | Un deuxième constructeur : CLI FortiOS, `allowaccess`, licence d'évaluation et ses limites | 6 min |
 | 12 | [Site C : Sophos](12-sophos-site-c.md) | Un troisième constructeur : zones, ACL des services, règle de nettoyage | 7 min |
 | 13 | [Tunnel IPsec](13-tunnel-ipsec.md) | Relier deux constructeurs : offres communes, configuration en miroir, diagnostic | 6 min |
+| 14 | [Règles dans le tunnel](14-regles-tunnel.md) | Moindre privilège des deux côtés, tests dans les deux sens, une faille « any » trouvée dans les journaux | 7 min |
 
 ## Parcours 2 — Les fondations du lab
 
