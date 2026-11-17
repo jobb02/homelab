@@ -1,5 +1,7 @@
 # 09 — Accès d'administration à OPNsense limité au PC d'admin
 
+[← 08 · Isolation du lab](08-filtrage-pare-feu.md) · [Sommaire de la documentation](README.md) · [10 · Liste blanche →](10-liste-blanche.md)
+
 > Date : 14 novembre 2026 · Pare-feu : OPNsense (`fw-sitea`) · Interface : WAN
 
 ## Objectif
@@ -92,3 +94,7 @@ L'IP 192.168.1.200 a été rapprochée de l'appareil réel via l'inventaire de l
 ## Prochaine étape
 
 - [ ] Passer les règles du lab en liste blanche (moindre privilège) : n'autoriser que DNS, HTTP et HTTPS
+
+---
+
+[← 08 · Isolation du lab](08-filtrage-pare-feu.md) · [Sommaire de la documentation](README.md) · [10 · Liste blanche →](10-liste-blanche.md)
