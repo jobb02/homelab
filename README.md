@@ -71,10 +71,10 @@ Chaque étape répond au besoin d'une entreprise fictive :
 
 | Besoin de l'entreprise | Ce que je fais dans le lab | État |
 | --- | --- | --- |
-| « Ce réseau à risque ne doit pas toucher le reste » | Isolation du lab derrière OPNsense ([fiche 08](docs/08-filtrage-pare-feu.md)) | ✅ Fait |
-| « Il faut relier le siège et les agences » | Tunnel IPsec OPNsense (siège) ↔ Sophos (agence 2) ; le FortiGate (agence 1) en est incapable en licence d'évaluation ([fiche 13](docs/13-tunnel-ipsec.md)) | ✅ Tunnel monté, règles du tunnel en cours |
-| « Nos salariés télétravaillent » | VPN d'accès distant avec double authentification (FortiClient) | ⚠️ Limité par la licence d'évaluation (VPN SSL impossible, IPsec à tester) |
-| « On veut contrôler l'usage du web » | Filtrage web et inspection SSL : impossible sur le FortiGate en licence d'évaluation, possible sur Sophos Home | 🔜 Prévu (site C) |
+| « Ce réseau à risque ne doit pas toucher le reste » | Isolation du réseau maison sur les trois sites : OPNsense ([fiche 08](docs/08-filtrage-pare-feu.md)), FortiGate et Sophos ([fiche 15](docs/15-isolation-agences.md)) | ✅ Fait |
+| « Il faut relier le siège et les agences » | Tunnel IPsec OPNsense (siège) ↔ Sophos (agence 2), avec des règles en moindre privilège ([fiches 13](docs/13-tunnel-ipsec.md) et [14](docs/14-regles-tunnel.md)) ; le FortiGate (agence 1) en est incapable en licence d'évaluation | ✅ Fait |
+| « Nos salariés télétravaillent » | VPN d'accès distant avec double authentification sur le Sophos (Sophos Connect) ; impossible sur le FortiGate en licence d'évaluation (VPN SSL indisponible, IPsec limité à DES) | 🔜 Prévu (site C) |
+| « On veut contrôler l'usage du web » | Filtrage web et inspection SSL sur le Sophos (le pare-feu est en place, la fonction reste à configurer) ; impossible sur le FortiGate en licence d'évaluation | 🔜 Prévu (site C) |
 | « Prouvez-moi que ça protège vraiment » | Attaques et scans depuis Kali, détection avec Suricata | 🔜 Prévu |
 
 La licence d'évaluation gratuite du FortiGate n'autorise que le chiffrement DES et limite la VM à 3 interfaces, 3 règles et 3 routes. Les besoins qu'elle ne permet pas de couvrir sont marqués comme tels plutôt que retirés : chez un client, la licence payante lève ces limites. Pour le tunnel, un troisième site protégé par Sophos Firewall Home (gratuit, chiffrement fort) a pris le relais.
