@@ -88,9 +88,9 @@ Le FortiGate en licence d'évaluation ne peut pas monter de tunnel avec OPNsense
 - **Refus invisibles** : *Drop all* ne journalise pas. Ajout de la règle `Nettoyage LAN`.
 - **Lignes *Invalid Traffic*** après la sauvegarde de la VM : le redémarrage avait vidé la table d'états, et les paquets des connexions déjà ouvertes n'appartenaient plus à aucun état connu.
 
-## Limite connue, à corriger
+## Limite corrigée
 
-Comme au site B, la règle 2 vise toute la zone WAN, qui inclut le réseau maison. Une règle d'isolation vers `192.168.1.0/24` sera ajoutée avant elle.
+Comme au site B, la règle 2 visait toute la zone WAN, qui inclut le réseau maison. Corrigé dans la [fiche 15](15-isolation-agences.md) : règle #5 « Isolation reseau maison » (Refuser, zone LAN → `RES_MAISON` = `192.168.1.0/24`), en position 1.
 
 ---
 
