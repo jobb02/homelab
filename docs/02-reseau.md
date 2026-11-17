@@ -1,5 +1,7 @@
 # 02 — Réseau
 
+[← 01 · Virtualisation](01-virtualisation.md) · [Sommaire de la documentation](README.md) · [03 · DNS →](03-dns.md)
+
 ## Topologie physique
 - **Freebox Server** (salon) : routeur, DHCP, point d'entrée Internet.
 - **Répéteurs Freebox** en mesh Wi-Fi (salle de bain, chambre).
@@ -59,3 +61,7 @@ net.ipv6.conf.all.autoconf = 0
 **Vérification de l'hôte.** L'hôte Proxmox n'avait pas d'IPv6 publique : son réseau est géré par `ifupdown2` avec une configuration IPv4 statique explicite, qui n'accepte pas les annonces de routeur. Son interface d'administration (port 8006) n'est joignable qu'en IPv4, sur le réseau local.
 
 Principe appliqué : la défense en profondeur. On ne compte pas sur une seule barrière (le pare-feu IPv6 de la box) pour protéger des interfaces d'administration.
+
+---
+
+[← 01 · Virtualisation](01-virtualisation.md) · [Sommaire de la documentation](README.md) · [03 · DNS →](03-dns.md)
