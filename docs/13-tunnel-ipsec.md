@@ -1,5 +1,7 @@
 # 13 — Tunnel IPsec entre le siège (OPNsense) et l'agence 2 (Sophos)
 
+[← 12 · Site C : Sophos](12-sophos-site-c.md) · [Sommaire de la documentation](README.md) · [Annexe · Inventaire IP →](inventaire-ip.md)
+
 > Date : 17 novembre 2026 · Site A : OPNsense (`fw-sitea`) · Site C : Sophos Firewall (`fw-sitec`)
 
 ## Objectif
@@ -78,3 +80,7 @@ Les réseaux sont déclarés **en miroir** : le réseau local de l'un est le ré
 ## Suite
 
 Le tunnel est monté, mais aucun trafic n'y est encore autorisé : l'interface IPsec d'OPNsense et la zone VPN de Sophos n'ont pas de règle. Prochaine étape : des règles en moindre privilège (par exemple, Kali joint `poste-sitec` en SSH et en ping, et rien d'autre), puis le test de bout en bout avec les journaux des deux pare-feux.
+
+---
+
+[← 12 · Site C : Sophos](12-sophos-site-c.md) · [Sommaire de la documentation](README.md) · [Annexe · Inventaire IP →](inventaire-ip.md)
