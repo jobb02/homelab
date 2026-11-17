@@ -39,7 +39,6 @@ Les briques sur lesquelles tout repose. Elles se lisent dans n'importe quel ordr
 | 04 | [Accès distant](04-acces-distant.md) | VPN WireGuard pour l'administration | 1 min |
 | 05 | [Stockage et sauvegarde](05-stockage-sauvegarde.md) | NAS en RAID 1, instantanés, sauvegardes versionnées | 4 min |
 | 06 | [Déploiement d'une appli web](06-deploiement-appli-web.md) | Appli Python en conteneur, systemd, durcissement | 2 min |
-| 07 | [Microsoft 365 / Entra ID](07-m365-entra-id.md) | Tenant de test pour l'identité cloud | 1 min |
 
 ## Annexes
 
