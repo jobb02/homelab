@@ -1,6 +1,6 @@
 # 08 — Filtrage : isolation du lab derrière OPNsense
 
-[← 07 · Microsoft 365](07-m365-entra-id.md) · [Sommaire de la documentation](README.md) · [09 · Accès d'administration →](09-acces-admin.md)
+[← 06 · Appli web](06-deploiement-appli-web.md) · [Sommaire de la documentation](README.md) · [09 · Accès d'administration →](09-acces-admin.md)
 
 > Date : 14 novembre 2026 · Pare-feu : OPNsense (`fw-sitea`) · Hyperviseur : Proxmox VE (`pve-sitea`)
 
@@ -118,4 +118,4 @@ Logs : *Firewall → Log Files → Live View*, filtre `label contains isolation`
 
 ---
 
-[← 07 · Microsoft 365](07-m365-entra-id.md) · [Sommaire de la documentation](README.md) · [09 · Accès d'administration →](09-acces-admin.md)
+[← 06 · Appli web](06-deploiement-appli-web.md) · [Sommaire de la documentation](README.md) · [09 · Accès d'administration →](09-acces-admin.md)
