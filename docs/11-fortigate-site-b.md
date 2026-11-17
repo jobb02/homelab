@@ -1,5 +1,7 @@
 # 11 — Site B : un FortiGate en VM (FortiOS)
 
+[← 10 · Liste blanche](10-liste-blanche.md) · [Sommaire de la documentation](README.md) · [12 · Site C : Sophos →](12-sophos-site-c.md)
+
 > Date : 16 novembre 2026 · Pare-feu : FortiGate VM (`fw-siteb`), FortiOS 7.6.8, licence d'évaluation · Hyperviseur : Proxmox VE (`pve-siteb`, Intel NUC)
 
 ## Objectif
@@ -118,3 +120,7 @@ Fuseau horaire réglé sur Paris (les logs des trois pare-feux doivent être com
 ## Limite connue, à corriger
 
 La destination `all` de la règle 1 inclut le réseau maison : le poste de l'agence peut joindre la Freebox ou le NAS en HTTP, HTTPS et ping. Une règle d'isolation vers `192.168.1.0/24`, placée avant, sera ajoutée (la règle 2 sur les 3 autorisées).
+
+---
+
+[← 10 · Liste blanche](10-liste-blanche.md) · [Sommaire de la documentation](README.md) · [12 · Site C : Sophos →](12-sophos-site-c.md)
