@@ -1,5 +1,7 @@
 # 03 — DNS local et filtrage
 
+[← 02 · Réseau](02-reseau.md) · [Sommaire de la documentation](README.md) · [04 · Accès distant →](04-acces-distant.md)
+
 ## Objectif
 - Joindre mes services par un **nom** (`nas.home.arpa`, `proxmox.home.arpa`…) plutôt que par leur IP.
 - **Filtrer** publicités, traqueurs et domaines malveillants.
@@ -61,3 +63,7 @@ Utiliser un faux domaine du type `.local` ou `.lan` peut entrer en conflit avec 
 
 ## Pourquoi séparer filtrage et zone locale
 Chaque outil fait ce qu'il fait le mieux : AdGuard pour le filtrage et les statistiques, le Synology pour la gestion de zone.
+
+---
+
+[← 02 · Réseau](02-reseau.md) · [Sommaire de la documentation](README.md) · [04 · Accès distant →](04-acces-distant.md)
