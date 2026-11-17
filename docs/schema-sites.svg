@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 880" width="1400" height="880" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <rect width="1400" height="880" fill="#16181c"/>
+  <text x="30" y="56" font-size="34" font-weight="700" fill="#f0f2f5" text-anchor="start">Trois sites, trois constructeurs</text>
+  <text x="30" y="88" font-size="17" font-weight="400" fill="#9aa1ab" text-anchor="start">Le réseau maison joue le rôle d'Internet entre les pare-feux · un tunnel IPsec relie le siège à l'agence 2</text>
+  <rect x="40" y="120" width="1320" height="84" rx="12" fill="#1c1f24" stroke="#e6e8eb" stroke-width="1.5"/>
+  <text x="64" y="154" font-size="15" font-weight="700" fill="#f0f2f5" text-anchor="start" letter-spacing="0.5">RÉSEAU MAISON = « INTERNET » (UNDERLAY)</text>
+  <text x="1336" y="154" font-size="15" font-weight="700" fill="#f0f2f5" text-anchor="end">192.168.1.0/24</text>
+  <text x="64" y="184" font-size="14.5" font-weight="400" fill="#9aa1ab" text-anchor="start">Freebox 192.168.1.254 · hyperviseurs pve-sitea (.100) et pve-siteb (.102) · PC d'admin (.99)</text>
+  <path d="M 340 300 V 248 H 1260 V 300" fill="none" stroke="#3fb950" stroke-width="4"/>
+  <path d="M 300 300 V 272 H 800 V 300" fill="none" stroke="#f85149" stroke-width="2.5" stroke-dasharray="8 6"/>
+  <path d="M 110 204 V 300" fill="none" stroke="#e6e8eb" stroke-width="2"/>
+  <rect x="40" y="300" width="400" height="104" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
+  <rect x="56" y="314" width="92" height="24" rx="12" fill="none" stroke="#e6e8eb" stroke-width="1"/>
+  <text x="102" y="331" font-size="11.5" font-weight="700" fill="#e6e8eb" text-anchor="middle">PARE-FEU</text>
+  <text x="160" y="331" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">WAN 192.168.1.29</text>
+  <text x="56" y="366" font-size="22" font-weight="700" fill="#f0f2f5" text-anchor="start">fw-sitea · OPNsense</text>
+  <text x="56" y="391" font-size="14.5" font-weight="400" fill="#9aa1ab" text-anchor="start">liste blanche, isolation de la maison</text>
+  <path d="M 240 404 V 440" fill="none" stroke="#e6e8eb" stroke-width="2"/>
+  <rect x="40" y="440" width="400" height="300" rx="12" fill="#1c1f24" stroke="#e6e8eb" stroke-width="1.5"/>
+  <text x="60" y="470" font-size="15" font-weight="700" fill="#f0f2f5" text-anchor="start" letter-spacing="0.5">SITE A · SIÈGE</text>
+  <text x="420" y="470" font-size="15" font-weight="700" fill="#f0f2f5" text-anchor="end">10.10.10.0/24</text>
+  <text x="60" y="494" font-size="14" font-weight="400" fill="#9aa1ab" text-anchor="start">passerelle 10.10.10.1 · pont isolé, sans carte physique</text>
+  <rect x="56" y="512" width="368" height="80" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
+  <text x="72" y="546" font-size="20" font-weight="700" fill="#f0f2f5" text-anchor="start">Kali Linux</text>
+  <text x="72" y="570" font-size="14.5" font-weight="400" fill="#9aa1ab" text-anchor="start">10.10.10.10 · tests offensifs</text>
+  <rect x="56" y="604" width="368" height="80" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
+  <text x="72" y="638" font-size="20" font-weight="700" fill="#f0f2f5" text-anchor="start">Linux Lite</text>
+  <text x="72" y="662" font-size="14.5" font-weight="400" fill="#9aa1ab" text-anchor="start">10.10.10.11 · administration</text>
+  <text x="40" y="766" font-size="14" font-weight="400" fill="#9aa1ab" text-anchor="start">Hébergé sur pve-sitea (PC Acer) · vmbr1</text>
+  <path d="M 570 204 V 300" fill="none" stroke="#e6e8eb" stroke-width="2"/>
+  <rect x="500" y="300" width="400" height="104" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
+  <rect x="516" y="314" width="92" height="24" rx="12" fill="none" stroke="#e6e8eb" stroke-width="1"/>
+  <text x="562" y="331" font-size="11.5" font-weight="700" fill="#e6e8eb" text-anchor="middle">PARE-FEU</text>
+  <text x="620" y="331" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">WAN 192.168.1.30</text>
+  <text x="516" y="366" font-size="22" font-weight="700" fill="#f0f2f5" text-anchor="start">fw-siteb · FortiGate</text>
+  <text x="516" y="391" font-size="14.5" font-weight="400" fill="#9aa1ab" text-anchor="start">FortiOS 7.6.8 · licence d'évaluation</text>
+  <path d="M 700 404 V 440" fill="none" stroke="#e6e8eb" stroke-width="2"/>
+  <rect x="500" y="440" width="400" height="300" rx="12" fill="#1c1f24" stroke="#e6e8eb" stroke-width="1.5"/>
+  <text x="520" y="470" font-size="15" font-weight="700" fill="#f0f2f5" text-anchor="start" letter-spacing="0.5">SITE B · AGENCE 1</text>
+  <text x="880" y="470" font-size="15" font-weight="700" fill="#f0f2f5" text-anchor="end">10.20.20.0/24</text>
+  <text x="520" y="494" font-size="14" font-weight="400" fill="#9aa1ab" text-anchor="start">passerelle 10.20.20.1 · pont isolé, sans carte physique</text>
+  <rect x="516" y="512" width="368" height="80" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
+  <text x="532" y="546" font-size="20" font-weight="700" fill="#f0f2f5" text-anchor="start">poste-siteb</text>
+  <text x="532" y="570" font-size="14.5" font-weight="400" fill="#9aa1ab" text-anchor="start">Debian 13 · DHCP</text>
+  <text x="500" y="766" font-size="14" font-weight="400" fill="#9aa1ab" text-anchor="start">Hébergé sur pve-siteb (Intel NUC) · vmbr1</text>
+  <path d="M 1030 204 V 300" fill="none" stroke="#e6e8eb" stroke-width="2"/>
+  <rect x="960" y="300" width="400" height="104" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
+  <rect x="976" y="314" width="92" height="24" rx="12" fill="none" stroke="#e6e8eb" stroke-width="1"/>
+  <text x="1022" y="331" font-size="11.5" font-weight="700" fill="#e6e8eb" text-anchor="middle">PARE-FEU</text>
+  <text x="1080" y="331" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">WAN 192.168.1.31</text>
+  <text x="976" y="366" font-size="22" font-weight="700" fill="#f0f2f5" text-anchor="start">fw-sitec · Sophos Firewall</text>
+  <text x="976" y="391" font-size="14.5" font-weight="400" fill="#9aa1ab" text-anchor="start">SFOS 22.0.2 · licence Home</text>
+  <path d="M 1160 404 V 440" fill="none" stroke="#e6e8eb" stroke-width="2"/>
+  <rect x="960" y="440" width="400" height="300" rx="12" fill="#1c1f24" stroke="#e6e8eb" stroke-width="1.5"/>
+  <text x="980" y="470" font-size="15" font-weight="700" fill="#f0f2f5" text-anchor="start" letter-spacing="0.5">SITE C · AGENCE 2</text>
+  <text x="1340" y="470" font-size="15" font-weight="700" fill="#f0f2f5" text-anchor="end">10.30.30.0/24</text>
+  <text x="980" y="494" font-size="14" font-weight="400" fill="#9aa1ab" text-anchor="start">passerelle 10.30.30.1 · pont isolé, sans carte physique</text>
+  <rect x="976" y="512" width="368" height="80" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
+  <text x="992" y="546" font-size="20" font-weight="700" fill="#f0f2f5" text-anchor="start">poste-sitec</text>
+  <text x="992" y="570" font-size="14.5" font-weight="400" fill="#9aa1ab" text-anchor="start">Debian 13 XFCE · DHCP</text>
+  <text x="960" y="766" font-size="14" font-weight="400" fill="#9aa1ab" text-anchor="start">Hébergé sur pve-siteb (Intel NUC) · vmbr2</text>
+  <path d="M 40 812 H 100" fill="none" stroke="#3fb950" stroke-width="4"/>
+  <text x="116" y="817" font-size="15" font-weight="400" fill="#f0f2f5" text-anchor="start">Tunnel IPsec monté : OPNsense ↔ Sophos (IKEv2, AES-256, SHA2-256, DH14)</text>
+  <path d="M 40 846 H 100" fill="none" stroke="#f85149" stroke-width="2.5" stroke-dasharray="8 6"/>
+  <text x="116" y="851" font-size="15" font-weight="400" fill="#f0f2f5" text-anchor="start">Impossible : le FortiGate en licence d'évaluation ne propose que DES, qu'OPNsense ne gère plus</text>
+</svg>
