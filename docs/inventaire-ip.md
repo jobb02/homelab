@@ -1,6 +1,6 @@
 # Inventaire des adresses IP
 
-[← 14 · Règles dans le tunnel](14-regles-tunnel.md) · [Sommaire de la documentation](README.md) · [Accueil du dépôt](../README.md)
+[← 15 · Isolation des agences](15-isolation-agences.md) · [Sommaire de la documentation](README.md) · [Accueil du dépôt](../README.md)
 
 > Mis à jour le 17 novembre 2026. Uniquement des adresses privées (RFC 1918), non joignables depuis Internet. Les IP fixes sont tenues par des réservations DHCP : la Freebox pour le réseau maison, chaque pare-feu pour son lab.
 
@@ -43,20 +43,19 @@ Passerelle : Freebox `192.168.1.254`. Ce réseau joue le rôle d'Internet entre 
 | IP | Machine | Attribution |
 | --- | --- | --- |
 | `.1` | `fw-siteb` (FortiGate, port2) | statique |
-| `.101` | `poste-siteb` (VM 202) | DHCP du FortiGate, à réserver avant de le viser dans une règle |
+| `.101` | `poste-siteb` (VM 202) | réservation DHCP du FortiGate (plage dynamique `.100` à `.200`) |
 
 ## Site C, l'agence 2 — 10.30.30.0/24 (pont `vmbr2` de `pve-siteb`)
 
 | IP | Machine | Attribution |
 | --- | --- | --- |
 | `.1` | `fw-sitec` (Sophos, Port1) | statique |
-| `.100` | `poste-sitec` (VM 302) | DHCP de Sophos, visé par les règles du tunnel ([fiche 14](14-regles-tunnel.md)) : à réserver en priorité |
+| `.100` | `poste-sitec` (VM 302) | réservation DHCP du Sophos, hors de la plage dynamique `.101` à `.200` ; visé par les règles du tunnel ([fiche 14](14-regles-tunnel.md)) |
 
 ## À faire
 
-- Réserver les adresses de `poste-siteb` et `poste-sitec`.
 - Ajouter un enregistrement dans la zone DNS `home.arpa` pour chaque équipement, pour ne plus dépendre des adresses.
 
 ---
 
-[← 14 · Règles dans le tunnel](14-regles-tunnel.md) · [Sommaire de la documentation](README.md) · [Accueil du dépôt](../README.md)
+[← 15 · Isolation des agences](15-isolation-agences.md) · [Sommaire de la documentation](README.md) · [Accueil du dépôt](../README.md)
