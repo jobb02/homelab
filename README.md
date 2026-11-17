@@ -36,13 +36,13 @@ Chaque brique est documentée avec **le pourquoi des choix**, pas seulement le c
 
 ## Vue d'ensemble
 
-![Les trois sites et le tunnel IPsec](docs/schema-sites.svg)
-
 **Vue logique :** trois sites, trois constructeurs. Le réseau maison joue le rôle d'Internet entre les pare-feux.
 
-![Vue détaillée du homelab](docs/schema-homelab.svg)
+![Les trois sites et le tunnel IPsec](docs/schema-sites.svg)
 
 **Vue détaillée :** le matériel physique, ce que chaque hyperviseur héberge, et le rôle de chaque site.
+
+![Vue détaillée du homelab](docs/schema-homelab.svg)
 
 **Chemin d'une requête DNS** : le PC et les deux hyperviseurs interrogent AdGuard ; si le nom se termine par `home.arpa`, AdGuard transmet au NAS (serveur de la zone locale) ; sinon, il interroge Cloudflare ou Quad9 en DNS over HTTPS (requête chiffrée, invisible pour la box et le FAI). Détail dans [docs/03-dns.md](docs/03-dns.md).
 
