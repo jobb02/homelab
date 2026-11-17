@@ -1,5 +1,7 @@
 # 06 — Déploiement d'une application web multi-utilisateurs
 
+[← 05 · Stockage et sauvegarde](05-stockage-sauvegarde.md) · [Sommaire de la documentation](README.md) · [07 · Microsoft 365 →](07-m365-entra-id.md)
+
 Application interne en Python (comptes, rôles, sessions, base SQLite) que j'ai déployée et exploitée sur le lab.
 
 > Statut : réalisé. Le conteneur a été retiré depuis ; cette fiche documente le déploiement.
@@ -25,3 +27,7 @@ Script de déploiement : copie du code par `scp` vers le conteneur (jamais le do
 ## Ce que j'aurais ajouté ensuite
 - ACL Tailscale restrictives (les utilisateurs ne voient que le port HTTPS de l'appli).
 - Sauvegarde automatique de la base SQLite vers le NAS.
+
+---
+
+[← 05 · Stockage et sauvegarde](05-stockage-sauvegarde.md) · [Sommaire de la documentation](README.md) · [07 · Microsoft 365 →](07-m365-entra-id.md)
