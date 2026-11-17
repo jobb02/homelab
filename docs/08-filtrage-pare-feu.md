@@ -1,5 +1,7 @@
 # 08 — Filtrage : isolation du lab derrière OPNsense
 
+[← 07 · Microsoft 365](07-m365-entra-id.md) · [Sommaire de la documentation](README.md) · [09 · Accès d'administration →](09-acces-admin.md)
+
 > Date : 14 novembre 2026 · Pare-feu : OPNsense (`fw-sitea`) · Hyperviseur : Proxmox VE (`pve-sitea`)
 
 ## Objectif
@@ -113,3 +115,7 @@ Logs : *Firewall → Log Files → Live View*, filtre `label contains isolation`
 - [ ] VPN utilisateurs + MFA (FortiClient)
 - [ ] Inspection SSL
 - [ ] Export des logs du pare-feu vers le Synology (Log Center)
+
+---
+
+[← 07 · Microsoft 365](07-m365-entra-id.md) · [Sommaire de la documentation](README.md) · [09 · Accès d'administration →](09-acces-admin.md)
