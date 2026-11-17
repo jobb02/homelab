@@ -169,7 +169,9 @@ Priorité : tout ce qui tourne autour du pare-feu et de l'intégration sécurit�
 
 **Pare-feux et VPN**
 - [ ] Isolation du réseau maison sur les sites B et C : leurs règles de sortie visent tout le WAN, qui inclut le réseau maison
-- [ ] VPN d'accès distant pour les utilisateurs sur le FortiGate (FortiClient) avec double authentification : le télétravail d'un client, après la liaison entre ses sites. ⚠️ Licence d'évaluation : VPN SSL impossible, IPsec en DES à tester
+- [ ] Limiter la règle « Ping de diagnostic » d'OPNsense à Internet (`! RESEAUX_PRIVES`, comme la règle web) : elle laisse encore tout le lab pinguer les agences
+- [ ] Réserver les adresses de `poste-siteb` et `poste-sitec` dans le DHCP de leur pare-feu : les règles du tunnel visent `10.30.30.100`
+- [ ] VPN d'accès distant pour les utilisateurs sur le Sophos (Sophos Connect) avec double authentification : le télétravail d'un client, après la liaison entre ses sites. Sur le FortiGate, impossible en licence d'évaluation (VPN SSL indisponible, IPsec limité à DES)
 - ⛔ Filtrage web et inspection SSL sur le FortiGate : **impossible en licence d'évaluation**, qui ne gère pas le chiffrement fort nécessaire à l'inspection SSL. Possible sur Sophos Home, à réaliser sur le site C (autorité de certification interne déployée sur les postes, gestion des exceptions pour les sites qui cassent)
 
 **Détection et vulnérabilités**
@@ -179,7 +181,7 @@ Priorité : tout ce qui tourne autour du pare-feu et de l'intégration sécurit�
 
 **Réseau et sauvegarde**
 - [ ] Segmentation par VLAN (lab / services / maison) via le switch Omada
-- [ ] WAN du site B dans un VLAN séparé : les deux pare-feux ne partagent plus le même réseau et sont reliés par un routage, encore plus proche d'un vrai lien entre deux sites (le switch ES205G ne fait que du niveau 2 : le routeur entre les deux VLAN reste à choisir)
+- [ ] WAN des agences (sites B et C) dans un VLAN séparé : les pare-feux ne partagent plus le même réseau et sont reliés par un routage, encore plus proche d'un vrai lien entre deux sites (le switch ES205G ne fait que du niveau 2 : le routeur entre les deux VLAN reste à choisir)
 - [ ] AdGuard Home comme DNS pour tout le réseau
 - [ ] Enregistrements DNS `home.arpa` pour chaque équipement de l'inventaire
 - [ ] Copie de sauvegarde hors site (règle 3-2-1)
