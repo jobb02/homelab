@@ -90,7 +90,6 @@ Kali ne sert pas à faire du pentest : elle sert à tester mes propres règles d
 | [04 · Accès distant](docs/04-acces-distant.md) | ✅ | VPN WireGuard (Freebox) pour l'administration |
 | [05 · Stockage et sauvegarde](docs/05-stockage-sauvegarde.md) | ✅ | NAS Synology RAID 1 durci (2FA, comptes par défaut désactivés), instantanés Btrfs quotidiens, sauvegarde versionnée PC → NAS |
 | [06 · Déploiement applicatif](docs/06-deploiement-appli-web.md) | ✅ | Appli web Python en LXC, systemd, durcissement, Tailscale (conteneur retiré depuis) |
-| [07 · Identité cloud](docs/07-m365-entra-id.md) | 🧪 Test | Tenant de test Microsoft 365 / Entra ID |
 | [08 · Isolation du lab](docs/08-filtrage-pare-feu.md) | ✅ | Lab → maison refusé (Reject), testé et vérifié dans les logs |
 | [09 · Accès d'administration](docs/09-acces-admin.md) | ✅ | Interface d'OPNsense joignable depuis le seul PC d'admin, en HTTPS |
 | [10 · Liste blanche](docs/10-liste-blanche.md) | ✅ | Le lab ne sort que pour le web, le NTP, le ping et le DNS via OPNsense ; tout le reste est refusé et journalisé |
@@ -184,9 +183,6 @@ Priorité : tout ce qui tourne autour du pare-feu et de l'intégration sécurit�
 - [ ] AdGuard Home comme DNS pour tout le réseau
 - [ ] Enregistrements DNS `home.arpa` pour chaque équipement de l'inventaire
 - [ ] Copie de sauvegarde hors site (règle 3-2-1)
-
-**Identité**
-- [ ] Accès conditionnel Entra ID (préparation SC-300)
 
 ## Règles de publication
 
