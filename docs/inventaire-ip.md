@@ -1,5 +1,7 @@
 # Inventaire des adresses IP
 
+[← 13 · Tunnel IPsec](13-tunnel-ipsec.md) · [Sommaire de la documentation](README.md) · [Accueil du dépôt](../README.md)
+
 > Mis à jour le 17 novembre 2026. Uniquement des adresses privées (RFC 1918), non joignables depuis Internet. Les IP fixes sont tenues par des réservations DHCP : la Freebox pour le réseau maison, chaque pare-feu pour son lab.
 
 ## Règles d'adressage
@@ -54,3 +56,7 @@ Passerelle : Freebox `192.168.1.254`. Ce réseau joue le rôle d'Internet entre 
 
 - Réserver les adresses de `poste-siteb` et `poste-sitec`.
 - Ajouter un enregistrement dans la zone DNS `home.arpa` pour chaque équipement, pour ne plus dépendre des adresses.
+
+---
+
+[← 13 · Tunnel IPsec](13-tunnel-ipsec.md) · [Sommaire de la documentation](README.md) · [Accueil du dépôt](../README.md)
