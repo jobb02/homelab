@@ -24,100 +24,102 @@
   <path d="M 300 375 H 550" fill="none" stroke="#e6e8eb" stroke-width="2"/>
   <path d="M 850 375 H 1100" fill="none" stroke="#e6e8eb" stroke-width="2"/>
   <path d="M 700 410 V 450" fill="none" stroke="#e6e8eb" stroke-width="2"/>
-  <path d="M 580 450 H 1110" fill="none" stroke="#e6e8eb" stroke-width="2"/>
-  <path d="M 580 450 V 535" fill="none" stroke="#e6e8eb" stroke-width="2"/>
-  <path d="M 1110 450 V 535" fill="none" stroke="#e6e8eb" stroke-width="2"/>
-  <text x="720" y="442" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">réseau maison 192.168.1.0/24 = « Internet » entre les sites</text>
-  <rect x="330" y="490" width="500" height="640" rx="12" fill="#1c1f24" stroke="#e6e8eb" stroke-width="1.5"/>
-  <text x="350" y="518" font-size="14" font-weight="700" fill="#f0f2f5" text-anchor="start" letter-spacing="0.5">PVE-SITEA · PROXMOX VE</text>
-  <text x="810" y="518" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="end">PC Acer · .100</text>
-  <text x="590" y="505" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="start">nic0</text>
-  <rect x="350" y="535" width="460" height="32" rx="6" fill="#2b3037" stroke="#e6e8eb" stroke-width="1"/>
-  <text x="362" y="556" font-size="13" font-weight="700" fill="#f0f2f5" text-anchor="start">vmbr0 · pont relié à nic0 = réseau maison</text>
-  <path d="M 435 567 V 590" fill="none" stroke="#e6e8eb" stroke-width="2"/>
-  <path d="M 615 567 V 590" fill="none" stroke="#e6e8eb" stroke-width="2"/>
-  <path d="M 760 567 V 730" fill="none" stroke="#e6e8eb" stroke-width="2"/>
-  <rect x="350" y="590" width="170" height="60" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
-  <text x="364" y="618" font-size="16" font-weight="700" fill="#f0f2f5" text-anchor="start">dns-sitea</text>
-  <text x="364" y="640" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">AdGuard · LXC 105 · .53</text>
-  <rect x="530" y="590" width="170" height="60" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
-  <text x="544" y="618" font-size="16" font-weight="700" fill="#f0f2f5" text-anchor="start">omada-sitea</text>
-  <text x="544" y="640" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">Omada · LXC 102 · .24</text>
-  <text x="752" y="676" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="end">WAN 192.168.1.29</text>
-  <rect x="350" y="690" width="460" height="420" rx="10" fill="#191b1f" stroke="#e6e8eb" stroke-width="1"/>
-  <text x="366" y="716" font-size="14" font-weight="700" fill="#f0f2f5" text-anchor="start" letter-spacing="0.5">SITE A · SIÈGE</text>
-  <text x="700" y="716" font-size="14" font-weight="700" fill="#f0f2f5" text-anchor="end">10.10.10.0/24</text>
-  <rect x="366" y="730" width="428" height="70" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
-  <text x="380" y="758" font-size="17" font-weight="700" fill="#f0f2f5" text-anchor="start">fw-sitea · OPNsense</text>
-  <text x="380" y="780" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">VM 104 · WAN .29 (vmbr0) · LAN 10.10.10.1 (vmbr1)</text>
-  <path d="M 580 800 V 830" fill="none" stroke="#e6e8eb" stroke-width="2"/>
-  <text x="590" y="821" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="start">LAN</text>
-  <rect x="366" y="830" width="428" height="32" rx="6" fill="#2b3037" stroke="#e6e8eb" stroke-width="1"/>
-  <text x="378" y="851" font-size="13" font-weight="700" fill="#f0f2f5" text-anchor="start">vmbr1 · pont isolé, aucune carte physique</text>
-  <path d="M 469 862 V 890" fill="none" stroke="#e6e8eb" stroke-width="2"/>
-  <path d="M 691 862 V 890" fill="none" stroke="#e6e8eb" stroke-width="2"/>
-  <rect x="366" y="890" width="206" height="64" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
-  <text x="380" y="918" font-size="16" font-weight="700" fill="#f0f2f5" text-anchor="start">Kali Linux</text>
-  <text x="380" y="940" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">VM 101 · 10.10.10.10</text>
-  <rect x="588" y="890" width="206" height="64" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
-  <text x="602" y="918" font-size="16" font-weight="700" fill="#f0f2f5" text-anchor="start">Linux Lite</text>
-  <text x="602" y="940" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">VM 103 · 10.10.10.11</text>
-  <text x="366" y="990" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">Liste blanche, isolation du réseau maison,</text>
-  <text x="366" y="1010" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">DNS forcé, administration limitée au PC d'admin.</text>
-  <text x="366" y="1040" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">Kali teste les règles du point de vue</text>
-  <text x="366" y="1060" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">de l'attaquant.</text>
-  <rect x="860" y="490" width="500" height="640" rx="12" fill="#1c1f24" stroke="#e6e8eb" stroke-width="1.5"/>
-  <text x="880" y="518" font-size="14" font-weight="700" fill="#f0f2f5" text-anchor="start" letter-spacing="0.5">PVE-SITEB · PROXMOX VE</text>
-  <text x="1340" y="518" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="end">Intel NUC · .102</text>
-  <text x="1120" y="505" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="start">nic0</text>
-  <rect x="880" y="535" width="460" height="32" rx="6" fill="#2b3037" stroke="#e6e8eb" stroke-width="1"/>
-  <text x="892" y="556" font-size="13" font-weight="700" fill="#f0f2f5" text-anchor="start">vmbr0 · pont relié à nic0 = réseau maison</text>
-  <path d="M 1060 567 V 750" fill="none" stroke="#e6e8eb" stroke-width="2"/>
-  <text x="1052" y="640" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="end">WAN .30</text>
-  <text x="1052" y="660" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="end">(port1)</text>
-  <rect x="880" y="690" width="220" height="420" rx="10" fill="#191b1f" stroke="#e6e8eb" stroke-width="1"/>
-  <text x="894" y="716" font-size="13" font-weight="700" fill="#f0f2f5" text-anchor="start" letter-spacing="0.5">SITE B · AGENCE 1</text>
-  <text x="894" y="736" font-size="13" font-weight="700" fill="#f0f2f5" text-anchor="start">10.20.20.0/24</text>
-  <rect x="894" y="750" width="192" height="86" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
-  <text x="908" y="778" font-size="17" font-weight="700" fill="#f0f2f5" text-anchor="start">fw-siteb</text>
-  <text x="908" y="800" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">FortiGate · FortiOS 7.6</text>
-  <text x="908" y="820" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">LAN 10.20.20.1</text>
-  <path d="M 990 836 V 866" fill="none" stroke="#e6e8eb" stroke-width="2"/>
-  <text x="1000" y="857" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="start">LAN</text>
-  <rect x="894" y="866" width="192" height="32" rx="6" fill="#2b3037" stroke="#e6e8eb" stroke-width="1"/>
-  <text x="906" y="887" font-size="13" font-weight="700" fill="#f0f2f5" text-anchor="start">vmbr1 · pont isolé</text>
-  <path d="M 990 898 V 926" fill="none" stroke="#e6e8eb" stroke-width="2"/>
-  <rect x="894" y="926" width="192" height="64" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
-  <text x="908" y="954" font-size="16" font-weight="700" fill="#f0f2f5" text-anchor="start">poste-siteb</text>
-  <text x="908" y="975" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">Debian 13 · VM 202</text>
-  <text x="894" y="1020" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="start">Licence d'évaluation :</text>
-  <text x="894" y="1040" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="start">DES seulement, 3 règles.</text>
-  <text x="894" y="1060" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="start">Liste blanche en une règle.</text>
-  <path d="M 1300 567 V 750" fill="none" stroke="#e6e8eb" stroke-width="2"/>
-  <text x="1292" y="640" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="end">WAN .31</text>
-  <text x="1292" y="660" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="end">(Port2)</text>
-  <rect x="1120" y="690" width="220" height="420" rx="10" fill="#191b1f" stroke="#e6e8eb" stroke-width="1"/>
-  <text x="1134" y="716" font-size="13" font-weight="700" fill="#f0f2f5" text-anchor="start" letter-spacing="0.5">SITE C · AGENCE 2</text>
-  <text x="1134" y="736" font-size="13" font-weight="700" fill="#f0f2f5" text-anchor="start">10.30.30.0/24</text>
-  <rect x="1134" y="750" width="192" height="86" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
-  <text x="1148" y="778" font-size="17" font-weight="700" fill="#f0f2f5" text-anchor="start">fw-sitec</text>
-  <text x="1148" y="800" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">Sophos · SFOS 22.0</text>
-  <text x="1148" y="820" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">LAN 10.30.30.1</text>
-  <path d="M 1230 836 V 866" fill="none" stroke="#e6e8eb" stroke-width="2"/>
-  <text x="1240" y="857" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="start">LAN</text>
-  <rect x="1134" y="866" width="192" height="32" rx="6" fill="#2b3037" stroke="#e6e8eb" stroke-width="1"/>
-  <text x="1146" y="887" font-size="13" font-weight="700" fill="#f0f2f5" text-anchor="start">vmbr2 · pont isolé</text>
-  <path d="M 1230 898 V 926" fill="none" stroke="#e6e8eb" stroke-width="2"/>
-  <rect x="1134" y="926" width="192" height="64" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
-  <text x="1148" y="954" font-size="16" font-weight="700" fill="#f0f2f5" text-anchor="start">poste-sitec</text>
-  <text x="1148" y="975" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">Debian 13 · VM 302</text>
-  <text x="1134" y="1020" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="start">Licence Home :</text>
-  <text x="1134" y="1040" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="start">chiffrement fort.</text>
-  <text x="1134" y="1060" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="start">Zones, règle de nettoyage.</text>
-  <path d="M 700 1110 V 1170 H 1230 V 1110" fill="none" stroke="#3fb950" stroke-width="4"/>
-  <path d="M 440 1110 V 1200 H 990 V 1110" fill="none" stroke="#f85149" stroke-width="2.5" stroke-dasharray="8 6"/>
-  <text x="735" y="1162" font-size="13.5" font-weight="700" fill="#3fb950" text-anchor="start">tunnel IPsec monté</text>
-  <text x="455" y="1222" font-size="13.5" font-weight="700" fill="#f85149" text-anchor="start">impossible (DES)</text>
+  <g transform="translate(-145 0)">
+    <path d="M 580 450 H 1110" fill="none" stroke="#e6e8eb" stroke-width="2"/>
+    <path d="M 580 450 V 535" fill="none" stroke="#e6e8eb" stroke-width="2"/>
+    <path d="M 1110 450 V 535" fill="none" stroke="#e6e8eb" stroke-width="2"/>
+    <text x="720" y="442" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">réseau maison 192.168.1.0/24 = « Internet » entre les sites</text>
+    <rect x="330" y="490" width="500" height="640" rx="12" fill="#1c1f24" stroke="#e6e8eb" stroke-width="1.5"/>
+    <text x="350" y="518" font-size="14" font-weight="700" fill="#f0f2f5" text-anchor="start" letter-spacing="0.5">PVE-SITEA · PROXMOX VE</text>
+    <text x="810" y="518" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="end">PC Acer · .100</text>
+    <text x="590" y="505" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="start">nic0</text>
+    <rect x="350" y="535" width="460" height="32" rx="6" fill="#2b3037" stroke="#e6e8eb" stroke-width="1"/>
+    <text x="362" y="556" font-size="13" font-weight="700" fill="#f0f2f5" text-anchor="start">vmbr0 · pont relié à nic0 = réseau maison</text>
+    <path d="M 435 567 V 590" fill="none" stroke="#e6e8eb" stroke-width="2"/>
+    <path d="M 615 567 V 590" fill="none" stroke="#e6e8eb" stroke-width="2"/>
+    <path d="M 760 567 V 730" fill="none" stroke="#e6e8eb" stroke-width="2"/>
+    <rect x="350" y="590" width="170" height="60" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
+    <text x="364" y="618" font-size="16" font-weight="700" fill="#f0f2f5" text-anchor="start">dns-sitea</text>
+    <text x="364" y="640" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">AdGuard · LXC 105 · .53</text>
+    <rect x="530" y="590" width="170" height="60" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
+    <text x="544" y="618" font-size="16" font-weight="700" fill="#f0f2f5" text-anchor="start">omada-sitea</text>
+    <text x="544" y="640" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">Omada · LXC 102 · .24</text>
+    <text x="752" y="676" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="end">WAN 192.168.1.29</text>
+    <rect x="350" y="690" width="460" height="420" rx="10" fill="#191b1f" stroke="#e6e8eb" stroke-width="1"/>
+    <text x="366" y="716" font-size="14" font-weight="700" fill="#f0f2f5" text-anchor="start" letter-spacing="0.5">SITE A · SIÈGE</text>
+    <text x="700" y="716" font-size="14" font-weight="700" fill="#f0f2f5" text-anchor="end">10.10.10.0/24</text>
+    <rect x="366" y="730" width="428" height="70" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
+    <text x="380" y="758" font-size="17" font-weight="700" fill="#f0f2f5" text-anchor="start">fw-sitea · OPNsense</text>
+    <text x="380" y="780" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">VM 104 · WAN .29 (vmbr0) · LAN 10.10.10.1 (vmbr1)</text>
+    <path d="M 580 800 V 830" fill="none" stroke="#e6e8eb" stroke-width="2"/>
+    <text x="590" y="821" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="start">LAN</text>
+    <rect x="366" y="830" width="428" height="32" rx="6" fill="#2b3037" stroke="#e6e8eb" stroke-width="1"/>
+    <text x="378" y="851" font-size="13" font-weight="700" fill="#f0f2f5" text-anchor="start">vmbr1 · pont isolé, aucune carte physique</text>
+    <path d="M 469 862 V 890" fill="none" stroke="#e6e8eb" stroke-width="2"/>
+    <path d="M 691 862 V 890" fill="none" stroke="#e6e8eb" stroke-width="2"/>
+    <rect x="366" y="890" width="206" height="64" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
+    <text x="380" y="918" font-size="16" font-weight="700" fill="#f0f2f5" text-anchor="start">Kali Linux</text>
+    <text x="380" y="940" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">VM 101 · 10.10.10.10</text>
+    <rect x="588" y="890" width="206" height="64" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
+    <text x="602" y="918" font-size="16" font-weight="700" fill="#f0f2f5" text-anchor="start">Linux Lite</text>
+    <text x="602" y="940" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">VM 103 · 10.10.10.11</text>
+    <text x="366" y="990" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">Liste blanche, isolation du réseau maison,</text>
+    <text x="366" y="1010" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">DNS forcé, administration limitée au PC d'admin.</text>
+    <text x="366" y="1040" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">Kali teste les règles du point de vue</text>
+    <text x="366" y="1060" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">de l'attaquant.</text>
+    <rect x="860" y="490" width="500" height="640" rx="12" fill="#1c1f24" stroke="#e6e8eb" stroke-width="1.5"/>
+    <text x="880" y="518" font-size="14" font-weight="700" fill="#f0f2f5" text-anchor="start" letter-spacing="0.5">PVE-SITEB · PROXMOX VE</text>
+    <text x="1340" y="518" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="end">Intel NUC · .102</text>
+    <text x="1120" y="505" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="start">nic0</text>
+    <rect x="880" y="535" width="460" height="32" rx="6" fill="#2b3037" stroke="#e6e8eb" stroke-width="1"/>
+    <text x="892" y="556" font-size="13" font-weight="700" fill="#f0f2f5" text-anchor="start">vmbr0 · pont relié à nic0 = réseau maison</text>
+    <path d="M 1060 567 V 750" fill="none" stroke="#e6e8eb" stroke-width="2"/>
+    <text x="1052" y="640" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="end">WAN .30</text>
+    <text x="1052" y="660" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="end">(port1)</text>
+    <rect x="880" y="690" width="220" height="420" rx="10" fill="#191b1f" stroke="#e6e8eb" stroke-width="1"/>
+    <text x="894" y="716" font-size="13" font-weight="700" fill="#f0f2f5" text-anchor="start" letter-spacing="0.5">SITE B · AGENCE 1</text>
+    <text x="894" y="736" font-size="13" font-weight="700" fill="#f0f2f5" text-anchor="start">10.20.20.0/24</text>
+    <rect x="894" y="750" width="192" height="86" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
+    <text x="908" y="778" font-size="17" font-weight="700" fill="#f0f2f5" text-anchor="start">fw-siteb</text>
+    <text x="908" y="800" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">FortiGate · FortiOS 7.6</text>
+    <text x="908" y="820" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">LAN 10.20.20.1</text>
+    <path d="M 990 836 V 866" fill="none" stroke="#e6e8eb" stroke-width="2"/>
+    <text x="1000" y="857" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="start">LAN</text>
+    <rect x="894" y="866" width="192" height="32" rx="6" fill="#2b3037" stroke="#e6e8eb" stroke-width="1"/>
+    <text x="906" y="887" font-size="13" font-weight="700" fill="#f0f2f5" text-anchor="start">vmbr1 · pont isolé</text>
+    <path d="M 990 898 V 926" fill="none" stroke="#e6e8eb" stroke-width="2"/>
+    <rect x="894" y="926" width="192" height="64" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
+    <text x="908" y="954" font-size="16" font-weight="700" fill="#f0f2f5" text-anchor="start">poste-siteb</text>
+    <text x="908" y="975" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">Debian 13 · VM 202</text>
+    <text x="894" y="1020" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="start">Licence d'évaluation :</text>
+    <text x="894" y="1040" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="start">DES seulement, 3 règles.</text>
+    <text x="894" y="1060" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="start">Liste blanche en une règle.</text>
+    <path d="M 1300 567 V 750" fill="none" stroke="#e6e8eb" stroke-width="2"/>
+    <text x="1292" y="640" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="end">WAN .31</text>
+    <text x="1292" y="660" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="end">(Port2)</text>
+    <rect x="1120" y="690" width="220" height="420" rx="10" fill="#191b1f" stroke="#e6e8eb" stroke-width="1"/>
+    <text x="1134" y="716" font-size="13" font-weight="700" fill="#f0f2f5" text-anchor="start" letter-spacing="0.5">SITE C · AGENCE 2</text>
+    <text x="1134" y="736" font-size="13" font-weight="700" fill="#f0f2f5" text-anchor="start">10.30.30.0/24</text>
+    <rect x="1134" y="750" width="192" height="86" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
+    <text x="1148" y="778" font-size="17" font-weight="700" fill="#f0f2f5" text-anchor="start">fw-sitec</text>
+    <text x="1148" y="800" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">Sophos · SFOS 22.0</text>
+    <text x="1148" y="820" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">LAN 10.30.30.1</text>
+    <path d="M 1230 836 V 866" fill="none" stroke="#e6e8eb" stroke-width="2"/>
+    <text x="1240" y="857" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="start">LAN</text>
+    <rect x="1134" y="866" width="192" height="32" rx="6" fill="#2b3037" stroke="#e6e8eb" stroke-width="1"/>
+    <text x="1146" y="887" font-size="13" font-weight="700" fill="#f0f2f5" text-anchor="start">vmbr2 · pont isolé</text>
+    <path d="M 1230 898 V 926" fill="none" stroke="#e6e8eb" stroke-width="2"/>
+    <rect x="1134" y="926" width="192" height="64" rx="10" fill="#23262b" stroke="#3a3f47" stroke-width="1"/>
+    <text x="1148" y="954" font-size="16" font-weight="700" fill="#f0f2f5" text-anchor="start">poste-sitec</text>
+    <text x="1148" y="975" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">Debian 13 · VM 302</text>
+    <text x="1134" y="1020" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="start">Licence Home :</text>
+    <text x="1134" y="1040" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="start">chiffrement fort.</text>
+    <text x="1134" y="1060" font-size="12.5" font-weight="400" fill="#9aa1ab" text-anchor="start">Zones, règle de nettoyage.</text>
+    <path d="M 700 1110 V 1170 H 1230 V 1110" fill="none" stroke="#3fb950" stroke-width="4"/>
+    <path d="M 440 1110 V 1200 H 990 V 1110" fill="none" stroke="#f85149" stroke-width="2.5" stroke-dasharray="8 6"/>
+    <text x="735" y="1162" font-size="13.5" font-weight="700" fill="#3fb950" text-anchor="start">tunnel IPsec monté</text>
+    <text x="455" y="1222" font-size="13.5" font-weight="700" fill="#f85149" text-anchor="start">impossible (DES)</text>
+  </g>
   <path d="M 40 1262 H 100" fill="none" stroke="#e6e8eb" stroke-width="2"/>
   <text x="116" y="1267" font-size="14" font-weight="400" fill="#f0f2f5" text-anchor="start">Câble Ethernet</text>
   <path d="M 330 1262 H 390" fill="none" stroke="#e6e8eb" stroke-width="2" stroke-dasharray="4 6"/>
