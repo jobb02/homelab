@@ -1,5 +1,7 @@
 # 12 — Site C : Sophos Firewall Home
 
+[← 11 · Site B : FortiGate](11-fortigate-site-b.md) · [Sommaire de la documentation](README.md) · [13 · Tunnel IPsec →](13-tunnel-ipsec.md)
+
 > Date : 16 et 17 novembre 2026 · Pare-feu : Sophos Firewall (`fw-sitec`), SFOS 22.0.2 MR-2, licence Home · Hyperviseur : Proxmox VE (`pve-siteb`, Intel NUC)
 
 ## Pourquoi un troisième site
@@ -89,3 +91,7 @@ Le FortiGate en licence d'évaluation ne peut pas monter de tunnel avec OPNsense
 ## Limite connue, à corriger
 
 Comme au site B, la règle 2 vise toute la zone WAN, qui inclut le réseau maison. Une règle d'isolation vers `192.168.1.0/24` sera ajoutée avant elle.
+
+---
+
+[← 11 · Site B : FortiGate](11-fortigate-site-b.md) · [Sommaire de la documentation](README.md) · [13 · Tunnel IPsec →](13-tunnel-ipsec.md)
