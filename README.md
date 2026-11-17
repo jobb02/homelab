@@ -24,13 +24,40 @@ Chaque brique est documentée avec **le pourquoi des choix**, pas seulement le c
 
 ## Sommaire
 
-- [Pourquoi ce lab](#pourquoi-ce-lab)
 - [Vue d'ensemble](#vue-densemble)
+- [Comment le lab a grandi](#comment-le-lab-a-grandi)
+- [Pourquoi ce lab](#pourquoi-ce-lab)
 - [État du lab](#état-du-lab)
 - [Plan d'adressage](#plan-dadressage)
 - [Segmentation du lab](#segmentation-du-lab)
-- [Comment le lab a grandi](#comment-le-lab-a-grandi)
 - [Feuille de route](#feuille-de-route)
+
+## Vue d'ensemble
+
+![Les trois sites et le tunnel IPsec](docs/schema-sites.svg)
+
+**Vue logique :** trois sites, trois constructeurs. Le réseau maison joue le rôle d'Internet entre les pare-feux.
+
+![Vue détaillée du homelab](docs/schema-homelab.svg)
+
+**Vue détaillée :** le matériel physique, ce que chaque hyperviseur héberge, et le rôle de chaque site.
+
+**Chemin d'une requête DNS** : le PC et les deux hyperviseurs interrogent AdGuard ; si le nom se termine par `home.arpa`, AdGuard transmet au NAS (serveur de la zone locale) ; sinon, il interroge Cloudflare ou Quad9 en DNS over HTTPS (requête chiffrée, invisible pour la box et le FAI). Détail dans [docs/03-dns.md](docs/03-dns.md).
+
+## Comment le lab a grandi
+
+Je n'ai rien acheté d'un coup : chaque brique est arrivée quand j'en ai eu besoin.
+
+1. **VirtualBox sur mon PC perso**, pour mes premières VM de test.
+2. **Un PC Acer sous Proxmox VE**, pour faire tourner les VM en continu (Kali et quelques machines de test).
+3. **Un NAS Synology en RAID 1**, pour rapatrier mes données en local plutôt que de payer des abonnements cloud de plus en plus chers. Il héberge aussi la zone DNS locale `home.arpa`. Étape suivante : une copie hors site (règle 3-2-1).
+4. **Un switch manageable Omada** : le lab est branché sur un répéteur Freebox qui n'a qu'un port Ethernet, pour quatre machines. Le switch est piloté par son contrôleur, installé dans un conteneur.
+5. **Un DNS filtrant** : AdGuard Home en conteneur, qui transmet les noms `home.arpa` au NAS et chiffre le reste en DNS over HTTPS.
+6. **Un pare-feu OPNsense** : jusque-là, Kali était sur le même réseau que les appareils de la maison. Le lab est maintenant isolé, et sa seule sortie passe par le pare-feu.
+7. **Un deuxième site** : un Intel NUC sous Proxmox, avec un FortiGate. Sa licence d'évaluation gratuite s'est révélée incapable de monter un tunnel avec OPNsense : elle ne propose que DES, qu'OPNsense ne gère plus.
+8. **Un troisième site** : Sophos Firewall Home sur le même NUC, relié au siège par un tunnel IPsec. Deux constructeurs différents qui s'entendent sur IKEv2, AES-256 et le groupe DH 14.
+
+Chaque étape est documentée dans `docs/`, avec ce qui a coincé et comment je l'ai réglé.
 
 ## Pourquoi ce lab
 
@@ -49,18 +76,6 @@ Chaque étape répond au besoin d'une entreprise fictive :
 La licence d'évaluation gratuite du FortiGate n'autorise que le chiffrement DES et limite la VM à 3 interfaces, 3 règles et 3 routes. Les besoins qu'elle ne permet pas de couvrir sont marqués comme tels plutôt que retirés : chez un client, la licence payante lève ces limites. Pour le tunnel, un troisième site protégé par Sophos Firewall Home (gratuit, chiffrement fort) a pris le relais.
 
 Kali ne sert pas à faire du pentest : elle sert à tester mes propres règles du point de vue de l'attaquant.
-
-## Vue d'ensemble
-
-![Les trois sites et le tunnel IPsec](docs/schema-sites.svg)
-
-**Vue logique :** trois sites, trois constructeurs. Le réseau maison joue le rôle d'Internet entre les pare-feux.
-
-![Schéma du homelab](docs/schema-homelab.svg)
-
-**Vue physique et services de la maison.** Ce schéma date d'avant les sites B et C : les éléments en pointillés (FortiGate, lab du site B, tunnel) sont désormais en place, voir la vue logique ci-dessus. Il est généré par [scripts/gen_schema.py](scripts/gen_schema.py).
-
-**Chemin d'une requête DNS** : le PC et les deux hyperviseurs interrogent AdGuard ; si le nom se termine par `home.arpa`, AdGuard transmet au NAS (serveur de la zone locale) ; sinon, il interroge Cloudflare ou Quad9 en DNS over HTTPS (requête chiffrée, invisible pour la box et le FAI). Détail dans [docs/03-dns.md](docs/03-dns.md).
 
 ## État du lab
 
@@ -144,21 +159,6 @@ Les VM de test (dont Kali) sont sur un réseau isolé (`vmbr1`), sans carte phys
 | Lab → réseau maison | **Bloqué** (Reject vers l'alias `RES_MAISON`, placé avant l'autorisation générale) | [détail](docs/08-filtrage-pare-feu.md) | Un scan ou un exploit lancé par erreur ne doit jamais toucher les appareils de la famille |
 | PC d'admin → interface OPNsense | Autorisé depuis une seule IP (alias `PC_ADMIN`), TCP 443 uniquement | [détail](docs/09-acces-admin.md) | Administrer sans passer par la console, en limitant la source et le port |
 | Reste | Refusé et journalisé (règle de nettoyage) | — | Moindre privilège : tout ce qui n'est pas explicitement autorisé est interdit |
-
-## Comment le lab a grandi
-
-Je n'ai rien acheté d'un coup : chaque brique est arrivée quand j'en ai eu besoin.
-
-1. **VirtualBox sur mon PC perso**, pour mes premières VM de test.
-2. **Un PC Acer sous Proxmox VE**, pour faire tourner les VM en continu (Kali et quelques machines de test).
-3. **Un NAS Synology en RAID 1**, pour rapatrier mes données en local plutôt que de payer des abonnements cloud de plus en plus chers. Il héberge aussi la zone DNS locale `home.arpa`. Étape suivante : une copie hors site (règle 3-2-1).
-4. **Un switch manageable Omada** : le lab est branché sur un répéteur Freebox qui n'a qu'un port Ethernet, pour quatre machines. Le switch est piloté par son contrôleur, installé dans un conteneur.
-5. **Un DNS filtrant** : AdGuard Home en conteneur, qui transmet les noms `home.arpa` au NAS et chiffre le reste en DNS over HTTPS.
-6. **Un pare-feu OPNsense** : jusque-là, Kali était sur le même réseau que les appareils de la maison. Le lab est maintenant isolé, et sa seule sortie passe par le pare-feu.
-7. **Un deuxième site** : un Intel NUC sous Proxmox, avec un FortiGate. Sa licence d'évaluation gratuite s'est révélée incapable de monter un tunnel avec OPNsense : elle ne propose que DES, qu'OPNsense ne gère plus.
-8. **Un troisième site** : Sophos Firewall Home sur le même NUC, relié au siège par un tunnel IPsec. Deux constructeurs différents qui s'entendent sur IKEv2, AES-256 et le groupe DH 14.
-
-Chaque étape est documentée dans `docs/`, avec ce qui a coincé et comment je l'ai réglé.
 
 ## Feuille de route
 
