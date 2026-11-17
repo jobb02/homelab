@@ -1,5 +1,7 @@
 # 07 — Tenant de test Microsoft 365 / Entra ID
 
+[← 06 · Appli web](06-deploiement-appli-web.md) · [Sommaire de la documentation](README.md) · [08 · Isolation du lab →](08-filtrage-pare-feu.md)
+
 Objectif : pratiquer l'administration des identités Microsoft, en préparation de la certification **SC-300**.
 
 ## Fait
@@ -16,3 +18,7 @@ Objectif : pratiquer l'administration des identités Microsoft, en préparation 
 - [ ] Premières stratégies d'accès conditionnel (MFA admins, blocage auth legacy) en mode « rapport uniquement » puis activé
 - [ ] PIM (élévation de privilèges à la demande)
 - [ ] Inscription d'une application d'entreprise avec SSO
+
+---
+
+[← 06 · Appli web](06-deploiement-appli-web.md) · [Sommaire de la documentation](README.md) · [08 · Isolation du lab →](08-filtrage-pare-feu.md)
