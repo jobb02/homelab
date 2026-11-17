@@ -10,14 +10,7 @@ Le tunnel de la [fiche 13](13-tunnel-ipsec.md) est monté, mais il ne transporte
 
 Objectif, en moindre privilège : Kali (siège) administre `poste-sitec` (agence 2) en SSH et le joint en ping. Rien d'autre, et rien dans l'autre sens.
 
-```
- Kali 10.10.10.10                                              poste-sitec 10.30.30.100
-     │ ① OPNsense, règle LAN :                                        ▲ ② Sophos, règle zone VPN → zone LAN :
-     │   Kali → POSTE_SITEC, SSH + ping                               │   Kali-SiteA → poste-sitec, SSH + ping
-     ▼                                                                │
- fw-sitea (OPNsense) ═══════════ tunnel IPsec chiffré ═══════════ fw-sitec (Sophos)
-                 les réponses reviennent par la table d'états (stateful)
-```
+![Schéma : la règle de sortie sur OPNsense, le tunnel, la règle d'entrée sur Sophos, les réponses par la table d'états et ce qui est refusé](schema-regles-tunnel.svg)
 
 ## Pourquoi deux règles, et aucune pour les réponses
 
