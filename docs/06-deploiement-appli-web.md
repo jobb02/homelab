@@ -1,6 +1,6 @@
 # 06 — Déploiement d'une application web multi-utilisateurs
 
-[← 05 · Stockage et sauvegarde](05-stockage-sauvegarde.md) · [Sommaire de la documentation](README.md) · [07 · Microsoft 365 →](07-m365-entra-id.md)
+[← 05 · Stockage et sauvegarde](05-stockage-sauvegarde.md) · [Sommaire de la documentation](README.md) · [08 · Isolation du lab →](08-filtrage-pare-feu.md)
 
 Application interne en Python (comptes, rôles, sessions, base SQLite) que j'ai déployée et exploitée sur le lab.
 
@@ -30,4 +30,4 @@ Script de déploiement : copie du code par `scp` vers le conteneur (jamais le do
 
 ---
 
-[← 05 · Stockage et sauvegarde](05-stockage-sauvegarde.md) · [Sommaire de la documentation](README.md) · [07 · Microsoft 365 →](07-m365-entra-id.md)
+[← 05 · Stockage et sauvegarde](05-stockage-sauvegarde.md) · [Sommaire de la documentation](README.md) · [08 · Isolation du lab →](08-filtrage-pare-feu.md)
