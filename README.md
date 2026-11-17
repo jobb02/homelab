@@ -7,6 +7,7 @@
 ![Proxmox VE](https://img.shields.io/badge/Proxmox_VE-0d1117?style=for-the-badge&logo=proxmox&logoColor=E57000)
 ![OPNsense](https://img.shields.io/badge/OPNsense-0d1117?style=for-the-badge&logo=opnsense&logoColor=D94F00)
 ![FortiGate](https://img.shields.io/badge/FortiGate-0d1117?style=for-the-badge&logo=fortinet&logoColor=EE3124)
+![Sophos](https://img.shields.io/badge/Sophos_Firewall-0d1117?style=for-the-badge&logo=sophos&logoColor=2D7FF9)
 ![WireGuard](https://img.shields.io/badge/WireGuard-0d1117?style=for-the-badge&logo=wireguard&logoColor=88171A)
 ![Synology](https://img.shields.io/badge/Synology-0d1117?style=for-the-badge&logo=synology&logoColor=B5B5B6)
 ![AdGuard](https://img.shields.io/badge/AdGuard_Home-0d1117?style=for-the-badge&logo=adguard&logoColor=68BC71)
@@ -33,27 +34,31 @@ Chaque brique est documentée avec **le pourquoi des choix**, pas seulement le c
 
 ## Pourquoi ce lab
 
-Ce lab me sert à m'entraîner sur des cas concrets d'entreprise : isoler un réseau à risque, relier deux sites équipés de pare-feux de constructeurs différents, sécuriser l'accès distant, puis vérifier depuis Kali que les règles tiennent vraiment.
+Ce lab me sert à m'entraîner sur des cas concrets d'entreprise : isoler un réseau à risque, relier des sites équipés de pare-feux de constructeurs différents, sécuriser l'accès distant, puis vérifier depuis Kali que les règles tiennent vraiment.
 
 Chaque étape répond au besoin d'une entreprise fictive :
 
 | Besoin de l'entreprise | Ce que je fais dans le lab | État |
 | --- | --- | --- |
 | « Ce réseau à risque ne doit pas toucher le reste » | Isolation du lab derrière OPNsense ([fiche 08](docs/08-filtrage-pare-feu.md)) | ✅ Fait |
-| « Il faut relier le siège et l'agence » | Tunnel IPsec entre OPNsense et FortiGate, deux constructeurs | 🔜 Prévu |
+| « Il faut relier le siège et les agences » | Tunnel IPsec OPNsense (siège) ↔ Sophos (agence 2) ; le FortiGate (agence 1) en est incapable en licence d'évaluation ([fiche 13](docs/13-tunnel-ipsec.md)) | ✅ Tunnel monté, règles du tunnel en cours |
 | « Nos salariés télétravaillent » | VPN d'accès distant avec double authentification (FortiClient) | ⚠️ Limité par la licence d'évaluation (VPN SSL impossible, IPsec à tester) |
-| « On veut contrôler l'usage du web » | Filtrage web et inspection SSL sur le FortiGate | ⛔ Impossible en licence d'évaluation (chiffrement fort requis) |
+| « On veut contrôler l'usage du web » | Filtrage web et inspection SSL : impossible sur le FortiGate en licence d'évaluation, possible sur Sophos Home | 🔜 Prévu (site C) |
 | « Prouvez-moi que ça protège vraiment » | Attaques et scans depuis Kali, détection avec Suricata | 🔜 Prévu |
 
-La licence d'évaluation gratuite du FortiGate n'autorise que le chiffrement DES et limite la VM à 3 interfaces, 3 règles et 3 routes. Les besoins qu'elle ne permet pas de couvrir sont marqués comme tels plutôt que retirés : chez un client, la licence payante lève ces limites.
+La licence d'évaluation gratuite du FortiGate n'autorise que le chiffrement DES et limite la VM à 3 interfaces, 3 règles et 3 routes. Les besoins qu'elle ne permet pas de couvrir sont marqués comme tels plutôt que retirés : chez un client, la licence payante lève ces limites. Pour le tunnel, un troisième site protégé par Sophos Firewall Home (gratuit, chiffrement fort) a pris le relais.
 
 Kali ne sert pas à faire du pentest : elle sert à tester mes propres règles du point de vue de l'attaquant.
 
 ## Vue d'ensemble
 
+![Les trois sites et le tunnel IPsec](docs/schema-sites.svg)
+
+**Vue logique :** trois sites, trois constructeurs. Le réseau maison joue le rôle d'Internet entre les pare-feux.
+
 ![Schéma du homelab](docs/schema-homelab.svg)
 
-Les éléments en pointillés (FortiGate, lab du site B, tunnel IPsec) sont **prévus**, pas encore en place. Le schéma est généré par [scripts/gen_schema.py](scripts/gen_schema.py).
+**Vue physique et services de la maison.** Ce schéma date d'avant les sites B et C : les éléments en pointillés (FortiGate, lab du site B, tunnel) sont désormais en place, voir la vue logique ci-dessus. Il est généré par [scripts/gen_schema.py](scripts/gen_schema.py).
 
 **Chemin d'une requête DNS** : le PC et les deux hyperviseurs interrogent AdGuard ; si le nom se termine par `home.arpa`, AdGuard transmet au NAS (serveur de la zone locale) ; sinon, il interroge Cloudflare ou Quad9 en DNS over HTTPS (requête chiffrée, invisible pour la box et le FAI). Détail dans [docs/03-dns.md](docs/03-dns.md).
 
@@ -61,7 +66,7 @@ Les éléments en pointillés (FortiGate, lab du site B, tunnel IPsec) sont **pr
 
 | Brique | Ce qui tourne | État | Doc |
 |---|---|---|---|
-| Virtualisation | Deux hyperviseurs Proxmox VE : `pve-sitea` (PC Acer) et `pve-siteb` (Intel NUC), VM et conteneurs LXC | ✅ | [fiche 01](docs/01-virtualisation.md) |
+| Virtualisation | Deux hyperviseurs Proxmox VE : `pve-sitea` (PC Acer) et `pve-siteb` (Intel NUC, sites B et C), VM et conteneurs LXC | ✅ | [fiche 01](docs/01-virtualisation.md) |
 | Réseau | Switch Omada et son contrôleur en LXC, pare-feu OPNsense (`fw-sitea`) : DHCP et NAT du lab, IPv6 maîtrisé (SLAAC désactivé) | ✅ | [fiche 02](docs/02-reseau.md) |
 | DNS | AdGuard Home (filtrage, DNS over HTTPS) et zone locale `home.arpa` sur le Synology | ✅ | [fiche 03](docs/03-dns.md) |
 | Accès distant | VPN WireGuard (Freebox) pour l'administration | ✅ | [fiche 04](docs/04-acces-distant.md) |
@@ -71,8 +76,10 @@ Les éléments en pointillés (FortiGate, lab du site B, tunnel IPsec) sont **pr
 | Isolation du lab | Lab → maison refusé (Reject), testé et vérifié dans les logs | ✅ | [fiche 08](docs/08-filtrage-pare-feu.md) |
 | Accès d'administration | Interface d'OPNsense joignable depuis le seul PC d'admin, en HTTPS | ✅ | [fiche 09](docs/09-acces-admin.md) |
 | Liste blanche | Le lab ne sort que pour le web, le NTP, le ping et le DNS via OPNsense ; tout le reste est refusé et journalisé | ✅ | [fiche 10](docs/10-liste-blanche.md) |
-| Pare-feu du site B | FortiGate (`fw-siteb`) en VM sur le NUC | 🔜 Prévu | — |
-| Liaison entre les sites | Tunnel IPsec OPNsense ↔ FortiGate, deux constructeurs | 🔜 Prévu | — |
+| Pare-feu du site B | FortiGate (`fw-siteb`, FortiOS 7.6.8, licence d'évaluation) : CLI, `allowaccess`, *trusted host*, DHCP, DNS, liste blanche en une règle | ✅ | [fiche 11](docs/11-fortigate-site-b.md) |
+| Pare-feu du site C | Sophos Firewall Home (`fw-sitec`, SFOS 22.0.2) : zones, ACL des services, liste blanche, règle de nettoyage | ✅ | [fiche 12](docs/12-sophos-site-c.md) |
+| Liaison entre les sites | Tunnel IPsec IKEv2 OPNsense ↔ Sophos (AES-256, DH14) ; OPNsense ↔ FortiGate impossible (DES seul) | ✅ Monté, règles du tunnel en cours | [fiche 13](docs/13-tunnel-ipsec.md) |
+| Inventaire IP | Toutes les adresses fixes, réseau par réseau | ✅ | [inventaire](docs/inventaire-ip.md) |
 
 ## Plan d'adressage
 
@@ -80,12 +87,15 @@ Les éléments en pointillés (FortiGate, lab du site B, tunnel IPsec) sont **pr
 |---|---|---|---|
 | Maison (`vmbr0`) | 192.168.1.0/24 | Freebox 192.168.1.254 | Services, administration, appareils de la maison |
 | Lab site A (`vmbr1` de pve-sitea) | 10.10.10.0/24 | OPNsense 10.10.10.1 | VM de test isolées derrière le pare-feu. `.2–.99` : IP fixes (Kali `.10`, Linux Lite `.11`, réservées dans Dnsmasq) · `.100–.200` : DHCP d'OPNsense |
-| Lab site B (NUC, prévu) | 10.20.20.0/24 | FortiGate 10.20.20.1 | Second site relié au lab par VPN IPsec |
+| Lab site B (`vmbr1` de pve-siteb) | 10.20.20.0/24 | FortiGate 10.20.20.1 | Agence 1. `.100–.200` : DHCP du FortiGate |
+| Lab site C (`vmbr2` de pve-siteb) | 10.30.30.0/24 | Sophos 10.30.30.1 | Agence 2, reliée au siège par le tunnel IPsec. `.100–.200` : DHCP de Sophos |
+
+Inventaire complet, machine par machine : [docs/inventaire-ip.md](docs/inventaire-ip.md).
 
 <details>
 <summary><b>Pourquoi des plages en 10.x et une plage par réseau</b></summary>
 
-Pourquoi `10.x` pour les labs plutôt que `192.168.x` : les box et les Wi-Fi publics utilisent presque tous `192.168.0.x` ou `192.168.1.x`. Un lab en `10.x` évite les chevauchements le jour où l'on s'y connecte en VPN depuis un autre réseau, et deux sites reliés en IPsec doivent avoir des plages distinctes. Le 2e octet indique le site (`10.10` = A, `10.20` = B).
+Pourquoi `10.x` pour les labs plutôt que `192.168.x` : les box et les Wi-Fi publics utilisent presque tous `192.168.0.x` ou `192.168.1.x`. Un lab en `10.x` évite les chevauchements le jour où l'on s'y connecte en VPN depuis un autre réseau, et deux sites reliés en IPsec doivent avoir des plages distinctes. Le 2e octet indique le site (`10.10` = A, `10.20` = B, `10.30` = C).
 
 Pourquoi une plage différente par réseau : si deux réseaux utilisaient 192.168.1.0/24, le pare-feu ne pourrait pas savoir de quel côté envoyer un paquet. Deux plages distinctes = un routage et des règles sans ambiguïté.
 
@@ -95,8 +105,8 @@ Pourquoi une plage différente par réseau : si deux réseaux utilisaient 192.16
 <summary><b>Deux sites dans une même pièce : underlay et overlay</b></summary>
 
 Les deux hyperviseurs sont physiquement sur le même switch. Ce qui est simulé, c'est la partie logique :
-- **site A** = ce qui est derrière OPNsense (`10.10.10.0/24`), **site B** = ce qui sera derrière le FortiGate (`10.20.20.0/24`) ;
-- le **réseau maison** (`192.168.1.0/24`) joue le rôle d'**Internet** entre les deux : c'est l'**underlay**, le réseau de transport sur lequel sont branchés les WAN des deux pare-feux ;
+- **site A** = ce qui est derrière OPNsense (`10.10.10.0/24`), **site B** = derrière le FortiGate (`10.20.20.0/24`), **site C** = derrière Sophos (`10.30.30.0/24`) ; les sites B et C partagent le NUC, chacun avec son propre pont isolé ;
+- le **réseau maison** (`192.168.1.0/24`) joue le rôle d'**Internet** entre les deux : c'est l'**underlay**, le réseau de transport sur lequel sont branchés les WAN des trois pare-feux ;
 - le **tunnel IPsec** est l'**overlay** : les deux labs ne se joignent que par lui, jamais directement, comme un siège et une agence reliés à travers Internet.
 
 </details>
@@ -109,9 +119,10 @@ Chaque équipement d'infrastructure suit le format **`<rôle>-<site>`** : le nom
 | Nom | Rôle | IP |
 |---|---|---|
 | `pve-sitea` | Hyperviseur Proxmox VE, site A (PC Acer) | 192.168.1.100 |
-| `pve-siteb` | Hyperviseur Proxmox VE, site B (Intel NUC) | 192.168.1.102 |
+| `pve-siteb` | Hyperviseur Proxmox VE, sites B et C (Intel NUC) | 192.168.1.102 |
 | `fw-sitea` | Pare-feu OPNsense, site A (interface WAN) | 192.168.1.29 |
-| `fw-siteb` | Pare-feu FortiGate, site B (prévu) | — |
+| `fw-siteb` | Pare-feu FortiGate, site B (port1, WAN) | 192.168.1.30 |
+| `fw-sitec` | Pare-feu Sophos, site C (Port2, WAN) | 192.168.1.31 |
 | `sw-core` | Switch Omada ES205G — transit commun aux deux sites, d'où `core` et non `sitea` | 192.168.1.101 |
 | `nas-sitea` | NAS Synology DS218 | 192.168.1.117 |
 | `dns-sitea` | AdGuard Home (LXC 105) | 192.168.1.53 |
@@ -144,7 +155,8 @@ Je n'ai rien acheté d'un coup : chaque brique est arrivée quand j'en ai eu bes
 4. **Un switch manageable Omada** : le lab est branché sur un répéteur Freebox qui n'a qu'un port Ethernet, pour quatre machines. Le switch est piloté par son contrôleur, installé dans un conteneur.
 5. **Un DNS filtrant** : AdGuard Home en conteneur, qui transmet les noms `home.arpa` au NAS et chiffre le reste en DNS over HTTPS.
 6. **Un pare-feu OPNsense** : jusque-là, Kali était sur le même réseau que les appareils de la maison. Le lab est maintenant isolé, et sa seule sortie passe par le pare-feu.
-7. **Un deuxième site** : un Intel NUC sous Proxmox, qui accueillera un FortiGate. Prochaine étape, relier les deux labs par un tunnel IPsec, comme un siège et une agence chez un client.
+7. **Un deuxième site** : un Intel NUC sous Proxmox, avec un FortiGate. Sa licence d'évaluation gratuite s'est révélée incapable de monter un tunnel avec OPNsense : elle ne propose que DES, qu'OPNsense ne gère plus.
+8. **Un troisième site** : Sophos Firewall Home sur le même NUC, relié au siège par un tunnel IPsec. Deux constructeurs différents qui s'entendent sur IKEv2, AES-256 et le groupe DH 14.
 
 Chaque étape est documentée dans `docs/`, avec ce qui a coincé et comment je l'ai réglé.
 
@@ -153,10 +165,10 @@ Chaque étape est documentée dans `docs/`, avec ce qui a coincé et comment je 
 Priorité : tout ce qui tourne autour du pare-feu et de l'intégration sécurité réseau. Ce qui est déjà fait est dans [État du lab](#état-du-lab).
 
 **Pare-feux et VPN**
-- [ ] FortiGate en VM sur le NUC (licence d'évaluation), réseau interne 10.20.20.0/24
-- [ ] VPN IPsec site à site entre OPNsense (site A, 10.10.10.0/24) et FortiGate (site B, 10.20.20.0/24) : interopérabilité entre deux constructeurs, comme chez un client siège + agence. À tester : la licence d'évaluation n'offre que DES ou une protection sans chiffrement (intégrité seule), alors qu'OPNsense ne gère plus DES
+- [ ] Règles dans le tunnel siège ↔ agence 2, en moindre privilège, puis test de bout en bout depuis Kali (journaux des deux pare-feux)
+- [ ] Isolation du réseau maison sur les sites B et C : leurs règles de sortie visent tout le WAN, qui inclut le réseau maison
 - [ ] VPN d'accès distant pour les utilisateurs sur le FortiGate (FortiClient) avec double authentification : le télétravail d'un client, après la liaison entre ses sites. ⚠️ Licence d'évaluation : VPN SSL impossible, IPsec en DES à tester
-- ⛔ Filtrage web et inspection SSL sur le FortiGate : **impossible en licence d'évaluation**, qui ne gère pas le chiffrement fort nécessaire à l'inspection SSL. À réaliser avec une licence complète (autorité de certification interne déployée sur les postes, gestion des exceptions pour les sites qui cassent)
+- ⛔ Filtrage web et inspection SSL sur le FortiGate : **impossible en licence d'évaluation**, qui ne gère pas le chiffrement fort nécessaire à l'inspection SSL. Possible sur Sophos Home, à réaliser sur le site C (autorité de certification interne déployée sur les postes, gestion des exceptions pour les sites qui cassent)
 
 **Détection et vulnérabilités**
 - [ ] IDS/IPS Suricata sur OPNsense, testé avec des scans et attaques depuis Kali
@@ -167,6 +179,7 @@ Priorité : tout ce qui tourne autour du pare-feu et de l'intégration sécurit�
 - [ ] Segmentation par VLAN (lab / services / maison) via le switch Omada
 - [ ] WAN du site B dans un VLAN séparé : les deux pare-feux ne partagent plus le même réseau et sont reliés par un routage, encore plus proche d'un vrai lien entre deux sites (le switch ES205G ne fait que du niveau 2 : le routeur entre les deux VLAN reste à choisir)
 - [ ] AdGuard Home comme DNS pour tout le réseau
+- [ ] Enregistrements DNS `home.arpa` pour chaque équipement de l'inventaire
 - [ ] Copie de sauvegarde hors site (règle 3-2-1)
 
 **Identité**
