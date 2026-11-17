@@ -1,6 +1,6 @@
 # 14 — Règles dans le tunnel : du tuyau chiffré au trafic autorisé
 
-[← 13 · Tunnel IPsec](13-tunnel-ipsec.md) · [Sommaire de la documentation](README.md) · [Annexe · Inventaire IP →](inventaire-ip.md)
+[← 13 · Tunnel IPsec](13-tunnel-ipsec.md) · [Sommaire de la documentation](README.md) · [15 · Isolation des agences →](15-isolation-agences.md)
 
 > Date : 17 novembre 2026 · Site A : OPNsense (`fw-sitea`) · Site C : Sophos Firewall (`fw-sitec`)
 
@@ -110,10 +110,8 @@ C'est le même piège que sur les sites B et C : **« any » couvre plus que ce 
 
 ## Suite
 
-- Réserver `10.30.30.100` dans le DHCP du Sophos : les règles visent cette adresse.
-- Sites B et C : même piège « any », leurs règles de sortie visent tout le WAN, qui inclut le réseau maison. Ajouter un refus vers `192.168.1.0/24` avant les autorisations.
-- « Ping de diagnostic » autorise aussi le ping vers les agences : acceptable dans un lab, à limiter chez un client.
+Les trois points ouverts ici sont traités dans la [fiche 15](15-isolation-agences.md) : réservation de `10.30.30.100` dans le DHCP du Sophos, isolation du réseau maison sur les sites B et C (le même piège « any »), et « Ping de diagnostic » limité à Internet.
 
 ---
 
-[← 13 · Tunnel IPsec](13-tunnel-ipsec.md) · [Sommaire de la documentation](README.md) · [Annexe · Inventaire IP →](inventaire-ip.md)
+[← 13 · Tunnel IPsec](13-tunnel-ipsec.md) · [Sommaire de la documentation](README.md) · [15 · Isolation des agences →](15-isolation-agences.md)
