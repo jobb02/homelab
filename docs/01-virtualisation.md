@@ -1,5 +1,7 @@
 # 01 — Virtualisation (Proxmox VE)
 
+[← Accueil du dépôt](../README.md) · [Sommaire de la documentation](README.md) · [02 · Réseau →](02-reseau.md)
+
 ## Matériel
 | Hôte | Rôle | Matériel | IP |
 |---|---|---|---|
@@ -62,3 +64,7 @@ Sur les deux hôtes, une mise à jour lancée depuis l'interface est restée fig
 - Diagnostic clé : **aucun processus `dpkg`** dans la liste, donc aucun paquet en cours d'installation (apt-listchanges s'exécute après le téléchargement, avant le dépaquetage). Arrêter la chaîne était sans risque. Si `dpkg` avait été présent, il aurait fallu le laisser finir.
 - Correction : arrêt des processus, `dpkg --configure -a` par précaution, puis mise à jour relancée sans pager :
   `apt update && APT_LISTCHANGES_FRONTEND=none apt full-upgrade -y`
+
+---
+
+[← Accueil du dépôt](../README.md) · [Sommaire de la documentation](README.md) · [02 · Réseau →](02-reseau.md)
