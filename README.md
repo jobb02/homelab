@@ -16,7 +16,7 @@
 Infrastructure personnelle qui me sert de terrain d'entraînement en **réseau**, **virtualisation** et **sécurité**.<br>
 Chaque brique est documentée avec **le pourquoi des choix**, pas seulement le comment.
 
-[LinkedIn](https://www.linkedin.com/in/jobb-mam-iii/) · [Documentation](docs/) · [Feuille de route](#feuille-de-route)
+[LinkedIn](https://www.linkedin.com/in/jobb-mam-iii/) · [Documentation](docs/README.md) · [Feuille de route](#feuille-de-route)
 
 </div>
 
@@ -31,6 +31,8 @@ Chaque brique est documentée avec **le pourquoi des choix**, pas seulement le c
 - [Plan d'adressage](#plan-dadressage)
 - [Segmentation du lab](#segmentation-du-lab)
 - [Feuille de route](#feuille-de-route)
+
+📚 **Toute la documentation, classée en deux parcours avec un temps de lecture par fiche : [docs/README.md](docs/README.md).**
 
 ## Vue d'ensemble
 
