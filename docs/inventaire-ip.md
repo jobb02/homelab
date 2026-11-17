@@ -1,6 +1,6 @@
 # Inventaire des adresses IP
 
-[← 13 · Tunnel IPsec](13-tunnel-ipsec.md) · [Sommaire de la documentation](README.md) · [Accueil du dépôt](../README.md)
+[← 14 · Règles dans le tunnel](14-regles-tunnel.md) · [Sommaire de la documentation](README.md) · [Accueil du dépôt](../README.md)
 
 > Mis à jour le 17 novembre 2026. Uniquement des adresses privées (RFC 1918), non joignables depuis Internet. Les IP fixes sont tenues par des réservations DHCP : la Freebox pour le réseau maison, chaque pare-feu pour son lab.
 
@@ -50,7 +50,7 @@ Passerelle : Freebox `192.168.1.254`. Ce réseau joue le rôle d'Internet entre 
 | IP | Machine | Attribution |
 | --- | --- | --- |
 | `.1` | `fw-sitec` (Sophos, Port1) | statique |
-| `.100` | `poste-sitec` (VM 302) | DHCP de Sophos, à réserver avant de le viser dans une règle |
+| `.100` | `poste-sitec` (VM 302) | DHCP de Sophos, visé par les règles du tunnel ([fiche 14](14-regles-tunnel.md)) : à réserver en priorité |
 
 ## À faire
 
@@ -59,4 +59,4 @@ Passerelle : Freebox `192.168.1.254`. Ce réseau joue le rôle d'Internet entre 
 
 ---
 
-[← 13 · Tunnel IPsec](13-tunnel-ipsec.md) · [Sommaire de la documentation](README.md) · [Accueil du dépôt](../README.md)
+[← 14 · Règles dans le tunnel](14-regles-tunnel.md) · [Sommaire de la documentation](README.md) · [Accueil du dépôt](../README.md)
