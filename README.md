@@ -59,6 +59,7 @@ Je n'ai rien acheté d'un coup : chaque brique est arrivée quand j'en ai eu bes
 7. **Un deuxième site** : un Intel NUC sous Proxmox, avec un FortiGate. Sa licence d'évaluation gratuite s'est révélée incapable de monter un tunnel avec OPNsense : elle ne propose que DES, qu'OPNsense ne gère plus.
 8. **Un troisième site** : Sophos Firewall Home sur le même NUC, relié au siège par un tunnel IPsec. Deux constructeurs différents qui s'entendent sur IKEv2, AES-256 et le groupe DH 14.
 9. **Du trafic dans le tunnel** : des règles en moindre privilège des deux côtés, Kali administre le poste de l'agence en SSH, et rien d'autre ne passe. En lisant les journaux, j'ai trouvé qu'une règle « web vers Internet » ouvrait aussi l'agence : *any* couvre plus que ce qu'on croit.
+10. **La même faille, corrigée partout** : les agences pouvaient joindre la box et le NAS de la maison. Un refus explicite sur le FortiGate et sur le Sophos, vérifié avant et après dans les journaux : les trois sites suivent maintenant la même politique.
 
 Chaque étape est documentée dans `docs/`, avec ce qui a coincé et comment je l'ai réglé.
 
@@ -97,6 +98,7 @@ Kali ne sert pas à faire du pentest : elle sert à tester mes propres règles d
 | [12 · Pare-feu du site C](docs/12-sophos-site-c.md) | ✅ | Sophos Firewall Home (`fw-sitec`, SFOS 22.0.2) : zones, ACL des services, liste blanche, règle de nettoyage |
 | [13 · Liaison entre les sites](docs/13-tunnel-ipsec.md) | ✅ | Tunnel IPsec IKEv2 OPNsense ↔ Sophos (AES-256, DH14) ; OPNsense ↔ FortiGate impossible (DES seul) |
 | [14 · Règles dans le tunnel](docs/14-regles-tunnel.md) | ✅ | Kali (siège) → poste-sitec (agence 2) en SSH et ping uniquement, testé dans les deux sens ; faille « any » trouvée dans les journaux et corrigée |
+| [15 · Isolation des agences](docs/15-isolation-agences.md) | ✅ | Réseau maison refusé sur le FortiGate et le Sophos (refus avant l'autorisation), Internet conservé ; postes des agences en réservation DHCP |
 | [Inventaire IP](docs/inventaire-ip.md) | ✅ | Toutes les adresses fixes, réseau par réseau |
 
 ## Plan d'adressage
@@ -168,9 +170,6 @@ Les VM de test (dont Kali) sont sur un réseau isolé (`vmbr1`), sans carte phys
 Priorité : tout ce qui tourne autour du pare-feu et de l'intégration sécurité réseau. Ce qui est déjà fait est dans [État du lab](#état-du-lab).
 
 **Pare-feux et VPN**
-- [ ] Isolation du réseau maison sur les sites B et C : leurs règles de sortie visent tout le WAN, qui inclut le réseau maison
-- [ ] Limiter la règle « Ping de diagnostic » d'OPNsense à Internet (`! RESEAUX_PRIVES`, comme la règle web) : elle laisse encore tout le lab pinguer les agences
-- [ ] Réserver les adresses de `poste-siteb` et `poste-sitec` dans le DHCP de leur pare-feu : les règles du tunnel visent `10.30.30.100`
 - [ ] VPN d'accès distant pour les utilisateurs sur le Sophos (Sophos Connect) avec double authentification : le télétravail d'un client, après la liaison entre ses sites. Sur le FortiGate, impossible en licence d'évaluation (VPN SSL indisponible, IPsec limité à DES)
 - ⛔ Filtrage web et inspection SSL sur le FortiGate : **impossible en licence d'évaluation**, qui ne gère pas le chiffrement fort nécessaire à l'inspection SSL. Possible sur Sophos Home, à réaliser sur le site C (autorité de certification interne déployée sur les postes, gestion des exceptions pour les sites qui cassent)
 
