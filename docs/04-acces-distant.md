@@ -1,5 +1,7 @@
 # 04 — Accès distant
 
+[← 03 · DNS](03-dns.md) · [Sommaire de la documentation](README.md) · [05 · Stockage et sauvegarde →](05-stockage-sauvegarde.md)
+
 ## VPN WireGuard (Freebox)
 - Usage : administrer **tout le lab** depuis l'extérieur, comme si j'étais à la maison.
 - Pourquoi WireGuard : protocole moderne, rapide, configuration simple (une paire de clés par appareil), et déjà intégré à la Freebox.
@@ -13,3 +15,7 @@
 ## Pourquoi ne pas tout exposer avec une redirection de port ?
 Une redirection de port rend le service visible par n'importe qui sur Internet (scans automatiques, attaques par force brute).
 Avec un VPN, il faut d'abord être authentifié sur le tunnel avant même de voir le service.
+
+---
+
+[← 03 · DNS](03-dns.md) · [Sommaire de la documentation](README.md) · [05 · Stockage et sauvegarde →](05-stockage-sauvegarde.md)
