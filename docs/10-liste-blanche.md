@@ -47,7 +47,7 @@ Les VM affichent toujours `dynamic` dans `ip a` : l'adresse est obtenue par DHCP
 | 4 | Reject | TCP/UDP | LAN net | any | 53 | Refus des DNS externes |
 | 5 | Reject | any | LAN net | RES_MAISON | — | Isolation du réseau maison |
 | 6 | Pass | UDP | LAN net | any | 123 | Heure (NTP) |
-| 7 | Pass | ICMP (echo request) | LAN net | any | — | Ping de diagnostic |
+| 7 | Pass | ICMP (echo request) | LAN net | `! RESEAUX_PRIVES` | — | Ping de diagnostic (Internet seulement) |
 | 8 | Pass | TCP | LAN net | `! RESEAUX_PRIVES` | PORTS_WEB | Web vers Internet (tout sauf les réseaux privés) |
 | 9 | Reject + log | any | LAN net | any | — | Nettoyage : tout le reste est refusé |
 
@@ -63,7 +63,7 @@ Les règles « Default allow LAN to any » (IPv4 et IPv6) sont **désactivées**
 
 *La configuration réelle dans OPNsense (vue « All rules ») : les 9 règles LAN dans l'ordre, la règle WAN de la [fiche 09](09-acces-admin.md) et, grisées en bas, les deux règles par défaut désactivées.*
 
-> **Mise à jour du 17 novembre 2026 ([fiche 14](14-regles-tunnel.md))** : avec le tunnel IPsec, *any* incluait aussi le réseau de l'agence 2. La règle 8 laissait donc tout le lab faire du web vers l'agence. Sa destination est maintenant `! RESEAUX_PRIVES` (case *Invert Destination*), c'est-à-dire vraiment Internet. Deux règles du tunnel (Kali → `poste-sitec`, SSH et ping) sont insérées entre les règles 5 et 6. La capture ci-dessus montre l'état d'avant.
+> **Mise à jour du 17 novembre 2026 ([fiche 14](14-regles-tunnel.md))** : avec le tunnel IPsec, *any* incluait aussi le réseau de l'agence 2. La règle 8 laissait donc tout le lab faire du web vers l'agence. Sa destination est maintenant `! RESEAUX_PRIVES` (case *Invert Destination*), c'est-à-dire vraiment Internet. Deux règles du tunnel (Kali → `poste-sitec`, SSH et ping) sont insérées entre les règles 5 et 6. La règle 7 (ping) a reçu la même destination ([fiche 15](15-isolation-agences.md)). La capture ci-dessus montre l'état d'avant.
 
 **Logique d'ordre :** exceptions précises → interdictions qui protègent → ouvertures générales → nettoyage.
 
