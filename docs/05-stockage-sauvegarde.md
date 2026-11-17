@@ -1,5 +1,7 @@
 # 05 — Stockage et sauvegarde
 
+[← 04 · Accès distant](04-acces-distant.md) · [Sommaire de la documentation](README.md) · [06 · Appli web →](06-deploiement-appli-web.md)
+
 ## NAS Synology DS218
 - 2 disques de 4 To en **RAID 1** (miroir).
 - Pourquoi RAID 1 : avec 2 baies, c'est le seul mode qui tolère la panne d'un disque.
@@ -47,3 +49,7 @@ Une sauvegarde jamais testée n'est pas une sauvegarde : restauration d'un fichi
 
 ## Prochaine étape
 - [ ] Une copie **hors site** pour respecter la règle 3-2-1 (3 copies, 2 supports, 1 hors site).
+
+---
+
+[← 04 · Accès distant](04-acces-distant.md) · [Sommaire de la documentation](README.md) · [06 · Appli web →](06-deploiement-appli-web.md)
