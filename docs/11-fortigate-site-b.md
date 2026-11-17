@@ -117,9 +117,9 @@ Fuseau horaire réglé sur Paris (les logs des trois pare-feux doivent être com
 - **`show` n'affiche pas `mode recursive`** : `show` n'affiche que ce qui diffère des valeurs par défaut (`show full-configuration` affiche tout).
 - **Adresse DHCP passée de `.100` à `.101`** : l'installeur Debian et le système installé ne se présentent pas au DHCP avec le même identifiant client. Une machine visée par une règle doit avoir une réservation.
 
-## Limite connue, à corriger
+## Limite corrigée
 
-La destination `all` de la règle 1 inclut le réseau maison : le poste de l'agence peut joindre la Freebox ou le NAS en HTTP, HTTPS et ping. Une règle d'isolation vers `192.168.1.0/24`, placée avant, sera ajoutée (la règle 2 sur les 3 autorisées).
+La destination `all` de la règle 1 incluait le réseau maison : le poste de l'agence pouvait joindre la Freebox ou le NAS en HTTP, HTTPS et ping. Corrigé dans la [fiche 15](15-isolation-agences.md) : règle 2 « Isolation reseau maison » (refus vers `RES_MAISON` = `192.168.1.0/24`), placée avant la règle 1. Deux règles utilisées sur les trois autorisées.
 
 ---
 
