@@ -7,4 +7,4 @@ Chaque script commence par un commentaire qui explique ce qu'il fait et pourquoi
 
 | Script | Rôle |
 |---|---|
-| `gen_schema.py` | Génère le schéma réseau `docs/schema-homelab.svg` en thème sombre (Python standard, sans dépendance). Le schéma est décrit en code : une modification du lab = quelques lignes à changer, puis `python3 scripts/gen_schema.py docs/schema-homelab.svg`. |
+| `gen_schema.py` | **Ancienne version**, conservée pour l'historique : elle générait le premier schéma du lab (site A seul, site B prévu). Le schéma actuel, `docs/schema-homelab.svg` (trois sites et tunnel IPsec), est dessiné directement en SVG. Ne pas lancer ce script vers `docs/schema-homelab.svg` : il écraserait le schéma à jour. |
