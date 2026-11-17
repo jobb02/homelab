@@ -28,7 +28,7 @@
     <path d="M 580 450 H 1110" fill="none" stroke="#e6e8eb" stroke-width="2"/>
     <path d="M 580 450 V 535" fill="none" stroke="#e6e8eb" stroke-width="2"/>
     <path d="M 1110 450 V 535" fill="none" stroke="#e6e8eb" stroke-width="2"/>
-    <text x="720" y="442" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">réseau maison 192.168.1.0/24 = « Internet » entre les sites</text>
+    <text x="865" y="442" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="start">réseau maison 192.168.1.0/24 = « Internet » entre les sites</text>
     <rect x="330" y="490" width="500" height="640" rx="12" fill="#1c1f24" stroke="#e6e8eb" stroke-width="1.5"/>
     <text x="350" y="518" font-size="14" font-weight="700" fill="#f0f2f5" text-anchor="start" letter-spacing="0.5">PVE-SITEA · PROXMOX VE</text>
     <text x="810" y="518" font-size="13" font-weight="400" fill="#9aa1ab" text-anchor="end">PC Acer · .100</text>
