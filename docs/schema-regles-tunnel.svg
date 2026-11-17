@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 700" width="1400" height="700" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="aw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e6e8eb"/></marker>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="3.2" markerHeight="3.2" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3fb950"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#f85149"/></marker>
+  </defs>
+  <rect width="1400" height="700" fill="#16181c"/>
+  <text x="30" y="56" font-size="32" font-weight="700" fill="#f0f2f5">Règles dans le tunnel : deux feux verts</text>
+  <text x="30" y="88" font-size="16" fill="#9aa1ab">Chaque pare-feu contrôle son côté · les réponses reviennent par la table d'états · tout le reste est refusé</text>
+
+  <!-- Zones -->
+  <rect x="40" y="120" width="610" height="330" rx="12" fill="#1c1f24" stroke="#e6e8eb" stroke-width="1.5"/>
+  <text x="60" y="150" font-size="15" font-weight="700" fill="#f0f2f5" letter-spacing="0.5">SITE A · SIÈGE</text>
+  <text x="630" y="150" font-size="15" font-weight="700" fill="#f0f2f5" text-anchor="end">10.10.10.0/24</text>
+  <rect x="750" y="120" width="610" height="330" rx="12" fill="#1c1f24" stroke="#e6e8eb" stroke-width="1.5"/>
+  <text x="770" y="150" font-size="15" font-weight="700" fill="#f0f2f5" letter-spacing="0.5">SITE C · AGENCE 2</text>
+  <text x="1340" y="150" font-size="15" font-weight="700" fill="#f0f2f5" text-anchor="end">10.30.30.0/24</text>
+
+  <!-- Kali -->
+  <rect x="60" y="175" width="220" height="80" rx="10" fill="#23262b" stroke="#3a3f47"/>
+  <text x="76" y="208" font-size="20" font-weight="700" fill="#f0f2f5">Kali Linux</text>
+  <text x="76" y="233" font-size="14.5" fill="#9aa1ab">10.10.10.10 · VM 101</text>
+  <!-- OPNsense -->
+  <rect x="380" y="175" width="250" height="80" rx="10" fill="#23262b" stroke="#3a3f47"/>
+  <text x="396" y="208" font-size="20" font-weight="700" fill="#f0f2f5">fw-sitea · OPNsense</text>
+  <text x="396" y="233" font-size="14.5" fill="#9aa1ab">LAN 10.10.10.1</text>
+  <!-- Sophos -->
+  <rect x="770" y="175" width="250" height="80" rx="10" fill="#23262b" stroke="#3a3f47"/>
+  <text x="786" y="208" font-size="20" font-weight="700" fill="#f0f2f5">fw-sitec · Sophos</text>
+  <text x="786" y="233" font-size="14.5" fill="#9aa1ab">LAN 10.30.30.1</text>
+  <!-- poste-sitec -->
+  <rect x="1120" y="175" width="220" height="80" rx="10" fill="#23262b" stroke="#3a3f47"/>
+  <text x="1136" y="208" font-size="20" font-weight="700" fill="#f0f2f5">poste-sitec</text>
+  <text x="1136" y="233" font-size="14.5" fill="#9aa1ab">10.30.30.100 · VM 302</text>
+
+  <!-- Aller -->
+  <path d="M 280 205 H 374" fill="none" stroke="#e6e8eb" stroke-width="2.5" marker-end="url(#aw)"/>
+  <path d="M 630 215 H 764" fill="none" stroke="#3fb950" stroke-width="5" marker-end="url(#ag)"/>
+  <text x="697" y="200" font-size="13.5" font-weight="700" fill="#3fb950" text-anchor="middle">IPsec</text>
+  <text x="697" y="240" font-size="12.5" fill="#9aa1ab" text-anchor="middle">chiffré</text>
+  <path d="M 1020 205 H 1114" fill="none" stroke="#e6e8eb" stroke-width="2.5" marker-end="url(#aw)"/>
+  <text x="327" y="195" font-size="12.5" fill="#9aa1ab" text-anchor="middle">SSH, ping</text>
+  <text x="1067" y="195" font-size="12.5" fill="#9aa1ab" text-anchor="middle">SSH, ping</text>
+
+  <!-- Règle 1 -->
+  <path d="M 505 255 V 285" fill="none" stroke="#e6e8eb" stroke-width="2" stroke-dasharray="4 4"/>
+  <rect x="330" y="285" width="300" height="140" rx="10" fill="#191b1f" stroke="#e6e8eb"/>
+  <circle cx="356" cy="312" r="14" fill="#e6e8eb"/><text x="356" y="317" font-size="15" font-weight="700" fill="#16181c" text-anchor="middle">1</text>
+  <text x="380" y="317" font-size="15" font-weight="700" fill="#f0f2f5">Règle LAN · sortie du siège</text>
+  <text x="346" y="345" font-size="14" fill="#c9cdd3">Source : 10.10.10.10 (Kali)</text>
+  <text x="346" y="367" font-size="14" fill="#c9cdd3">Destination : POSTE_SITEC</text>
+  <text x="346" y="389" font-size="14" fill="#c9cdd3">TCP 22 (SSH) + ICMP echo request</text>
+  <text x="346" y="411" font-size="13" fill="#9aa1ab">sous l'isolation maison · journalisée</text>
+
+  <!-- Règle 2 -->
+  <path d="M 895 255 V 285" fill="none" stroke="#e6e8eb" stroke-width="2" stroke-dasharray="4 4"/>
+  <rect x="770" y="285" width="300" height="140" rx="10" fill="#191b1f" stroke="#e6e8eb"/>
+  <circle cx="796" cy="312" r="14" fill="#e6e8eb"/><text x="796" y="317" font-size="15" font-weight="700" fill="#16181c" text-anchor="middle">2</text>
+  <text x="820" y="317" font-size="15" font-weight="700" fill="#f0f2f5">Règle #4 · entrée de l'agence</text>
+  <text x="786" y="345" font-size="14" fill="#c9cdd3">Zone VPN, Kali-SiteA</text>
+  <text x="786" y="367" font-size="14" fill="#c9cdd3">→ zone LAN, poste-sitec</text>
+  <text x="786" y="389" font-size="14" fill="#c9cdd3">Services : SSH, PING</text>
+  <text x="786" y="411" font-size="13" fill="#9aa1ab">position 1 · journalisée · sans NAT</text>
+
+  <!-- Retour -->
+  <path d="M 1230 255 V 470 H 170 V 261" fill="none" stroke="#9aa1ab" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#aw)"/>
+  <rect x="455" y="458" width="490" height="26" rx="6" fill="#16181c"/>
+  <text x="700" y="476" font-size="14" fill="#c9cdd3" text-anchor="middle">Réponses : autorisées par la table d'états (stateful), sans règle</text>
+
+  <!-- Refus -->
+  <text x="40" y="530" font-size="15" font-weight="700" fill="#f0f2f5" letter-spacing="0.5">CE QUI EST REFUSÉ</text>
+  <path d="M 40 562 H 100" fill="none" stroke="#f85149" stroke-width="2.5" stroke-dasharray="8 6" marker-end="url(#ar)"/>
+  <text x="116" y="567" font-size="15" fill="#f0f2f5">poste-sitec → Kali : refusé par le Sophos (Reject du « Nettoyage LAN ») : l'agence n'ouvre rien vers le siège</text>
+  <path d="M 40 598 H 100" fill="none" stroke="#f85149" stroke-width="2.5" stroke-dasharray="8 6" marker-end="url(#ar)"/>
+  <text x="116" y="603" font-size="15" fill="#f0f2f5">Kali → poste-sitec sur un autre port (ex. 80) : refusé dès OPNsense (Nettoyage)</text>
+  <path d="M 40 634 H 100" fill="none" stroke="#f85149" stroke-width="2.5" stroke-dasharray="8 6" marker-end="url(#ar)"/>
+  <text x="116" y="639" font-size="15" fill="#f0f2f5">Reste du lab → agence en web : refusé dès OPNsense (la règle web vise ! RESEAUX_PRIVES, donc Internet seulement)</text>
+  <text x="40" y="680" font-size="13" fill="#9aa1ab">Preuve du trajet : ttl = 62 côté Kali (64 − 2 routeurs traversés : Sophos puis OPNsense)</text>
+</svg>
