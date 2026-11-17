@@ -81,22 +81,22 @@ Kali ne sert pas à faire du pentest : elle sert à tester mes propres règles d
 
 ## État du lab
 
-| Brique | Ce qui tourne | État | Doc |
-|---|---|---|---|
-| Virtualisation | Deux hyperviseurs Proxmox VE : `pve-sitea` (PC Acer) et `pve-siteb` (Intel NUC, sites B et C), VM et conteneurs LXC | ✅ | [fiche 01](docs/01-virtualisation.md) |
-| Réseau | Switch Omada et son contrôleur en LXC, pare-feu OPNsense (`fw-sitea`) : DHCP et NAT du lab, IPv6 maîtrisé (SLAAC désactivé) | ✅ | [fiche 02](docs/02-reseau.md) |
-| DNS | AdGuard Home (filtrage, DNS over HTTPS) et zone locale `home.arpa` sur le Synology | ✅ | [fiche 03](docs/03-dns.md) |
-| Accès distant | VPN WireGuard (Freebox) pour l'administration | ✅ | [fiche 04](docs/04-acces-distant.md) |
-| Stockage et sauvegarde | NAS Synology RAID 1 durci (2FA, comptes par défaut désactivés), instantanés Btrfs quotidiens, sauvegarde versionnée PC → NAS | ✅ | [fiche 05](docs/05-stockage-sauvegarde.md) |
-| Déploiement applicatif | Appli web Python en LXC, systemd, durcissement, Tailscale | ✅ Réalisé, conteneur retiré depuis | [fiche 06](docs/06-deploiement-appli-web.md) |
-| Identité cloud | Tenant de test Microsoft 365 / Entra ID | 🧪 Test | [fiche 07](docs/07-m365-entra-id.md) |
-| Isolation du lab | Lab → maison refusé (Reject), testé et vérifié dans les logs | ✅ | [fiche 08](docs/08-filtrage-pare-feu.md) |
-| Accès d'administration | Interface d'OPNsense joignable depuis le seul PC d'admin, en HTTPS | ✅ | [fiche 09](docs/09-acces-admin.md) |
-| Liste blanche | Le lab ne sort que pour le web, le NTP, le ping et le DNS via OPNsense ; tout le reste est refusé et journalisé | ✅ | [fiche 10](docs/10-liste-blanche.md) |
-| Pare-feu du site B | FortiGate (`fw-siteb`, FortiOS 7.6.8, licence d'évaluation) : CLI, `allowaccess`, *trusted host*, DHCP, DNS, liste blanche en une règle | ✅ | [fiche 11](docs/11-fortigate-site-b.md) |
-| Pare-feu du site C | Sophos Firewall Home (`fw-sitec`, SFOS 22.0.2) : zones, ACL des services, liste blanche, règle de nettoyage | ✅ | [fiche 12](docs/12-sophos-site-c.md) |
-| Liaison entre les sites | Tunnel IPsec IKEv2 OPNsense ↔ Sophos (AES-256, DH14) ; OPNsense ↔ FortiGate impossible (DES seul) | ✅ Monté, règles du tunnel en cours | [fiche 13](docs/13-tunnel-ipsec.md) |
-| Inventaire IP | Toutes les adresses fixes, réseau par réseau | ✅ | [inventaire](docs/inventaire-ip.md) |
+| Brique (lien vers la fiche) | État | Ce qui tourne |
+|---|---|---|
+| [01 · Virtualisation](docs/01-virtualisation.md) | ✅ | Deux hyperviseurs Proxmox VE : `pve-sitea` (PC Acer) et `pve-siteb` (Intel NUC, sites B et C), VM et conteneurs LXC |
+| [02 · Réseau](docs/02-reseau.md) | ✅ | Switch Omada et son contrôleur en LXC, pare-feu OPNsense (`fw-sitea`) : DHCP et NAT du lab, IPv6 maîtrisé (SLAAC désactivé) |
+| [03 · DNS](docs/03-dns.md) | ✅ | AdGuard Home (filtrage, DNS over HTTPS) et zone locale `home.arpa` sur le Synology |
+| [04 · Accès distant](docs/04-acces-distant.md) | ✅ | VPN WireGuard (Freebox) pour l'administration |
+| [05 · Stockage et sauvegarde](docs/05-stockage-sauvegarde.md) | ✅ | NAS Synology RAID 1 durci (2FA, comptes par défaut désactivés), instantanés Btrfs quotidiens, sauvegarde versionnée PC → NAS |
+| [06 · Déploiement applicatif](docs/06-deploiement-appli-web.md) | ✅ | Appli web Python en LXC, systemd, durcissement, Tailscale (conteneur retiré depuis) |
+| [07 · Identité cloud](docs/07-m365-entra-id.md) | 🧪 Test | Tenant de test Microsoft 365 / Entra ID |
+| [08 · Isolation du lab](docs/08-filtrage-pare-feu.md) | ✅ | Lab → maison refusé (Reject), testé et vérifié dans les logs |
+| [09 · Accès d'administration](docs/09-acces-admin.md) | ✅ | Interface d'OPNsense joignable depuis le seul PC d'admin, en HTTPS |
+| [10 · Liste blanche](docs/10-liste-blanche.md) | ✅ | Le lab ne sort que pour le web, le NTP, le ping et le DNS via OPNsense ; tout le reste est refusé et journalisé |
+| [11 · Pare-feu du site B](docs/11-fortigate-site-b.md) | ✅ | FortiGate (`fw-siteb`, FortiOS 7.6.8, licence d'évaluation) : CLI, `allowaccess`, *trusted host*, DHCP, DNS, liste blanche en une règle |
+| [12 · Pare-feu du site C](docs/12-sophos-site-c.md) | ✅ | Sophos Firewall Home (`fw-sitec`, SFOS 22.0.2) : zones, ACL des services, liste blanche, règle de nettoyage |
+| [13 · Liaison entre les sites](docs/13-tunnel-ipsec.md) | 🔧 | Tunnel IPsec IKEv2 OPNsense ↔ Sophos monté (AES-256, DH14), règles du tunnel en cours ; OPNsense ↔ FortiGate impossible (DES seul) |
+| [Inventaire IP](docs/inventaire-ip.md) | ✅ | Toutes les adresses fixes, réseau par réseau |
 
 ## Plan d'adressage
 
